@@ -1,0 +1,2687 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Macula – 第六章</title><link>/docs/v3.1/chapter6/</link><description>Recent content in 第六章 on Macula</description><generator>Hugo -- gohugo.io</generator><atom:link href="/docs/v3.1/chapter6/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: 表结构</title><link>/docs/v3.1/chapter6/01_tables/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter6/01_tables/</guid><description>
+&lt;h2 id="应用管理">应用管理&lt;/h2>
+&lt;h3 id="ma_base_application">MA_BASE_APPLICATION&lt;/h3>
+&lt;p>&lt;strong>表 23.1. MA_BASE_APPLICATION&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主关键字&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用的ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_NAME&lt;/td>
+&lt;td>应用名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>HOME_PAGE&lt;/td>
+&lt;td>应用入口地址&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>SECURE_KEY&lt;/td>
+&lt;td>应用公钥&lt;/td>
+&lt;td>VARCHAR2(1024)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>OpenAPI访问时的密码&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PRIVATE_KEY&lt;/td>
+&lt;td>应用私钥&lt;/td>
+&lt;td>VARCHAR2(1024)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>保留&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CONTACT&lt;/td>
+&lt;td>联系方式&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>SUPERVISOR&lt;/td>
+&lt;td>应用负责人&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_SSIN&lt;/td>
+&lt;td>是否支持单点登录&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_SSOUT&lt;/td>
+&lt;td>是否支持单点登出&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>THEME&lt;/td>
+&lt;td>界面风格&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USE_ATTRS&lt;/td>
+&lt;td>是否回传属性&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ALLOWED_ATTRS&lt;/td>
+&lt;td>回传属性&lt;/td>
+&lt;td>VARCHAR2(1024)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>COMMENTS&lt;/td>
+&lt;td>应用备注&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_app_instance">MA_BASE_APP_INSTANCE&lt;/h3>
+&lt;p>&lt;strong>表 23.2. MA_BASE_APP_INSTANCE&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主关键字&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用的ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>实例代码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>APP_ID+CODE唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>实例名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>HOME_PAGE&lt;/td>
+&lt;td>实例入口地址&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="数据管理">数据管理&lt;/h2>
+&lt;h3 id="ma_base_data_source">MA_BASE_DATA_SOURCE&lt;/h3>
+&lt;p>&lt;strong>表 23.3. MA_BASE_DATA_SOURCE&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>数据源代码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>数据源名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>TYPE&lt;/td>
+&lt;td>数据源类型&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:DATABASE&lt;/td>
+&lt;td>目前支持DATABASE和LDAP两种类型&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_JNDI&lt;/td>
+&lt;td>是否使用jndi&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>URI&lt;/td>
+&lt;td>JDBC URL地址&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>如果是JNDI，这里填写JNDI NAME&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DRIVER&lt;/td>
+&lt;td>JDBC驱动&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USER_NAME&lt;/td>
+&lt;td>数据库用户名&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PASSWORD&lt;/td>
+&lt;td>数据库密码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>VALIDATION_QUERY&lt;/td>
+&lt;td>验证语句&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>MAX_ACTIVE&lt;/td>
+&lt;td>最大活动时间&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>MAX_IDLE&lt;/td>
+&lt;td>最大空闲连接数&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>MAX_SIZE&lt;/td>
+&lt;td>最大连接数&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>MAX_WAIT&lt;/td>
+&lt;td>最大等待时间&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_data_enum">MA_BASE_DATA_ENUM&lt;/h3>
+&lt;p>&lt;strong>表 23.4. MA_BASE_DATA_ENUM&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>TYPE&lt;/td>
+&lt;td>枚举类型&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>枚举编码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>枚举名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LOCALE&lt;/td>
+&lt;td>枚举语言&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>按照java.util.Locale的标准&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ORDERED&lt;/td>
+&lt;td>排序&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_ENABLED&lt;/td>
+&lt;td>是否有效&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>COMMENTS&lt;/td>
+&lt;td>备注&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_data_param">MA_BASE_DATA_PARAM&lt;/h3>
+&lt;p>&lt;strong>表 23.5. MA_BASE_DATA_PARAM&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>TYPE&lt;/td>
+&lt;td>参数类型&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>参数代码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>参数名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>VALUE&lt;/td>
+&lt;td>参数值&lt;/td>
+&lt;td>VARCHAR2(500)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>VALUE_SCOPE&lt;/td>
+&lt;td>参数值缓存级别&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>NONE:不缓存 SESSION:会话级 INSTANCE:实例级 APPLICATION:应用级&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARAM_CLZ&lt;/td>
+&lt;td>数据类型&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>Boolean、Integer、 Long、Double、 String、Timestamp、 Date&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DATASOURCE_ID&lt;/td>
+&lt;td>数据源ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ORDERED&lt;/td>
+&lt;td>排序&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_ENABLED&lt;/td>
+&lt;td>是否有效&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>COMMENTS&lt;/td>
+&lt;td>备注&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_data_set">MA_BASE_DATA_SET&lt;/h3>
+&lt;p>&lt;strong>表 23.6. MA_BASE_DATA_SET&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>数据集代码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>数据集名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EXP_TEXT&lt;/td>
+&lt;td>数据集表达式&lt;/td>
+&lt;td>CLOB&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>HANDLER_CHAIN&lt;/td>
+&lt;td>数据集处理链&lt;/td>
+&lt;td>CLOB&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DATASOURCE_ID&lt;/td>
+&lt;td>数据源ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_PAGABLE&lt;/td>
+&lt;td>数据集是否分页&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>MID&lt;/td>
+&lt;td>所属菜单&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_data_arg">MA_BASE_DATA_ARG&lt;/h3>
+&lt;p>&lt;strong>表 23.7. MA_BASE_DATA_ARG&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DATASET_ID&lt;/td>
+&lt;td>数据集ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ARG_NAME&lt;/td>
+&lt;td>输入参数名称&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>DATASET_ID+ARG_NAME唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ARG_LABEL&lt;/td>
+&lt;td>参数标题&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>标题&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ARG_CLZ&lt;/td>
+&lt;td>输入参数类型&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>Boolean、Integer、 Long、Double、 String、Timestamp、 Date&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ARG_CONTROL&lt;/td>
+&lt;td>参数控件&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>Text&lt;/td>
+&lt;td>枚举 Text等&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DEFAULT_VALUE&lt;/td>
+&lt;td>缺省值&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DATAPARAM_ID&lt;/td>
+&lt;td>数据参数ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ALLOW_NULL&lt;/td>
+&lt;td>是否允许为空&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="资源和分组">资源和分组&lt;/h2>
+&lt;h3 id="ma_base_acl_menu">MA_BASE_ACL_MENU&lt;/h3>
+&lt;p>&lt;strong>表 23.8. MA_BASE_ACL_MENU&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>菜单编码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>菜单名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DESCRIPTION&lt;/td>
+&lt;td>菜单描述&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>URI&lt;/td>
+&lt;td>ACTION的地址&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>HTTP_METHOD&lt;/td>
+&lt;td>HTTP请求方式&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>GET，POST&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LOG_OPTION&lt;/td>
+&lt;td>日志记录选项&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>REQUEST_HEAD REQUEST_PARAM SESSION_ATTR REQUEST_ATTR之组合&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LOG_LEVEL&lt;/td>
+&lt;td>日志记录级别&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>ANY：全部请求 LOGON：登录后的请求 ERROR：出错后的请求&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EFFECTIVE_TIME&lt;/td>
+&lt;td>生效日期&lt;/td>
+&lt;td>TIMESTAMP(6)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>INACTIVE_TIME&lt;/td>
+&lt;td>失效日期&lt;/td>
+&lt;td>TIMESTAMP(6)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ORDERED&lt;/td>
+&lt;td>排序序号&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_org">MA_BASE_ACL_ORG&lt;/h3>
+&lt;p>&lt;strong>表 23.10. MA_BASE_ACL_ORG&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>OA_ID&lt;/td>
+&lt;td>OA中的组织ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>组织编码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>组织名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>SIMPLE_NAME&lt;/td>
+&lt;td>组织简称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NICK_NAME&lt;/td>
+&lt;td>组织昵称&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>父组织ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>OA的ID&lt;/td>
+&lt;td>不建外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ORDERED&lt;/td>
+&lt;td>排序&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LEADER_ACCOUNT&lt;/td>
+&lt;td>组织主管帐号&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>FOUND_DATE&lt;/td>
+&lt;td>组织创建日期&lt;/td>
+&lt;td>DATE&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ORG_LEVEL&lt;/td>
+&lt;td>组织级别&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ORG_TYPE&lt;/td>
+&lt;td>组织类型&lt;/td>
+&lt;td>VARCHAR2(2)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&amp;lsquo;HO&amp;rsquo;：总部用户；&amp;lsquo;B0&amp;rsquo;：分公司用户；&amp;lsquo;S0&amp;rsquo;：服务中心用户；&amp;lsquo;HC&amp;rsquo;：货仓用户&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_ASSIGNABLE&lt;/td>
+&lt;td>是否可分配&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ENABLED&lt;/td>
+&lt;td>是否有效&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_provider_def">MA_BASE_ACL_PROVIDER_DEF&lt;/h3>
+&lt;p>&lt;strong>表 23.11. MA_BASE_ACL_PROVIDER_DEF&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>名称&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>GROUP_NAME&lt;/td>
+&lt;td>分类&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>CATALOG_PROVIDER :分组提供者 RESOURCE_PROVIDER :资源提供者&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PROTOCOL&lt;/td>
+&lt;td>协议&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>HESSIAN BURLAP JSON_REST&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>URI&lt;/td>
+&lt;td>地址&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USER_NAME&lt;/td>
+&lt;td>用户名&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PASSWORD&lt;/td>
+&lt;td>密码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="业务策略">业务策略&lt;/h2>
+&lt;h3 id="ma_base_acl_biz_rule">MA_BASE_ACL_BIZ_RULE&lt;/h3>
+&lt;p>&lt;strong>表 23.12. MA_BASE_ACL_BIZ_RULE&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>业务规则编码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>业务规则名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EXP_TEXT&lt;/td>
+&lt;td>业务规则表达式&lt;/td>
+&lt;td>CLOB&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_user_rule">MA_BASE_ACL_USER_RULE&lt;/h3>
+&lt;p>&lt;strong>表 23.13. MA_BASE_ACL_USER_RULE&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>用户规则编码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>用户规则名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EXP_TEXT&lt;/td>
+&lt;td>用户规则表达式&lt;/td>
+&lt;td>CLOB&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_policy">MA_BASE_ACL_POLICY&lt;/h3>
+&lt;p>&lt;strong>表 23.14. MA_BASE_ACL_POLICY&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>业务策略编码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>业务策略名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用ID&lt;/td>
+&lt;td>VARCHAR2(20)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_DECISION&lt;/td>
+&lt;td>是否决策规则&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_policy_entry">MA_BASE_ACL_POLICY_ENTRY&lt;/h3>
+&lt;p>&lt;strong>表 23.15. MA_BASE_ACL_POLICY_ENTRY&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>GRANTEDPOLICY_ID&lt;/td>
+&lt;td>策略ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USERRULE_ID&lt;/td>
+&lt;td>用户规则ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DECISIONRULE_ID&lt;/td>
+&lt;td>决策规则ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>QUERYRULE_ID&lt;/td>
+&lt;td>查询规则ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DENY_REASON&lt;/td>
+&lt;td>拒绝原因&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ORDERED&lt;/td>
+&lt;td>排序&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="用户授权">用户授权&lt;/h2>
+&lt;h3 id="ma_base_acl_role">MA_BASE_ACL_ROLE&lt;/h3>
+&lt;p>&lt;strong>表 23.16. MA_BASE_ACL_ROLE&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CODE&lt;/td>
+&lt;td>角色代码&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NAME&lt;/td>
+&lt;td>角色名称&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_ASSIGNABLE&lt;/td>
+&lt;td>是否可分配&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_RESIGNABLE&lt;/td>
+&lt;td>是否可下放分配&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_RULE&lt;/td>
+&lt;td>是否规则角色&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_INHERITABLE&lt;/td>
+&lt;td>是否可继承&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>INHERIT_FROM&lt;/td>
+&lt;td>继承自&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_EXECUTABLE&lt;/td>
+&lt;td>是否可执行&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USERRULE_ID&lt;/td>
+&lt;td>用户规则ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_GROUP&lt;/td>
+&lt;td>是否分组&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PARENT_ID&lt;/td>
+&lt;td>分组父ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_OPPOSITE&lt;/td>
+&lt;td>是否反向角色&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_INHERITABLE&lt;/td>
+&lt;td>是否可继承&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>INHERIT_FROM&lt;/td>
+&lt;td>继承自&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_EXECUTABLE&lt;/td>
+&lt;td>是否可执行&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:1&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_role_res">MA_BASE_ACL_ROLE_RES&lt;/h3>
+&lt;p>&lt;strong>表 23.17. MA_BASE_ACL_ROLE_RES&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>RES_TYPE&lt;/td>
+&lt;td>资源类型&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ROLE_ID&lt;/td>
+&lt;td>角色ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>RES_ID&lt;/td>
+&lt;td>资源ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_user_role">MA_BASE_ACL_USER_ROLE&lt;/h3>
+&lt;p>&lt;strong>表 23.18. MA_BASE_ACL_USER_ROLE&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USER_NAME&lt;/td>
+&lt;td>用户名&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>USER_NAME+ROLE_ID唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ROLE_ID&lt;/td>
+&lt;td>角色ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>外键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_user_cat">MA_BASE_ACL_USER_CAT&lt;/h3>
+&lt;p>&lt;strong>表 23.19. MA_BASE_ACL_USER_CAT&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USER_NAME&lt;/td>
+&lt;td>用户名&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CAT_TYPE&lt;/td>
+&lt;td>分组类型&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CAT_ID&lt;/td>
+&lt;td>分组ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="系统信息">系统信息&lt;/h2>
+&lt;h3 id="ma_base_acl_user_session">MA_BASE_ACL_USER_SESSION&lt;/h3>
+&lt;p>&lt;strong>表 23.20. MA_BASE_ACL_USER_SESSION&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USER_NAME&lt;/td>
+&lt;td>用户名&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>唯一索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LOGIN_USER_NAME&lt;/td>
+&lt;td>登录后的用户名&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_LOGIN_IN&lt;/td>
+&lt;td>是否在线&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_CHG_PWD_TIME&lt;/td>
+&lt;td>上次密码修改时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>NEED_CHG_PWD&lt;/td>
+&lt;td>登录后是否需要修改密码&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>OLD_PWD&lt;/td>
+&lt;td>密码历史&lt;/td>
+&lt;td>VARCHAR2(250)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>用逗号分割&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LOGIN_FAILED_TIME&lt;/td>
+&lt;td>登录失败时间&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PWD_FAILED_TIMES&lt;/td>
+&lt;td>密码输入出错次数&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>RETRIEVE_PWD_TIMES&lt;/td>
+&lt;td>获取密码次数&lt;/td>
+&lt;td>NUMBER(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>RETRIEVE_PWD_TIME&lt;/td>
+&lt;td>最后获取密码时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IS_LOCKED&lt;/td>
+&lt;td>是否锁定&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认:0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LOCKED_TIME&lt;/td>
+&lt;td>锁定时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>REM_ME_LAST_USED&lt;/td>
+&lt;td>RememberMe最后使用时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>REM_ME_SERIES&lt;/td>
+&lt;td>RememberMe序列号&lt;/td>
+&lt;td>VARCHAR2(64)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>REM_ME_TOKEN&lt;/td>
+&lt;td>RememberMe值&lt;/td>
+&lt;td>VARCHAR2(64)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_LOGIN_ADDR&lt;/td>
+&lt;td>最后登录IP&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_LOGIN_BROWSER&lt;/td>
+&lt;td>最后登录浏览器&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_LOGIN_INST&lt;/td>
+&lt;td>最后登录实例&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_LOGIN_TIME&lt;/td>
+&lt;td>最后登录时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_LOGOUT_TIME&lt;/td>
+&lt;td>最后登出时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ILLEGAL_REQUEST&lt;/td>
+&lt;td>是否锁屏请求&lt;/td>
+&lt;td>NUMBER(1)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>默认值: 0&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_user_session_his">MA_BASE_ACL_USER_SESSION_HIS&lt;/h3>
+&lt;p>&lt;strong>表 23.21. MA_BASE_ACL_USER_SESSION_HIS&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USER_NAME&lt;/td>
+&lt;td>用户名&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EVENT_INSTANCE&lt;/td>
+&lt;td>应用实例&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EVENT_ADDR&lt;/td>
+&lt;td>请求IP地址&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EVENT_BROWSER&lt;/td>
+&lt;td>请求浏览器&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EVENT_TYPE&lt;/td>
+&lt;td>事件类型&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EVENT_TIME&lt;/td>
+&lt;td>事件时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EVENT_RESULT&lt;/td>
+&lt;td>事件结果&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EVENT_COMMENTS&lt;/td>
+&lt;td>事件备注&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ma_base_acl_access_log">MA_BASE_ACL_ACCESS_LOG&lt;/h3>
+&lt;p>&lt;strong>表 23.22. MA_BASE_ACL_ACCESS_LOG&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段名称&lt;/th>
+&lt;th>中文名称&lt;/th>
+&lt;th>数据库字段类型&lt;/th>
+&lt;th>是否允许为空&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ID&lt;/td>
+&lt;td>顺序号&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>主键&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>USER_NAME&lt;/td>
+&lt;td>用户名&lt;/td>
+&lt;td>VARCHAR2(255)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ACTION_ID&lt;/td>
+&lt;td>功能ID&lt;/td>
+&lt;td>NUMBER(19)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_ID&lt;/td>
+&lt;td>应用的ID&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>APP_INST&lt;/td>
+&lt;td>应用实例&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>START_TIME&lt;/td>
+&lt;td>请求开始时间&lt;/td>
+&lt;td>TIMESTAMP(6)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>END_TIME&lt;/td>
+&lt;td>请求结束时间&lt;/td>
+&lt;td>TIMESTAMP(6)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>REQUEST_ADDR&lt;/td>
+&lt;td>远程客户端地址&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>REQUEST_URL&lt;/td>
+&lt;td>请求URL&lt;/td>
+&lt;td>VARCHAR2(1024)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>REQUEST_DETAIL&lt;/td>
+&lt;td>请求明细&lt;/td>
+&lt;td>CLOB&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>RESPONSE_CODE&lt;/td>
+&lt;td>响应CODE&lt;/td>
+&lt;td>VARCHAR2(10)&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERROR_MESSAGE&lt;/td>
+&lt;td>错误信息&lt;/td>
+&lt;td>CLOB&lt;/td>
+&lt;td>NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_BY&lt;/td>
+&lt;td>创建人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CREATED_TIME&lt;/td>
+&lt;td>创建时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_BY&lt;/td>
+&lt;td>最后更新人&lt;/td>
+&lt;td>VARCHAR2(50)&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST_UPDATED_TIME&lt;/td>
+&lt;td>最后更新时间&lt;/td>
+&lt;td>TIMESTAMP&lt;/td>
+&lt;td>NOT NULL&lt;/td>
+&lt;td>&lt;/td>
+&lt;td> &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

@@ -1,0 +1,279 @@
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-cn class=no-js><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=generator content="Hugo 0.111.3"><link rel=canonical type=text/html href=/blog/news/><link rel=alternate type=application/rss+xml href=/blog/news/index.xml><meta name=robots content="noindex, nofollow"><link rel=icon href=/favicons/favicon.ico><title>技术分享 | Macula</title><meta name=description content="Macula 官方网站"><meta property="og:title" content="技术分享"><meta property="og:description" content="Macula 官方网站"><meta property="og:type" content="website"><meta property="og:url" content="/blog/news/"><meta property="og:site_name" content="Macula"><meta itemprop=name content="技术分享"><meta itemprop=description content="Macula 官方网站"><meta name=twitter:card content="summary"><meta name=twitter:title content="技术分享"><meta name=twitter:description content="Macula 官方网站"><link rel=preload href=/scss/main.min.56f91794193debaacc9fed9f3ea1305973c18c460520344068f08ae5f95e5027.css as=style><link href=/scss/main.min.56f91794193debaacc9fed9f3ea1305973c18c460520344068f08ae5f95e5027.css rel=stylesheet integrity><script src=https://code.jquery.com/jquery-3.6.0.min.js integrity=sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK crossorigin=anonymous></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-00000000-0"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","UA-00000000-0")}</script></head><body class="td-section td-blog"><header><nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar"><a class=navbar-brand href=/><span class=navbar-logo><img src=/img/logo.png></span></a><div class="td-navbar-nav-scroll ml-md-auto" id=main_navbar><ul class="navbar-nav mt-2 mt-lg-0"><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=/><span>首页</span></a></li><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=/project><span>项目</span></a></li><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=/docs><span>文档</span></a></li><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=/blog><span>博客</span></a></li><li class="nav-item mr-4 mb-2 mb-lg-0"><a class=nav-link href=http://14.22.2.220:80/#/login target=_blank><span>体验版</span></a></li></ul></div></nav></header><div class="container-fluid td-outer"><div class=td-main><div class="row flex-xl-nowrap"><div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none"></div><div class="d-none d-xl-block col-xl-2 td-toc d-print-none"></div><main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role=main><div class=td-content><div class="pageinfo pageinfo-primary d-print-none"><p>这是本节的多页打印视图。
+<a href=# onclick="return print(),!1">点击此处打印</a>.</p><p><a href=/blog/news/>返回本页常规视图</a>.</p></div><h1 class=title>技术分享</h1><ul><li><a href=#pg-a5730357e0afcdf52b9fe795d0807763>使用Pinpoint做分布式跟踪</a></li></ul><div class=content></div></div><div class=td-content><h1 id=pg-a5730357e0afcdf52b9fe795d0807763>使用Pinpoint做分布式跟踪</h1><div class=lead>本文介绍了利用Pinpoint对Dubbo分布式应用进行调用链跟踪与性能监控。</div><div class="td-byline mb-4"><time datetime=2018-07-12 class=text-muted>Thursday, July 12, 2018</time></div><p>在使用Dubbo进行服务化或者整合应用后，假设某个服务后台日志显示有异常，这个服务又被多个应用调用的情况下，我们通常很难判断是哪个应用调用的，问题的起因是什么，因此我们需要一套分布式跟踪系统来快速定位问题，Pinpoint可以帮助我们快速定位问题（当然，解决方案也不止这一种）。</p><h2 id=什么是pinpoint>什么是Pinpoint</h2><blockquote><p>摘自<a href=https://skyao.gitbooks.io/learning-pinpoint/>Pinpoint学习笔记</a></p></blockquote><p><a href=https://github.com/naver/pinpoint>Pinpoint</a>是一个开源的 APM (Application Performance Management/应用性能管理)工具，用于基于java的大规模分布式系统。
+仿照Google Dapper，Pinpoint通过跟踪分布式应用之间的调用来提供解决方案，以帮助分析系统的总体结构和内部模块之间如何相互联系。</p><blockquote><p>注：对于各个模块之间的通讯英文原文中用的是transaction一词，但是我觉得如果翻译为"事务"容易引起误解，所以替换为"交互"或者"调用"这种比较直白的字眼。</p></blockquote><p>在使用上力图简单高效：</p><ul><li>安装agent，不需要修改哪怕一行代码</li><li>最小化性能损失</li></ul><h3 id=服务器地图servermap>服务器地图(ServerMap)</h3><p>通过可视化分布式系统的模块和他们之间的相互联系来理解系统拓扑。点击某个节点会展示这个模块的详情，比如它当前的状态和请求数量。</p><h3 id=实时活动线程图表realtime-active-thread-chart>实时活动线程图表(Realtime Active Thread Chart)</h3><p>实时监控应用内部的活动线程。</p><h3 id=请求应答分布图表requestresponse-scatter-chart>请求/应答分布图表(Request/Response Scatter Chart)</h3><p>长期可视化请求数量和应答模式来定位潜在问题。通过在图表上拉拽可以选择请求查看更多的详细信息。</p><h3 id=调用栈callstack>调用栈(CallStack)</h3><p>在分布式环境中为每个调用生成代码级别的可视图，在单个视图中定位瓶颈和失败点。</p><h3 id=巡查inspector>巡查(Inspector)</h3><p>查看应用上的其他详细信息，比如CPU使用率，内存/垃圾回收，TPS，和JVM参数。</p><h3 id=支持模块>支持模块</h3><ul><li>JDK 6+</li><li>Tomcat 6/7/8, Jetty 8/9, JBoss EAP 6, Resin 4, Websphere 6/7/8, Vertx 3.3/3.4/3.5</li><li>Spring, Spring Boot (Embedded Tomcat, Jetty)</li><li>Apache HTTP Client 3.x/4.x, JDK HttpConnector, GoogleHttpClient, OkHttpClient, NingAsyncHttpClient</li><li>Thrift Client, Thrift Service, DUBBO PROVIDER, DUBBO CONSUMER</li><li>ActiveMQ, RabbitMQ</li><li>MySQL, Oracle, MSSQL, CUBRID,POSTGRESQL, MARIA</li><li>Arcus, Memcached, Redis, CASSANDRA</li><li>iBATIS, MyBatis</li><li>DBCP, DBCP2, HIKARICP</li><li>gson, Jackson, Json Lib</li><li>log4j, Logback</li><li>自定义模块</li></ul><h2 id=pinpoint与dubbo的结合>Pinpoint与Dubbo的结合</h2><h3 id=启动pinpoint>启动Pinpoint</h3><p>参考Pinpoint的<a href=http://naver.github.io/pinpoint/quickstart.html>Quick start</a>搭建环境（不需要启动TestApp）</p><h3 id=准备dubbo示例程序>准备Dubbo示例程序</h3><h4 id=创建api包>创建API包</h4><p>pom.xml</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#8f5902;font-style:italic>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>&lt;project</span> <span style=color:#c4a000>xmlns=</span><span style=color:#4e9a06>&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
+</span></span><span style=display:flex><span>         <span style=color:#c4a000>xmlns:xsi=</span><span style=color:#4e9a06>&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style=display:flex><span>         <span style=color:#c4a000>xsi:schemaLocation=</span><span style=color:#4e9a06>&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span style=color:#204a87;font-weight:700>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>&lt;modelVersion&gt;</span>4.0.0<span style=color:#204a87;font-weight:700>&lt;/modelVersion&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>com.example<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>demo-api<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>&lt;version&gt;</span>0.0.1-SNAPSHOT<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>&lt;/project&gt;</span>
+</span></span></code></pre></div><p>新建API接口：</p><pre tabindex=0><code>package com.example.demoapi;
+
+public interface HelloService {
+    String sayHello(String name);
+}
+</code></pre><h4 id=实现-dubbo-服务提供方>实现 Dubbo 服务提供方</h4><p>pom.xml</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#8f5902;font-style:italic>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>&lt;project</span> <span style=color:#c4a000>xmlns=</span><span style=color:#4e9a06>&#34;http://maven.apache.org/POM/4.0.0&#34;</span> <span style=color:#c4a000>xmlns:xsi=</span><span style=color:#4e9a06>&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#c4a000>xsi:schemaLocation=</span><span style=color:#4e9a06>&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span style=color:#204a87;font-weight:700>&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;modelVersion&gt;</span>4.0.0<span style=color:#204a87;font-weight:700>&lt;/modelVersion&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>com.example<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>demo-provider<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>0.0.1-SNAPSHOT<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;packaging&gt;</span>jar<span style=color:#204a87;font-weight:700>&lt;/packaging&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;name&gt;</span>demo-provider<span style=color:#204a87;font-weight:700>&lt;/name&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;parent&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-starter-parent<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>2.0.3.RELEASE<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;relativePath/&gt;</span> <span style=color:#8f5902;font-style:italic>&lt;!-- lookup parent from repository --&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/parent&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;properties&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;project.build.sourceEncoding&gt;</span>UTF-8<span style=color:#204a87;font-weight:700>&lt;/project.build.sourceEncoding&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;project.reporting.outputEncoding&gt;</span>UTF-8<span style=color:#204a87;font-weight:700>&lt;/project.reporting.outputEncoding&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;java.version&gt;</span>1.8<span style=color:#204a87;font-weight:700>&lt;/java.version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/properties&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;repositories&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;repository&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;id&gt;</span>sonatype-nexus-snapshots<span style=color:#204a87;font-weight:700>&lt;/id&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;url&gt;</span>https://oss.sonatype.org/content/repositories/snapshots<span style=color:#204a87;font-weight:700>&lt;/url&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;releases&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;enabled&gt;</span>false<span style=color:#204a87;font-weight:700>&lt;/enabled&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;/releases&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;snapshots&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;enabled&gt;</span>true<span style=color:#204a87;font-weight:700>&lt;/enabled&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;/snapshots&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/repository&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/repositories&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-starter<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>com.alibaba.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>dubbo-spring-boot-starter<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>0.2.0<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>com.example<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>demo-api<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>0.0.1-SNAPSHOT<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-starter-test<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;scope&gt;</span>test<span style=color:#204a87;font-weight:700>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/dependencies&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;build&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;plugins&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;plugin&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-maven-plugin<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;/plugin&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/plugins&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/build&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>&lt;/project&gt;</span>
+</span></span></code></pre></div><ol><li>实现 <code>HelloService</code> 接口：</li></ol><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#204a87;font-weight:700>package</span> <span style=color:#000>com.example.demoprovider.provider</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>com.alibaba.dubbo.config.annotation.Service</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>com.example.demoapi.HelloService</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#5c35cc;font-weight:700>@Service</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>version</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;${demo.service.version}&#34;</span><span style=color:#ce5c00;font-weight:700>,</span>
+</span></span><span style=display:flex><span>        <span style=color:#000>application</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;${dubbo.application.id}&#34;</span><span style=color:#ce5c00;font-weight:700>,</span>
+</span></span><span style=display:flex><span>        <span style=color:#000>protocol</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;${dubbo.protocol.id}&#34;</span><span style=color:#ce5c00;font-weight:700>,</span>
+</span></span><span style=display:flex><span>        <span style=color:#000>registry</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;${dubbo.registry.id}&#34;</span><span style=color:#ce5c00;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>public</span> <span style=color:#204a87;font-weight:700>class</span> <span style=color:#000>HelloServiceImpl</span> <span style=color:#204a87;font-weight:700>implements</span> <span style=color:#000>HelloService</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>static</span> <span style=color:#204a87;font-weight:700>int</span> <span style=color:#000>i</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#0000cf;font-weight:700>0</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>    <span style=color:#5c35cc;font-weight:700>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>public</span> <span style=color:#000>String</span> <span style=color:#000>sayHello</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>String</span> <span style=color:#000>name</span><span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        <span style=color:#000>i</span><span style=color:#ce5c00;font-weight:700>++;</span>
+</span></span><span style=display:flex><span>        <span style=color:#204a87;font-weight:700>if</span> <span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>i</span> <span style=color:#ce5c00;font-weight:700>%</span> <span style=color:#0000cf;font-weight:700>3</span> <span style=color:#ce5c00;font-weight:700>==</span> <span style=color:#0000cf;font-weight:700>0</span><span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>            <span style=color:#204a87;font-weight:700>throw</span> <span style=color:#204a87;font-weight:700>new</span> <span style=color:#000>RuntimeException</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#4e9a06>&#34;ex&#34;</span><span style=color:#ce5c00;font-weight:700>);</span>
+</span></span><span style=display:flex><span>        <span style=color:#ce5c00;font-weight:700>}</span>
+</span></span><span style=display:flex><span>        <span style=color:#204a87;font-weight:700>return</span> <span style=color:#4e9a06>&#34;Hello &#34;</span> <span style=color:#ce5c00;font-weight:700>+</span> <span style=color:#000>name</span> <span style=color:#ce5c00;font-weight:700>+</span> <span style=color:#4e9a06>&#34;!&#34;</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>    <span style=color:#ce5c00;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#ce5c00;font-weight:700>}</span>
+</span></span></code></pre></div><ol start=2><li>编写 Spring Boot 引导程序：</li></ol><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#204a87;font-weight:700>package</span> <span style=color:#000>com.example.demoprovider</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>org.springframework.boot.SpringApplication</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>org.springframework.boot.autoconfigure.SpringBootApplication</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#5c35cc;font-weight:700>@SpringBootApplication</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>public</span> <span style=color:#204a87;font-weight:700>class</span> <span style=color:#000>DemoProviderApplication</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>public</span> <span style=color:#204a87;font-weight:700>static</span> <span style=color:#204a87;font-weight:700>void</span> <span style=color:#000>main</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>String</span><span style=color:#ce5c00;font-weight:700>[]</span> <span style=color:#000>args</span><span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>		<span style=color:#000>SpringApplication</span><span style=color:#ce5c00;font-weight:700>.</span><span style=color:#c4a000>run</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>DemoProviderApplication</span><span style=color:#ce5c00;font-weight:700>.</span><span style=color:#c4a000>class</span><span style=color:#ce5c00;font-weight:700>,</span> <span style=color:#000>args</span><span style=color:#ce5c00;font-weight:700>);</span>
+</span></span><span style=display:flex><span>	<span style=color:#ce5c00;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#ce5c00;font-weight:700>}</span>
+</span></span></code></pre></div><ol start=3><li>配置 <code>application.properties</code>：</li></ol><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#8f5902;font-style:italic># Spring boot application</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>spring.application.name</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>dubbo-provider-demo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>server.port</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>9090</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>management.port</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>9091</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic># Service version</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>demo.service.version</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>1.0.0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic># Base packages to scan Dubbo Components (e.g @Service , @Reference)</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.scan.basePackages</span>  <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>com.example.demoprovider</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic># Dubbo Config properties</span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic>## ApplicationConfig Bean</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.application.id</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>dubbo-provider-demo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.application.name</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>dubbo-provider-demo</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic>## ProtocolConfig Bean</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.protocol.id</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>dubbo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.protocol.name</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>dubbo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.protocol.port</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>12345</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic>## RegistryConfig Bean</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.registry.id</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>my-registry</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.registry.address</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>N/A</span>
+</span></span></code></pre></div><h4 id=实现-dubbo-服务消费方>实现 Dubbo 服务消费方</h4><p>pom.xml</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#8f5902;font-style:italic>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>&lt;project</span> <span style=color:#c4a000>xmlns=</span><span style=color:#4e9a06>&#34;http://maven.apache.org/POM/4.0.0&#34;</span> <span style=color:#c4a000>xmlns:xsi=</span><span style=color:#4e9a06>&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#c4a000>xsi:schemaLocation=</span><span style=color:#4e9a06>&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span style=color:#204a87;font-weight:700>&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;modelVersion&gt;</span>4.0.0<span style=color:#204a87;font-weight:700>&lt;/modelVersion&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>com.example<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>demo-consumer<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>0.0.1-SNAPSHOT<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;packaging&gt;</span>jar<span style=color:#204a87;font-weight:700>&lt;/packaging&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;name&gt;</span>demo-consumer<span style=color:#204a87;font-weight:700>&lt;/name&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;parent&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-starter-parent<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>2.0.3.RELEASE<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;relativePath/&gt;</span> <span style=color:#8f5902;font-style:italic>&lt;!-- lookup parent from repository --&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/parent&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;properties&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;project.build.sourceEncoding&gt;</span>UTF-8<span style=color:#204a87;font-weight:700>&lt;/project.build.sourceEncoding&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;project.reporting.outputEncoding&gt;</span>UTF-8<span style=color:#204a87;font-weight:700>&lt;/project.reporting.outputEncoding&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;java.version&gt;</span>1.8<span style=color:#204a87;font-weight:700>&lt;/java.version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/properties&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;repositories&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;repository&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;id&gt;</span>sonatype-nexus-snapshots<span style=color:#204a87;font-weight:700>&lt;/id&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;url&gt;</span>https://oss.sonatype.org/content/repositories/snapshots<span style=color:#204a87;font-weight:700>&lt;/url&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;releases&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;enabled&gt;</span>false<span style=color:#204a87;font-weight:700>&lt;/enabled&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;/releases&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;snapshots&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;enabled&gt;</span>true<span style=color:#204a87;font-weight:700>&lt;/enabled&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;/snapshots&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/repository&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/repositories&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>com.alibaba.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>dubbo-spring-boot-starter<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>0.2.0<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>com.example<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>demo-api<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;version&gt;</span>0.0.1-SNAPSHOT<span style=color:#204a87;font-weight:700>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-starter-test<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;scope&gt;</span>test<span style=color:#204a87;font-weight:700>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/dependencies&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;build&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;plugins&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;plugin&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#204a87;font-weight:700>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;artifactId&gt;</span>spring-boot-maven-plugin<span style=color:#204a87;font-weight:700>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;configuration&gt;</span>
+</span></span><span style=display:flex><span>					<span style=color:#204a87;font-weight:700>&lt;classifier&gt;</span>exec<span style=color:#204a87;font-weight:700>&lt;/classifier&gt;</span>
+</span></span><span style=display:flex><span>				<span style=color:#204a87;font-weight:700>&lt;/configuration&gt;</span>
+</span></span><span style=display:flex><span>			<span style=color:#204a87;font-weight:700>&lt;/plugin&gt;</span>
+</span></span><span style=display:flex><span>		<span style=color:#204a87;font-weight:700>&lt;/plugins&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>&lt;/build&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>&lt;/project&gt;</span>
+</span></span></code></pre></div><ol><li>通过 <code>@Reference</code> 注入 <code>HelloService</code></li></ol><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#204a87;font-weight:700>package</span> <span style=color:#000>com.example.democonsumer.controller</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>com.alibaba.dubbo.config.annotation.Reference</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>com.example.demoapi.HelloService</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>org.springframework.web.bind.annotation.RequestMapping</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>org.springframework.web.bind.annotation.RequestParam</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>org.springframework.web.bind.annotation.RestController</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#5c35cc;font-weight:700>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>public</span> <span style=color:#204a87;font-weight:700>class</span> <span style=color:#000>DemoConsumerController</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#5c35cc;font-weight:700>@Reference</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>version</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;${demo.service.version}&#34;</span><span style=color:#ce5c00;font-weight:700>,</span>
+</span></span><span style=display:flex><span>            <span style=color:#000>application</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;${dubbo.application.id}&#34;</span><span style=color:#ce5c00;font-weight:700>,</span>
+</span></span><span style=display:flex><span>            <span style=color:#000>url</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;dubbo://&lt;注意，这里填写具体IP&gt;:12345&#34;</span><span style=color:#ce5c00;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>private</span> <span style=color:#000>HelloService</span> <span style=color:#000>helloService</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#5c35cc;font-weight:700>@RequestMapping</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#4e9a06>&#34;/sayHello&#34;</span><span style=color:#ce5c00;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    <span style=color:#204a87;font-weight:700>public</span> <span style=color:#000>String</span> <span style=color:#000>sayHello</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#5c35cc;font-weight:700>@RequestParam</span> <span style=color:#000>String</span> <span style=color:#000>name</span><span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>        <span style=color:#204a87;font-weight:700>return</span> <span style=color:#000>helloService</span><span style=color:#ce5c00;font-weight:700>.</span><span style=color:#c4a000>sayHello</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>name</span><span style=color:#ce5c00;font-weight:700>);</span>
+</span></span><span style=display:flex><span>    <span style=color:#ce5c00;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#ce5c00;font-weight:700>}</span>
+</span></span></code></pre></div><blockquote><p>直连提供者调用需要填写具体IP地址，如果写localhost也可以，但是会被Pinpoint额外识别为一个未知服务</p></blockquote><ol start=2><li>编写 Spring Boot 引导程序（Web 应用）：</li></ol><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#204a87;font-weight:700>package</span> <span style=color:#000>com.example.democonsumer</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>org.springframework.boot.SpringApplication</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>import</span> <span style=color:#000>org.springframework.boot.autoconfigure.SpringBootApplication</span><span style=color:#ce5c00;font-weight:700>;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#5c35cc;font-weight:700>@SpringBootApplication</span>
+</span></span><span style=display:flex><span><span style=color:#204a87;font-weight:700>public</span> <span style=color:#204a87;font-weight:700>class</span> <span style=color:#000>DemoConsumerApplication</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#204a87;font-weight:700>public</span> <span style=color:#204a87;font-weight:700>static</span> <span style=color:#204a87;font-weight:700>void</span> <span style=color:#000>main</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>String</span><span style=color:#ce5c00;font-weight:700>[]</span> <span style=color:#000>args</span><span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>{</span>
+</span></span><span style=display:flex><span>		<span style=color:#000>SpringApplication</span><span style=color:#ce5c00;font-weight:700>.</span><span style=color:#c4a000>run</span><span style=color:#ce5c00;font-weight:700>(</span><span style=color:#000>DemoConsumerApplication</span><span style=color:#ce5c00;font-weight:700>.</span><span style=color:#c4a000>class</span><span style=color:#ce5c00;font-weight:700>,</span> <span style=color:#000>args</span><span style=color:#ce5c00;font-weight:700>);</span>
+</span></span><span style=display:flex><span>	<span style=color:#ce5c00;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#ce5c00;font-weight:700>}</span>
+</span></span></code></pre></div><ol start=3><li>配置 <code>application.properties</code>：</li></ol><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#8f5902;font-style:italic># Spring boot application</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>spring.application.name</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>dubbo-consumer-demo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>server.port</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>8080</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>management.port</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>8081</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic># Service Version</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>demo.service.version</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>1.0.0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic># Dubbo Config properties</span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic>## ApplicationConfig Bean</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.application.id</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>dubbo-consumer-demo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.application.name</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>dubbo-consumer-demo</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8f5902;font-style:italic>## ProtocolConfig Bean</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.protocol.id</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>dubbo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.protocol.name</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>dubbo</span>
+</span></span><span style=display:flex><span><span style=color:#c4a000>dubbo.protocol.port</span><span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>12345</span>
+</span></span></code></pre></div><h3 id=使用pinpoint-agent启动服务提供方和服务消费方>使用Pinpoint-agent启动服务提供方和服务消费方</h3><h4 id=启动服务提供方>启动服务提供方</h4><ol><li>编译打包</li></ol><pre tabindex=0><code>mvn clean package
+</code></pre><ol start=2><li>附加参数启动服务提供方</li></ol><pre tabindex=0><code>java -jar -javaagent:$AGENT_PATH/pinpoint-bootstrap-$VERSION.jar -Dpinpoint.agentId=demo-provider -Dpinpoint.applicationName=DP target/demo-provider-0.0.1-SNAPSHOT.jar
+</code></pre><ol start=3><li>附加参数启动服务消费方</li></ol><pre tabindex=0><code>java -jar -javaagent:$AGENT_PATH/pinpoint-bootstrap-$VERSION.jar -Dpinpoint.agentId=demo-consumer -Dpinpoint.applicationName=DC target/demo-comsumer-0.0.1-SNAPSHOT-exec.jar
+</code></pre><ol start=4><li>访问消费方地址模拟用户请求</li></ol><p><code>http://localhost:8080/sayHello?name=ABC</code></p><h2 id=使用pinpoint快速定位问题>使用Pinpoint快速定位问题</h2><h3 id=首页>首页</h3><p><a data-fancybox=gallery href=/docs/imgs/blog/pinpoint-home.png><img src=/docs/imgs/blog/pinpoint-home.png alt=/admin-guide/images/pinpoint-home.png></a></p><blockquote><p>这里的用户请求是请求DubboProvider数量的双倍，原因是记录了favicon.ico图标请求导致的</p></blockquote><h3 id=调用树>调用树</h3><p><a data-fancybox=gallery href=/docs/imgs/blog/pinpoint-calltree.png><img src=/docs/imgs/blog/pinpoint-calltree.png alt=/admin-guide/images/pinpoint-calltree.png></a></p><h3 id=深入跟踪>深入跟踪</h3><p><a data-fancybox=gallery href=/docs/imgs/blog/pinpoint-mixedview.png><img src=/docs/imgs/blog/pinpoint-mixedview.png alt=/admin-guide/images/pinpoint-mixedview.png></a></p><h3 id=其他>其他</h3><p>示例简单的模拟了Dubbo的提供和调用，并没有进行数据库等其他中间件的应用，详细使用请参照Pinpoint文档。</p></div></main></div></div><script src=/js/jquery.fancybox.min.js></script>
+<script src=/js/jquery.min.js></script>
+<link rel=stylesheet href=/css/jquery.fancybox.min.css><div class=polaris-footer><span>@ 2022 The PolarisMesh Authors</span>
+<span class=high-resolution>|</span>
+<span>A Tencent Microservice Project</span>
+<a href=https://beian.miit.gov.cn/#/Integrated/index>粤B2-20090059</a><div class=polaris-footer-background></div></div></div><script src=/js/main.min.be25a680a0d95dc8b5d6664622e2134aa894220e2f224ef609e00f633a3a1b32.js integrity="sha256-viWmgKDZXci11mZGIuITSqiUIg4vIk72CeAPYzo6GzI=" crossorigin=anonymous></script>
+<script src=/js/tabpane-persist.js></script></body></html>

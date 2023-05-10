@@ -1,0 +1,9 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Macula – Macula 4.0</title><link>/docs/v4.0/</link><description>Recent content in Macula 4.0 on Macula</description><generator>Hugo -- gohugo.io</generator><atom:link href="/docs/v4.0/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: 序言</title><link>/docs/v4.0/preface/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/preface/</guid><description>
+&lt;h4 id="介绍">介绍&lt;/h4>
+&lt;h4 id="项目地址">项目地址&lt;/h4>
+&lt;h4 id="技术栈">技术栈&lt;/h4>
+&lt;h4 id="工程结构">工程结构&lt;/h4>
+&lt;h4 id="总体架构">总体架构&lt;/h4>
+&lt;h4 id="界面一览">界面一览&lt;/h4></description></item><item><title>Docs: 快速开始</title><link>/docs/v4.0/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/quickstart/</guid><description/></item><item><title>Docs: 基本特性</title><link>/docs/v4.0/feature/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/feature/</guid><description/></item><item><title>Docs: 高级实战</title><link>/docs/v4.0/advance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/advance/</guid><description>
+&lt;h1 id="高级实战">&lt;strong>高级实战&lt;/strong>&lt;/h1>
+&lt;p>本章介绍Macula的高级特性，主要用在大规模生产环境&lt;/p></description></item><item><title>Docs: 生产部署</title><link>/docs/v4.0/production/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/production/</guid><description/></item><item><title>Docs: 版本升级</title><link>/docs/v4.0/upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/upgrade/</guid><description/></item></channel></rss>

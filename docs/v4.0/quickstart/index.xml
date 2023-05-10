@@ -1,0 +1,11 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Macula – 快速开始</title><link>/docs/v4.0/quickstart/</link><description>Recent content in 快速开始 on Macula</description><generator>Hugo -- gohugo.io</generator><atom:link href="/docs/v4.0/quickstart/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: 环境准备</title><link>/docs/v4.0/quickstart/01_environment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/quickstart/01_environment/</guid><description>
+&lt;h4 id="环境要求">环境要求&lt;/h4>
+&lt;h4 id="环境安装">环境安装&lt;/h4></description></item><item><title>Docs: 项目搭建</title><link>/docs/v4.0/quickstart/02_projects/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/quickstart/02_projects/</guid><description>
+&lt;h5 id="微服务项目">微服务项目&lt;/h5>
+&lt;h5 id="bff项目">BFF项目&lt;/h5>
+&lt;h5 id="esb项目">ESB项目&lt;/h5>
+&lt;h5 id="前端web项目">前端WEB项目&lt;/h5></description></item><item><title>Docs: 项目运行</title><link>/docs/v4.0/quickstart/03_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v4.0/quickstart/03_run/</guid><description>
+&lt;h4 id="macula-base">macula-base&lt;/h4>
+&lt;h4 id="gateway">gateway&lt;/h4>
+&lt;h4 id="oauth2">oauth2&lt;/h4>
+&lt;h4 id="macula-portal">macula-portal&lt;/h4></description></item></channel></rss>

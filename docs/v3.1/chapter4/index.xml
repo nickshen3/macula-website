@@ -1,0 +1,288 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Macula – 第四章</title><link>/docs/v3.1/chapter4/</link><description>Recent content in 第四章 on Macula</description><generator>Hugo -- gohugo.io</generator><atom:link href="/docs/v3.1/chapter4/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: WEB应用基础</title><link>/docs/v3.1/chapter4/01_webapp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/01_webapp/</guid><description>
+&lt;h3 id="webapp">Webapp&lt;/h3>
+&lt;h3 id="登录">登录&lt;/h3>
+&lt;h3 id="主界面">主界面&lt;/h3></description></item><item><title>Docs: 后台管理</title><link>/docs/v3.1/chapter4/02_admin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/02_admin/</guid><description/></item><item><title>Docs: 表单与查询</title><link>/docs/v3.1/chapter4/03_mda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/03_mda/</guid><description/></item><item><title>Docs: 规则引擎</title><link>/docs/v3.1/chapter4/04_rule/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/04_rule/</guid><description/></item><item><title>Docs: 工作流</title><link>/docs/v3.1/chapter4/05_workflow/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/05_workflow/</guid><description/></item><item><title>Docs: Dubbo</title><link>/docs/v3.1/chapter4/06_dubbo/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/06_dubbo/</guid><description>
+&lt;p>如果你要编写dubbo服务，建议如下分包：&lt;/p>
+&lt;p>###macula-cart-api
+对外的服务接口，需要在src/main/resources/META-INF/macula-cart-api-consumer.xml中，引入&lt;/p>
+&lt;pre tabindex="0">&lt;code>&amp;lt;dubbo:reference id=&amp;#34;demoApi&amp;#34; interface=&amp;#34;org.macula.cart.api.DemoApi&amp;#34; version=&amp;#34;2.0.0&amp;#34; check=&amp;#34;false&amp;#34; /&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>这样第三方引用这个API包的时候，加载xml就可以自动获取到dubbo的reference&lt;/p>
+&lt;p>###macula-cart-api-impl
+接口实现，这里可以调用repository做数据库的操作。定义如下配置文件：&lt;/p>
+&lt;ul>
+&lt;li>src/main/resources/META-INF/macula-cart-api-impl-app.xml&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>&amp;lt;context:component-scan base-package=&amp;#34;org.macula.cart.api.impl&amp;#34; /&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>用于扫描注解。&lt;/p>
+&lt;ul>
+&lt;li>src/main/resources/META-INF/macula-cart-api-impl-provider.xml&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code> &amp;lt;dubbo:service interface=&amp;#34;org.macula.cart.api.DemoApi&amp;#34; ref=&amp;#34;demoApiImpl&amp;#34; version=&amp;#34;2.0.0&amp;#34; /&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>用于定义dubbo服务&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>src/main/resources/configs/applicationContext-app.xml&lt;/p>
+&lt;p>&lt;em>与webapp中的作用相同&lt;/em>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>src/main/resources/包含&lt;/p>
+&lt;ol>
+&lt;li>applicationContext-root.xml&lt;/li>
+&lt;li>macula.properties&lt;/li>
+&lt;li>log4j.properties&lt;/li>
+&lt;li>ehcache.xml&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;p>作用基本与webapp中的相同，只是需要注意数据源的配置&lt;/p>
+&lt;p>###macula-cart-repository
+数据存取层&lt;/p>
+&lt;p>###macula-cart-result
+数据返回结果VO&lt;/p>
+&lt;p>###&lt;em>注意&lt;/em>
+建议dubbo服务不要依赖macula-base包，这样的话，就不需要定义macula数据源到dubbo中，也就是说dubbo服务可以不用访问macula数据库。&lt;/p></description></item><item><title>Docs: ESB</title><link>/docs/v3.1/chapter4/07_esb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/07_esb/</guid><description/></item><item><title>Docs: 阿里MQ</title><link>/docs/v3.1/chapter4/08_mq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/08_mq/</guid><description>
+&lt;p>这个插件主要实现了以下3个功能：&lt;/p>
+&lt;h2 id="利用alimq实现应用与应用之间的事件收发">利用AliMQ实现应用与应用之间的事件收发&lt;/h2>
+&lt;p>这里事件叫做ClusteredEvent，ClusteredEvent的收发是以应用为单位的，如果一个应用以多实例的集群形式部署，那么这个应用的所有实例中只会有一个实例接收到这个事件。ClusteredEvent事件借助MQ消息传播。消息轨迹类似下图。&lt;/p>
+&lt;p>图中，有两个应用，分别是MACULA_PLUGINS_WEBAPP和WHATEVER_APP。其中MACULA_PLUGINS_WEBAPP有两个实例（他们具有相同的订阅ClusteredEvent Topic的CID），分别运行在进程18840和7144中；WHATEVER_APP有一个实例，运行在进程5060中。由图可见，MACULA_PLUGINS_WEBAPP的两个实例里只用其中一个实例（18840）接收到了事件。&lt;/p>
+&lt;p>这个图其实是ClusteredEvent应用于UIM登出事件的场景（你也可以用到其他合适的场景中）。当用户登出UIM时，UIM会向MACULA_CLUSTERED_EVENT_DEV Topic发送一个UimLogoutEvent（其中含有登出用户的用户名，继承自ClusteredEvent）。MACULA_PLUGINS_WEBAPP和WHATEVER_APP都订阅了这个Topic。由于MACULA_PLUGINS_WEBAPP用的Macula3， 而Macula3采用的是Spring-Session来进行实例间的会话管理，因此只需要其中一个实例接收这个事件进行处理便可。&lt;/p>
+&lt;p>&lt;a data-fancybox="gallery" href="/images/chapter4/mq001.png">
+&lt;img src="/images/chapter4/mq001.png" alt="" />
+&lt;/a>
+&lt;/p>
+&lt;h3 id="clusteredevent怎么用">ClusteredEvent怎么用？&lt;/h3>
+&lt;ol>
+&lt;li>在你项目的pom.xml里加入macula-plugins-alimq的依赖。注：这里没写版本号，保持与其他macula-plugins版本号一致便可。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;groupId&amp;gt;&lt;/span>org.macula.plugins&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/groupId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;artifactId&amp;gt;&lt;/span>macula-plugins-alimq&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/artifactId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;version&amp;gt;&lt;/span>3.0.0.RELEASE&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/version&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>在applicationContext-root.xml中加入类似如下配置。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic">&amp;lt;!-- 发布、订阅业务事件 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;util:properties&lt;/span> &lt;span style="color:#c4a000">id=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;maculaEventProducerProperties&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;ProducerId&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>PID_MACULA_EVENT_DEV&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;AccessKey&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>b80b0bcf82234957b72531b1670e090a&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;SecretKey&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>o9qjprQL0UwZrmzTmgHZne9fio0=&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;ONSAddr&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>http://mq.server-test.infinitus.com.cn/rocketmq/nsaddr4broker-internal&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;SendMsgTimeoutMillis&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>3000&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/util:properties&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;util:properties&lt;/span> &lt;span style="color:#c4a000">id=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;maculaClusteredEventConsumerProperties&amp;#34;&lt;/span> &lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;ConsumerId&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>CID_MACULA_PLUGINS_WEBAPP_DEV&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;AccessKey&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>b80b0bcf82234957b72531b1670e090a&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;SecretKey&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>o9qjprQL0UwZrmzTmgHZne9fio0=&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;ONSAddr&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>http://mq.server-test.infinitus.com.cn/rocketmq/nsaddr4broker-internal&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;MessageModel&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>CLUSTERING&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/util:properties&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意几点：&lt;/p>
+&lt;ul>
+&lt;li>根据不同的环境调整配置，AccessKey，SecretKey，ONSAddr这些相同的配置可以放到macula.properties中，然后通过#{T(org.macula.Configuration).getProperty()}的方式来配置，避免重复。&lt;/li>
+&lt;li>maculaEventProducerProperties，maculaClusteredEventConsumerProperties名字是固定的，不能改。&lt;/li>
+&lt;li>ProducerId固定是PID_MACULA_EVENT_{环境}，如PID_MACULA_EVENT_DEV（开发），PID_MACULA_EVENT_TEST（测试），PID_MACULA_EVENT（生产）等，你要根据环境调整。&lt;/li>
+&lt;li>ConsumerId可以由你根据你的应用而定。&lt;/li>
+&lt;li>注意MessageModel一定是CLUSTERING，你也可以不指定，默认就是CLUSTERING。&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>在阿里MQ控制台，把MACULA_CLUSTERED_EVENT_{环境} 这个Topic授权给你的子账号发布、订阅消息，并把你在上面配置中用到的ConsumerId加到该Topic的订阅者里。&lt;/li>
+&lt;li>在你的Java项目里，添加一个类继承ClusteredEvent。不要忘记给这个类添加一个默认的serialVersionUID。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">public&lt;/span> &lt;span style="color:#204a87;font-weight:bold">class&lt;/span> &lt;span style="color:#000">UimLogoutEvent&lt;/span> &lt;span style="color:#204a87;font-weight:bold">extends&lt;/span> &lt;span style="color:#000">ClusteredEvent&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;lt;&lt;/span>&lt;span style="color:#000">String&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;gt;&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">private&lt;/span> &lt;span style="color:#204a87;font-weight:bold">static&lt;/span> &lt;span style="color:#204a87;font-weight:bold">final&lt;/span> &lt;span style="color:#204a87;font-weight:bold">long&lt;/span> &lt;span style="color:#000">serialVersionUID&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#0000cf;font-weight:bold">1L&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">public&lt;/span> &lt;span style="color:#000">UimLogoutEvent&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">String&lt;/span> &lt;span style="color:#000">source&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">super&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">source&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="5">
+&lt;li>在需要发送事件的地方，publish event即可，如：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#000">ApplicationContext&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">.&lt;/span>&lt;span style="color:#c4a000">publishApplicationEvent&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#204a87;font-weight:bold">new&lt;/span> &lt;span style="color:#000">UimLogoutEvent&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">loginUsername&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="6">
+&lt;li>在对这个事件感兴趣的项目里实现这个事件的Listener，如：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#5c35cc;font-weight:bold">@Component&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">public&lt;/span> &lt;span style="color:#204a87;font-weight:bold">class&lt;/span> &lt;span style="color:#000">UimLogoutEventListener&lt;/span> &lt;span style="color:#204a87;font-weight:bold">implements&lt;/span> &lt;span style="color:#000">ApplicationListener&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;lt;&lt;/span>&lt;span style="color:#000">UimLogoutEvent&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;gt;{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#5c35cc;font-weight:bold">@Autowired&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">private&lt;/span> &lt;span style="color:#000">RedisOperationsSessionRepository&lt;/span> &lt;span style="color:#000">sessionRepository&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#5c35cc;font-weight:bold">@Override&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">public&lt;/span> &lt;span style="color:#204a87;font-weight:bold">void&lt;/span> &lt;span style="color:#000">onApplicationEvent&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">UimLogoutEvent&lt;/span> &lt;span style="color:#000">event&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">Map&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;lt;&lt;/span>&lt;span style="color:#000">String&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">,&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">?&amp;gt;&lt;/span> &lt;span style="color:#000">sessions&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#000">sessionRepository&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">.&lt;/span>&lt;span style="color:#c4a000">findByIndexNameAndIndexValue&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">FindByIndexNameSessionRepository&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">.&lt;/span>&lt;span style="color:#c4a000">PRINCIPAL_NAME_INDEX_NAME&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">,&lt;/span> &lt;span style="color:#000">event&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">.&lt;/span>&lt;span style="color:#c4a000">getSource&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">if&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">sessions&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">!=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">null&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">)&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">for&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">String&lt;/span> &lt;span style="color:#000">sessionId&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:&lt;/span> &lt;span style="color:#000">sessions&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">.&lt;/span>&lt;span style="color:#c4a000">keySet&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">())&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#000">sessionRepository&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">.&lt;/span>&lt;span style="color:#c4a000">delete&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">(&lt;/span>&lt;span style="color:#000">sessionId&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="7">
+&lt;li>MACULA_CLUSTERED_EVENT_{环境}的Topic框架会在相应环境创建好。你需要做的是在macula.properties里根据环境改变MACULA_CLUSTERED_EVENT的后缀（因为我们的阿里MQ只有一个非生产环境）。生产则不用，因为框架里默认的就是MACULA_CLUSTERED _EVENT。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-properties" data-lang="properties">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c4a000">macula.clusteredEventTopic&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">MACULA_CLUSTERED_EVENT_DEV&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用时要注意什么">使用时要注意什么？&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>ClusteredEvent使用的Topic是无序消息Topic，而且ClusteredEnvent在框架里ApplicationContext.publishApplicationEvent的时候也是异步的，因此ClusteredEvent不能保证FIFO。所以你不能用它来处理有严格时间先后顺序的逻辑。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ClusteredEvent 的Topic是无序消息Topic，因此不具有事务特性，未来我们会视乎情况看在框架里增加事务事件是否合适和可行。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>我只想订阅某个或某些应用发出的ClusteredEvent，怎么办？ 在ClusteredEvent的消息里，Message Tag是由AppGroup和AppId构成的，如UIM.UIM、GBSS.edealer，你可以在macula.properties指定下面这个属性的值来过滤消息，只接收你感兴趣的应用发出来的ClusteredEvent。默认不配置情况下是*，会接收所有应用发出的ClusteredEvent。建议配置。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-properties" data-lang="properties">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c4a000">macula.clusteredEventSubscribeTag&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">UIM.UIM||GBSS.edealer&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
+&lt;li>
+&lt;p>新创新的CosumerID一定要注意消费点位，按照阿里MQ的手册注意设置，否则新创新的ConsumerID容易把历史消息都消费一遍。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>注意消费逻辑的幂等性，AliMQ不能100%保证MQ消息不出现重复发送。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="使用clusteredevent实现各个应用的uim单点登出">使用ClusteredEvent实现各个应用的UIM单点登出&lt;/h2>
+&lt;p>现时，当用户登出UIM时，UIM会POST一个HTTP请求到所有接入UIM的应用，应用在接收到这个请求后，就可以在本应用中将该用户登出（主要是通过SignleSingoutFilter来处理），亦即所谓的单点登出。我们发现这个方式不是十分可靠，因此我们增加了ClusteredEvent这种方式。&lt;/p>
+&lt;h3 id="要用这个功能该怎么做">要用这个功能该怎么做？&lt;/h3>
+&lt;p>Macula 3的项目做了上面功能1中的“ClusteredEvent怎么用”的1、2、3三个步骤，就有这个功能了。当然还需要UIM升级配合。&lt;/p>
+&lt;h2 id="扩展事件广播方式">扩展事件广播方式&lt;/h2>
+&lt;p>利用AliMQ增加了一种同组应用的实例间事件广播机制。各个实例间的事件广播机制，在框架中早已有了redis方式的实现，现在增加多一种AliMQ的方式。&lt;/p>
+&lt;h3 id="要使用这种方式要怎么做">要使用这种方式要怎么做？&lt;/h3>
+&lt;ol>
+&lt;li>在applicationContext-root.xml中加入类似如下配置。注意MessageModel一定是BROADCASTING，要显式配置，因为默认是CLUSTERING。另外ConsumerId不能与上面订阅ClusteredEvent的ConsumerId相同，因为它们的订阅方式不同，一个是CLUSTERING，一个是BROADCASTING。这是因为AliMQ一个 JVM 中对应的一个 Producer ID/Consumer ID 只能配置一个 Producer/Consumer 实例，还有就是订阅关系一致性的要求。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;util:properties&lt;/span> &lt;span style="color:#c4a000">id=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;maculaBroadcastEventConsumerProperties&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;ConsumerId&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>CID_MACULA_PLUGINS_WEBAPP_DEV2&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;AccessKey&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>b80b0bcf82234957b72531b1670e090a&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;SecretKey&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>o9qjprQL0UwZrmzTmgHZne9fio0=&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;ONSAddr&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>http://mq.server-test.infinitus.com.cn/rocketmq/nsaddr4broker-internal&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;prop&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;MessageModel&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>BROADCASTING&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/prop&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/util:properties&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>在macula.properties文件中修改以下属性。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-properties" data-lang="properties">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c4a000">macula.events.transport&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">alimq&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>别忘了在阿里MQ控制台里增加一个无序消息Topic，名称为{AppGroup}&lt;em>BROADCAST_EVENT&lt;/em>{环境}，如GBSS_BROADCAST_EVENT_DEV，GBSS_BROADCAST_EVENT_TEST，GBSS_BROADCAST_EVENT等，并注意授权给你的子账号订阅、发布。&lt;/li>
+&lt;li>把步骤1中配置中的ConsumerId加到步骤3创建的Topic的订阅者中，把ProducerId PID_MACULA_EVENT_{环境}加到发布者中。&lt;/li>
+&lt;li>在macula.properties里根据环境改变BROADCAST_EVENT的后缀（因为我们的阿里MQ只有一个非生产环境）。生产则不用，因为默认就是BROADCAST_EVENT。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-properties" data-lang="properties">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c4a000">macula.broadcastEventTopic&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">BROADCAST_EVENT_DEV&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: 系统监控</title><link>/docs/v3.1/chapter4/09_monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/v3.1/chapter4/09_monitor/</guid><description>
+&lt;h3 id="应用监控">应用监控&lt;/h3>
+&lt;p>Macula是用大众点评开源的&lt;a href="https://github.com/dianping/cat">CAT&lt;/a>作为应用监控的服务器端，并通过插件集成，具体开启应用监控的步骤如下：&lt;/p>
+&lt;h4 id="首先如果你是web应用需要依赖macula-plugins-catex插件如果是dubbo应用需要依赖macula-plugins-cat插件">首先：如果你是WEB应用需要依赖macula-plugins-catex插件，如果是Dubbo应用，需要依赖macula-plugins-cat插件&lt;/h4>
+&lt;h4 id="创建clientxml">创建client.xml&lt;/h4>
+&lt;p>/data/appdatas/cat/目录下，新建一个client.xml文件(线上环境是OP配置)
+如果系统是windows环境，则在eclipse运行的盘，比如D盘，新建/data/appdatas/cat/目录，新建client.xml文件
+/data/appdatas/cat/client.xml,此文件有OP控制,这里的Domain名字用来做开关，如果一台机器上部署了多个应用，可以指定把一个应用的监控关闭。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;config&lt;/span> &lt;span style="color:#c4a000">mode=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;client&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;servers&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;server&lt;/span> &lt;span style="color:#c4a000">ip=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;10.66.13.115&amp;#34;&lt;/span> &lt;span style="color:#c4a000">port=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;2280&amp;#34;&lt;/span> &lt;span style="color:#204a87;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/servers&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/config&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>alpha、beta这个配置需要自己在此目录添加
+预发以及生产环境这个配置需要通知到对应OP团队，让他们统一添加，自己上线时候做下检查即可
+a、10.66.13.115:2280端口是指向测试环境的cat地址
+b、配置可以加入CAT的开关，用于关闭CAT消息发送,将enabled改为false，如下表示将mobile-api这个项目关闭&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;config&lt;/span> &lt;span style="color:#c4a000">mode=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;client&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;servers&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;server&lt;/span> &lt;span style="color:#c4a000">ip=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;10.66.13.115&amp;#34;&lt;/span> &lt;span style="color:#c4a000">port=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;2280&amp;#34;&lt;/span> &lt;span style="color:#204a87;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/servers&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;domain&lt;/span> &lt;span style="color:#c4a000">id=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;mobile-api&amp;#34;&lt;/span> &lt;span style="color:#c4a000">enabled=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;false&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/config&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="配置">配置&lt;/h4>
+&lt;p>1) macula.properties&lt;/p>
+&lt;pre tabindex="0">&lt;code>#监控开启，默认是true，不开启监控
+monitor.disabled = false
+&lt;/code>&lt;/pre>&lt;p>2) web.xml，将下面的Filter加在最前面的filter中&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;!-- Cat Filter --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;filter&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;filter-name&amp;gt;&lt;/span>maculaPluginsCat&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/filter-name&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;filter-class&amp;gt;&lt;/span>org.springframework.web.filter.DelegatingFilterProxy&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/filter-class&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;init-param&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;param-name&amp;gt;&lt;/span>targetFilterLifecycle&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/param-name&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;param-value&amp;gt;&lt;/span>true&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/param-value&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/init-param&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/filter&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;!-- Cat Filter Mapping --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;filter-mapping&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;filter-name&amp;gt;&lt;/span>maculaPluginsCat&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/filter-name&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;servlet-name&amp;gt;&lt;/span>appServlet&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/servlet-name&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;dispatcher&amp;gt;&lt;/span>REQUEST&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/dispatcher&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;dispatcher&amp;gt;&lt;/span>FORWARD&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/dispatcher&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/filter-mapping&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>这将开启对所有URL请求的监控，但是默认排除了资源文件。
+&lt;/code>&lt;/pre>&lt;p>3) log4j.properties&lt;/p>
+&lt;pre tabindex="0">&lt;code>### cat appender ###
+log4j.appender.cat=org.macula.plugins.cat.log4j.CatAppender
+### set log levels - for more verbose logging change &amp;#39;info&amp;#39; to &amp;#39;debug&amp;#39; ###
+log4j.rootLogger=WARN, stdout, fileout, cat
+&lt;/code>&lt;/pre>&lt;p>开启log4j发送到Cat，只有Error或以上级别的日志会发送&lt;/p>
+&lt;p>4) Druid DataSource配置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;property&lt;/span> &lt;span style="color:#c4a000">name=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;proxyFilters&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;list&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;bean&lt;/span> &lt;span style="color:#c4a000">class=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;org.macula.plugins.cat.druid.CatFilter&amp;#34;&lt;/span> &lt;span style="color:#204a87;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/list&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;/property&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>druid数据源中添加上述配置开启对SQL的监控。&lt;/p>
+&lt;p>5) Spring Service监控
+依赖macula-plugins-cat插件默认会开启对@Service注解的方法的监控&lt;/p>
+&lt;p>6) Dubbo监控
+给dubbo配置上CatConsumerFilter和CatProviderFilter即可完成对dubbo分布式访问的监控，默认已经开启了这两个Filter。&lt;/p>
+&lt;p>同时，在消费端需要配置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;dubbo:reference&lt;/span> &lt;span style="color:#c4a000">id=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;registryService&amp;#34;&lt;/span> &lt;span style="color:#c4a000">interface=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;com.alibaba.dubbo.registry.RegistryService&amp;#34;&lt;/span> &lt;span style="color:#c4a000">check=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#204a87;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果是直接连接没有注册中心的，不能配置上述registryService，通过给reference添加provider参数来配置。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;dubbo:reference&lt;/span> &lt;span style="color:#c4a000">id=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;demoService&amp;#34;&lt;/span> &lt;span style="color:#c4a000">interface=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;org.macula.plugins.dubbo.test.api.DemoService&amp;#34;&lt;/span> &lt;span style="color:#204a87;font-weight:bold">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#204a87;font-weight:bold">&amp;lt;dubbo:parameter&lt;/span> &lt;span style="color:#c4a000">key=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;provider&amp;#34;&lt;/span> &lt;span style="color:#c4a000">value=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;hello-app&amp;#34;&lt;/span>&lt;span style="color:#204a87;font-weight:bold">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#204a87;font-weight:bold">&amp;lt;/dubbo:reference&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述配置的主要目的就是让消费方知道调用的Service的Application Name是什么，这样CAT监控的时候就可以相互关联起来。&lt;/p>
+&lt;p>7) 埋点监控
+请查看Cat文档，特别是业务指标监控，需要在Cat后台添加相应的指标名称，然后才能够显示。&lt;/p>
+&lt;p>8) 转义送到CAT的URL&lt;/p>
+&lt;p>在你的webapp中找到xxx-servlet.xml,添加如下配置&lt;/p>
+&lt;pre tabindex="0">&lt;code>&amp;lt;bean class=&amp;#34;org.macula.plugins.cat.web.RequestToNameBridge&amp;#34; /&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>然后在xxx-app.xml中添加如下配置&lt;/p>
+&lt;pre tabindex="0">&lt;code>&amp;lt;bean class=&amp;#34;org.macula.plugins.cat.web.DefaultRequestToNameImpl&amp;#34; /&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>当然，你也可以自己实现真实的URL请求地址的转义，具体可以参考DefaultRequestToNameImpl的实现方式。&lt;/p>
+&lt;h4 id="从macula-plugins-monitor迁移到cat监控">从macula-plugins-monitor迁移到CAT监控&lt;/h4>
+&lt;p>如果之前有使用macula-plugins-monitor监控，需要现在web.xml中注释掉如下配置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;!-- Monitor HTTP --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;!--
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;filter&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;filter-name&amp;gt;maculaPluginsMonitoring&amp;lt;/filter-name&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;filter-class&amp;gt;org.springframework.web.filter.DelegatingFilterProxy&amp;lt;/filter-class&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;init-param&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;param-name&amp;gt;targetFilterLifecycle&amp;lt;/param-name&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;param-value&amp;gt;true&amp;lt;/param-value&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;/init-param&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;/filter&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;!--
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;filter-mapping&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;filter-name&amp;gt;maculaPluginsMonitoring&amp;lt;/filter-name&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;servlet-name&amp;gt;appServlet&amp;lt;/servlet-name&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;/filter-mapping&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;!--
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;listener&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;listener-class&amp;gt;org.macula.plugins.monitor.SessionListener&amp;lt;/listener-class&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;/listener&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在你的webapp的pom.xml中，取消对macula-plugins-monitor的依赖&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8f5902;font-style:italic">&amp;lt;!--
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;dependency&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;groupId&amp;gt;org.macula.plugins&amp;lt;/groupId&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;artifactId&amp;gt;macula-plugins-monitor&amp;lt;/artifactId&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> &amp;lt;/dependency&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8f5902;font-style:italic"> --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>搜寻DefaultRequestToNameImpl和RequestToNameBridge，将这两个bean定义拿掉。&lt;/p>
+&lt;h3 id="移动应用监控">移动应用监控&lt;/h3>
+&lt;p>TODO&lt;/p>
+&lt;h3 id="浏览器监控">浏览器监控&lt;/h3>
+&lt;p>TODO&lt;/p></description></item></channel></rss>
