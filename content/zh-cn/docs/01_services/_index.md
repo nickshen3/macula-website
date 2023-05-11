@@ -1,5 +1,5 @@
 ---
-title: "服务列表"
-linkTitle: "服务列表"
+title: "平能能力"
+linkTitle: "平台能力"
 weight: 2
 ---
