@@ -33,7 +33,7 @@ html,
   height: 32px;
 }
 
-.polaris-footer {
+.macula-footer {
   width: 100%;
   background-color: #f8f8f8;
   padding: 40px 0;
@@ -41,7 +41,7 @@ html,
   text-align: center;
   position: relative;
 }
-.polaris-footer-background {
+.macula-footer-background {
   width: calc(100% + 300px);
   height: 100%;
   position: absolute;
@@ -50,41 +50,41 @@ html,
   left: -150px;
   z-index: -1;
 }
-.polaris-footer a {
+.macula-footer a {
   color: #999;
   text-decoration: none;
   margin-left: 20px;
 }
 
-.polaris-front {
+.macula-front {
   font-family: PingFang SC;
 }
 
-.polaris-front .btn:focus,
-.polaris-front .btn:focus-within {
+.macula-front .btn:focus,
+.macula-front .btn:focus-within {
   outline: none;
   box-shadow: none;
 }
 
-.polaris-main {
+.macula-main {
   margin-top: 64px;
 }
 
-.polaris-main-title {
+.macula-main-title {
   font-size: 40px;
   margin-top: 8.8vw;
   font-weight: 700;
 }
 
-.polaris-main-desc {
+.macula-main-desc {
   margin-top: 60px;
   color: gray;
 }
 
-.polaris-main-link-btn-group {
+.macula-main-link-btn-group {
   margin-top: 30px;
 }
-.polaris-main-link-btn-group button {
+.macula-main-link-btn-group button {
   width: 9vw;
   height: 3vw;
   min-width: 130px;
@@ -95,46 +95,46 @@ html,
   border-radius: 3px;
   border: 1px solid rgba(209, 209, 209, 1);
 }
-.polaris-main-link-btn-group .btn {
+.macula-main-link-btn-group .btn {
   background: #ffffff;
   color: #000000;
 }
 
-.polaris-main-link-btn-group .btn-black {
+.macula-main-link-btn-group .btn-black {
   border-radius: 3px;
   background: rgba(38, 47, 62, 1);
   color: #ffffff;
 }
 
-.polaris-main-link-btn-group .btn-black:hover,
-.polaris-main-link-btn-group .btn-black:focus {
+.macula-main-link-btn-group .btn-black:hover,
+.macula-main-link-btn-group .btn-black:focus {
   background: #fff !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #000 !important;
 }
 
-.polaris-main-link-btn-group .btn-black:active {
+.macula-main-link-btn-group .btn-black:active {
   background: #fff !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #000 !important;
   outline: none;
 }
 
-.polaris-main-link-btn-group .btn:hover,
-.polaris-main-link-btn-group .btn:focus {
+.macula-main-link-btn-group .btn:hover,
+.macula-main-link-btn-group .btn:focus {
   background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #fff !important;
 }
 
-.polaris-main-link-btn-group .btn:active {
+.macula-main-link-btn-group .btn:active {
   background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #fff !important;
   outline: none;
 }
 
-.polaris-background {
+.macula-background {
   opacity: 1;
   background: linear-gradient(
     180deg,
@@ -149,11 +149,11 @@ html,
   z-index: -1;
 }
 
-.polaris-main-download-btn-group {
+.macula-main-download-btn-group {
   margin-top: 40px;
 }
 
-.polaris-main-download-btn-group .btn {
+.macula-main-download-btn-group .btn {
   border-radius: 3px;
   background: #d1d1d1;
   width: 122px;
@@ -165,14 +165,14 @@ html,
   padding: 5px 20px;
 }
 
-.polaris-main-download-btn-group .btn:hover,
-.polaris-main-download-btn-group .btn:focus {
+.macula-main-download-btn-group .btn:hover,
+.macula-main-download-btn-group .btn:focus {
   background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #fff !important;
 }
 
-.polaris-main-download-btn-group .btn:active {
+.macula-main-download-btn-group .btn:active {
   background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #fff !important;
@@ -202,7 +202,7 @@ html,
   width: 100%;
 }
 
-.polaris-container {
+.macula-container {
   max-width: 1180px;
   width: 61.45vw;
 }
@@ -280,15 +280,15 @@ html,
   margin: auto;
 }
 
-.polaris-main-link-btn-group .btn {
+.macula-main-link-btn-group .btn {
   margin-top: 20px;
 }
 
-.polaris-main-download-btn-group .btn {
+.macula-main-download-btn-group .btn {
   margin-top: 20px;
 }
 
-.polaris-experience {
+.macula-experience {
   width: 62vw;
   height: 380px;
   border-radius: 12px;
@@ -299,12 +299,12 @@ html,
   background-position: 90% 25%;
 }
 
-.polaris-experience .polaris-main-title {
+.macula-experience .macula-main-title {
   margin-top: 70px;
   color: #fff;
 }
 
-.polaris-experience .btn {
+.macula-experience .btn {
   border: none;
   border-radius: 8px;
 }
@@ -384,11 +384,11 @@ html,
     padding: 20px;
   }
 
-  .polaris-main-link-btn-group .btn {
+  .macula-main-link-btn-group .btn {
     margin-left: 0px;
   }
 
-  .polaris-main-download-btn-group .btn {
+  .macula-main-download-btn-group .btn {
     margin-left: 0px;
   }
 
@@ -396,20 +396,20 @@ html,
     font-size: 24px;
   }
 
-  .polaris-footer {
+  .macula-footer {
     font-size: 12px;
   }
 
-  .polaris-footer a,
-  .polaris-footer span {
+  .macula-footer a,
+  .macula-footer span {
     display: block;
   }
 
-  .polaris-footer .high-resolution {
+  .macula-footer .high-resolution {
     display: none;
   }
 
-  .polaris-main-title {
+  .macula-main-title {
     font-size: 30px;
   }
 }
