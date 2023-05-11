@@ -54,12 +54,12 @@ description: "本文介绍权限管理相关的原理和设计"
 
 * 这几个权限主体的相互关系如下图所示：
 
-  ![macula-security-acl.jpg](/docs/imgs/v3.1/chapter3/macula-security-acl.jpg "macula-security-acl.jpg")
+  ![macula-security-acl.jpg](../imgs/macula-security-acl.jpg "macula-security-acl.jpg")
 
 
 ## 权限配置
 
-![macula-security-biz.jpg](/docs/imgs/v3.1/chapter3/macula-security-biz.jpg "macula-security-biz.jpg")
+![macula-security-biz.jpg](../imgs/macula-security-biz.jpg "macula-security-biz.jpg")
 
 ## 用户分组提供者接口
 

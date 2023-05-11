@@ -314,7 +314,7 @@ _**重要**_
 
 我们先看看freemarker整个宏文件的定义逻辑：
 
-![](/docs/imgs/v3.1/chapter2/layout_mower.png)
+![](../imgs/layout_mower.png)
 
 在views根目录下，有个layout.ftl是整个布局宏的入口：
 
@@ -520,13 +520,13 @@ _**提示**_
 
 下面我们以后台管理页面为例进行讲解。后台管理页面布局如下图所示：
 
-![macula-layout](/docs/imgs/v3.1/chapter2/macula-layout.png)
+![macula-layout](../imgs/macula-layout.png)
 
 由上图可见，Macula 页面由 header，main container 和 footer 三部分组成。其中，header 由 logo，menu 和 login 组成；main container 主要包括 sidebar 和 content 两大部分；footer 构成比较简单。
 
 为了方便大家理解，我们以一个实际的页面为例子说明各个部分。
 
-![macula-layout-demo](/docs/imgs/v3.1/chapter2/macula-layout-demo.png)
+![macula-layout-demo](../imgs/macula-layout-demo.png)
 
 开发者可以通过修改自己项目中的如下这个文件来自定义自己的 header logo，header menu，header login 和 footer。
 
@@ -725,7 +725,7 @@ u目录的ui.ftl提供了框架默认的UI宏，包括：
 #### 高级查询自动关联
 这个以一个例子来说明。如下图所示，有一个根据名称和编码的快捷查询，在其右侧还有一个高级查询，点击高级查询按钮，dropdown里面的查询条件更丰富一些。用户在快捷查询中的名称、编码填了内容后，发现当前条件还没能筛选出满意的内容，当他点击高级查询时，在高级查询dropdown里的相应字段（菜单名称、编码）的内容会用快捷查询的相应内容自动填充，并把它们的值关联起来。
 
-![](/docs/imgs/v3.1/chapter2/advquery-004.png)
+![](../imgs/advquery-004.png)
 
 这个主要是通过框架中定义的panel_toolbar_query和panel_toolbar_advanced_query这两个宏实现的。两个宏中的input元素通过id进行value的关联。程序会遍历panel_toolbar_query中的input元素的id，然后在panel_toolbar_advanced_query找到前缀为advanced_query_相应的id进行关联。如下例中的id分别为“name”和“advanced_query_name”的两个元素。
 
@@ -757,7 +757,7 @@ u目录的ui.ftl提供了框架默认的UI宏，包括：
 
 另外，panel_toolbar_advanced_query有个参数“customDivId”,可以让我们把高级查询的内容放到一个自定义的div里而不是默认的dropdown中，当点击“高级查询”时div会自动toggle，相应的字段也会关联。
 
-![](/docs/imgs/v3.1/chapter2/advquery-005.png)
+![](../imgs/advquery-005.png)
 
 ```html
     <div class = "row">
@@ -807,7 +807,7 @@ Macula 使用 Mower 作为前端开发框架。有关 Mower 的详细介绍请�
 
 我们先来看看Macula中下拉框的样子，如下图绿色方框中所示：
 
-![macula\_select](/docs/imgs/v3.1/chapter2/macula_select.png)
+![macula\_select](../imgs/macula_select.png)
 
 要实现下拉框首先需要有下拉框选项。下拉框的选项是静态的情形很简单，在这里我们讨论的是下拉框中的选项是从数据库中获取的。我们知道下拉框的选项由 name 和 value两项组成。在这里，我们需要用到 Macula 的数据参数功能。我们可以在数据参数中定义这些选项。数据参数中定义的选项有三种形式。
 

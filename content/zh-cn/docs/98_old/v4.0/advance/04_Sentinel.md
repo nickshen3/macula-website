@@ -22,11 +22,11 @@ description: ""
 
 #### **Sentinel 主要特性：**
 
-![图片](/docs/imgs/v4/Sentinel1.png)
+![图片](../../imgs/Sentinel1.png)
 
 #### **Sentinel 开源生态:**
 
-![图片](/docs/imgs/v4/Sentinel2.png)
+![图片](../../imgs/Sentinel2.png)
 
 
 ### **Quick Start.**
@@ -120,11 +120,11 @@ public FilterRegistrationBean sentinelFilterRegistration() {
 
 **Sentinel 控制台**：https://sgs-dev.infinitus.com.cn
 
-![Sentinel3.png](/docs/imgs/v4/Sentinel3.png)
+![Sentinel3.png](../../imgs/Sentinel3.png)
 
 
 **通过配置流控规则 ，自动同步到Nacos 配置中心， 实现规则持久化，修改配置中心规则同样将反向推送到Sentinel**
 
-![图片](/docs/imgs/v4/Sentinel4.png)
+![图片](../../imgs/Sentinel4.png)
 
-![图片](/docs/imgs/v4/Sentinel5.png)
+![图片](../../imgs/Sentinel5.png)

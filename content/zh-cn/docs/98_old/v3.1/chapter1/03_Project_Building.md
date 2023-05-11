@@ -10,7 +10,7 @@ description: "本文介绍了项目构建过程"
 
 通过macula-tools-archtype可以自动生成如下项目结构：
 
-![tutorials-project-tree.png](/docs/imgs/v3.1/chapter1/tutorials-project-tree.png)
+![tutorials-project-tree.png](../imgs/tutorials-project-tree.png)
 
 macula tools默认创建的项目结构是典型的三层架构，包含了如下模块：
 

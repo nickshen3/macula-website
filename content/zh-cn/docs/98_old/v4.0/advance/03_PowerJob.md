@@ -15,7 +15,7 @@ description: "Power Job是统一调度平台重要的一个应用任务代理，
 
 3、架构图：
 
-![图片](/docs/imgs/v4/Batch1.png)
+![图片](../../imgs/Batch1.png)
 ### Power Job实现步骤：
 
 1、处理任务的应用通过agent注册进入Power Job平台
@@ -81,4 +81,4 @@ public class BatchTestTask extends AbstractBeanTask {
 >请保证应用运行环境为 1.7.0 及以上。( JAVA 1.6环境不支持 )
 ### Power Job管理配置案例
 
-![图片](/docs/imgs/v4/Batch2.png)
+![图片](../../imgs/Batch2.png)

@@ -47,7 +47,7 @@ description: "本文介绍了基于Macula3.1的快速搭建项目过程"
 
 Macula平台要求使用UTF-8的文件编码格式，可通过Eclipse -&gt; Preference -&gt; General -&gt; Workspace 中，设定Text file encoding的方式设置项目环境为UTF-8编码。
 
-![tutorials-eclipse-workspace.jpg](/docs/imgs/v3.1/chapter1/tutorials-eclipse-workspace.jpg)
+![tutorials-eclipse-workspace.jpg](../imgs/tutorials-eclipse-workspace.jpg)
 
 ### **服务器设置**
 
@@ -55,9 +55,9 @@ Macula平台要求使用UTF-8的文件编码格式，可通过Eclipse -&gt; Pref
 
 通过Eclipse -&gt; Preference -&gt; Server -&gt; Runtime Envionment选取增加Apache Tomcat6.0服务：
 
-![tutorials-eclipse-server.jpg](/docs/imgs/v3.1/chapter1/tutorials-eclipse-server.jpg)
+![tutorials-eclipse-server.jpg](../imgs/tutorials-eclipse-server.jpg)
 
-![tutorials-eclipse-tomcat.jpg](/docs/imgs/v3.1/chapter1/tutorials-eclipse-tomcat.jpg)
+![tutorials-eclipse-tomcat.jpg](../imgs/tutorials-eclipse-tomcat.jpg)
 
 ## 项目的创建
 
@@ -65,15 +65,15 @@ Macula框架现在提供了一个创建我们所定义项目的maven插件，具
 
 在eclipse中选择创建Maven Project
 
-![tutorials-new-project.png](/docs/imgs/v3.1/chapter1/tutorials-new-project.png)
+![tutorials-new-project.png](../imgs/tutorials-new-project.png)
 
 点击下一步后按照下面界面安装macula-tools-archetype插件（目前最新版本为1.0.7.RELEASE。如果已经存在无需再次安装）
 
-![使用Macula插件创建项目](/docs/imgs/v3.1/chapter1/tutorials-tools-archtype.png)
+![使用Macula插件创建项目](../imgs/tutorials-tools-archtype.png)
 
 继续点击下一步如下图输入你项目的Group Id、Artifact Id、Version和Package:
 
-![tutorials-project-samples.png](/docs/imgs/v3.1/chapter1/tutorials-project-samples.png)
+![tutorials-project-samples.png](../imgs/tutorials-project-samples.png)
 
 后面按照界面提示操作，即可生成整个项目的结构。然后在eclipse中右键选择Maven-&gt;Update Project。
 
@@ -251,7 +251,7 @@ public interface DemoApplicationRepository extends MaculaJpaRepository<DemoAppli
 
 列表页面如下图所示：
 
-![list-page.png](/docs/imgs/v3.1/chapter1/list-page.png)
+![list-page.png](../imgs/list-page.png)
 
 下面我们来说明这个功能的实现。
 
@@ -585,7 +585,7 @@ public class DempApplicationController extends DemoBaseController {
 
 新增/修改页面如下：
 
-![edit-page.png](/docs/imgs/v3.1/chapter1/edit-page.png)
+![edit-page.png](../imgs/edit-page.png)
 
 新增和修改页面一般使用相同的 .ftl 和 .js 文件，通过逻辑判断当前处理的操作是新增还是修改。如果新增和修改功能差别很大，就需要考虑分开两个页面。在本例中，我们使用的是同一个页面。
 
@@ -948,7 +948,7 @@ public class DempApplicationController extends DemoBaseController {
 
 删除功能一般是直接在列表页面里做的。用户选中某条记录，然后点击删除按钮，程序会调用服务器端相应的处理，然后根据返回值做结果提示。例如：
 
-![delete-page.png](/docs/imgs/v3.1/chapter1/delete-page.png)
+![delete-page.png](../imgs/delete-page.png)
 
 #### 展示层
 
