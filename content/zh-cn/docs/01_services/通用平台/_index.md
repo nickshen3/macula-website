@@ -1,5 +1,5 @@
 ---
 title: "通用平台"
 linkTitle: "通用平台"
-weight: 2
+weight: 4
 ---
