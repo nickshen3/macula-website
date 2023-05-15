@@ -5,7 +5,7 @@ site navigation, structure, and more. This **Docsy Example Project** uses the Do
 theme component as a hugo module and provides a skeleton documentation structure for you to use.
 You can clone/copy this project and edit it with your own content, or use it as an example.
 
-In this project, the Docsy theme component is pulled in as a Hugo module, together with other module dependencies:
+In this project, the Docsy theme component is pulled in as a Hugo module, together with other module dependencies: 
 
 ```bash
 $ hugo mod graph
