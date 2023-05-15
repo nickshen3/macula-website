@@ -3,11 +3,12 @@ title: "Macula Boot Starter Web"
 linkTitle: "WEB"
 weight: 1
 ---
-## 简介
-## 配置
-## 能力
+## 概述
+## 组件坐标
+## 使用配置
+## 主要功能
 ## 依赖
-## 版权
+## 版权申明
 
 
 ## 配置
