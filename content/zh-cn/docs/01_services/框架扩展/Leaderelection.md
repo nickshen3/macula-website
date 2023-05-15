@@ -1,5 +1,5 @@
 ---
-title: "选主"
-linkTitle: "选主"
+title: "领导选择"
+linkTitle: "领导选择"
 weight: 7
 ---
