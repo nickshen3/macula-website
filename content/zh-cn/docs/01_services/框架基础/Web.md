@@ -1,5 +1,5 @@
 ---
-title: "WEB"
+title: "Macula Boot Starter Web"
 linkTitle: "WEB"
 weight: 1
 ---
