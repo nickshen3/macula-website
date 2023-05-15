@@ -17,7 +17,7 @@ github.com/google/docsy/dependencies@v0.5.1-0.20221014161617-be5da07ecff1 github
 github.com/google/docsy/dependencies@v0.5.1-0.20221014161617-be5da07ecff1 github.com/FortAwesome/Font-Awesome@v0.0.0-20220831210243-d3a7818c253f
 ```
 
-You can find detailed theme instructions in the [Docsy user guide][]. 
+You can find detailed theme instructions in the [Docsy user guide][].
 
 This Docsy Example Project is hosted on [Netlify][] at [example.docsy.dev][].
 You can view deploy logs from the [deploy section of the project's Netlify
