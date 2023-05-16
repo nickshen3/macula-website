@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Seata"
-linkTitle: "Seata"
-weight: 2
+linkTitle: "分布式事务"
+weight: 12
 ---
 
 接入Seata的配置模块
