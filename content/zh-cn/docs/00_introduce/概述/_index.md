@@ -5,7 +5,7 @@ weight: 1
 ---
 
 ## 简介
-介绍Macula相关概念。Macula的用户可以通过此章节了解Macula的用途、系统架构、版本组件说明等，对Macula的有一个全貌的了解。
+介绍Macula相关概念。Macula的用户可以通过此章节了解Macula的用途、系统架构、版本组件说明等，对Macula的全貌有个了解。
 
 ## 整体架构
 
