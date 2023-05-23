@@ -30,7 +30,7 @@ Macula的整体架构如下图所示：
 + 其他（Election、Statemachine、retry、mapstruct、mybatis、redis、web等）
 ## 4 技术原理
 Macula整体的技术交互与应用原理如下图所示：
-
+![image](https://github.com/morganqhr/macula-website/blob/a280faf05f08925a9f0e88453ec75e68b856b9c0/static/img/macula-tech-diagram.png)
 ## 5 部署方案
 ### 5.1 虚拟机部署
 TODO
