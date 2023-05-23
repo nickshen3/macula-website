@@ -10,27 +10,29 @@ Macula的整体架构如下图所示：
 ![image](https://github.com/morganqhr/macula-website/blob/3d9381889018304457f23ffe7309c210b249c52b/static/img/structure-diagram.png)
 ## 3 主要功能
 ### 3.1 MaculaCloud
-+ 统一网关：所有请求的入口，负责统一的认证、鉴权、路由、限流、降级。
-+ 统一认证
-+ 系统服务
-+ 消息推送
-+ 资源存储
-+ ID生成
-+ 任务调度
++ 统一网关：所有请求的入口，负责统一的认证、鉴权、路由、限流、降级
++ 统一认证：即IAM服务，提供多种认证协议（Oauth2、OIDC、SAML2、CAS等），集成多种身份源（企微、钉钉等）
++ 系统服务：包括菜单管理、角色管理、用户管理、租户管理、应用管理、客户端管理、字典管理与审计日志等通用系统功能
++ 消息推送：集成个微消息、企微消息、腾讯推送等消息渠道
++ 资源存储：集成七牛云存储、阿里云存储与腾讯云存储
++ ID生成：集成滴滴开源的TinyID服务
++ 任务调度：集成powerjob服务
++ 其他（如审批流、短链、数据源版本管理）
 ### 3.2 MauclaBoot
-+ Feign
-+ SpringCloudGateway
-+ SpringCloudAlibaba
-+ SpringCloudTecent
-+ SpringCloudTsf
-+ Lock4j
++ Feign：统一使用Feign进行HTTP远程调用
++ Lock4j：统一使用Lock4j进行分布式锁控制
++ Idempotent：统一使用Idempotent进行幂等控制
++ Seata：统一使用Seata进行分布式事务控制
++ SpringCloudGateway：统一使用SCG作为应用网关
++ SpringCloudAlibaba:阿里开源的SpringCloud版本（按需选择）
++ SpringCloudTecent：腾讯开源的SpringCloud版本（按需选择）
++ SpringCloudTsf：腾讯TSF需要依赖的包（按需选择）
++ 其他（Election、Statemachine、retry、mapstruct、mybatis、redis、web等）
 ## 4 技术原理
-### 4.1 技术架构
-
-### 4.2 交互说明
+Macula整体的技术交互与应用原理如下图所示：
 
 ## 5 部署方案
 ### 5.1 虚拟机部署
-
+TODO
 ### 5.2 容器云部署
-
+TODO
