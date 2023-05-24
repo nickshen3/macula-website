@@ -1,24 +1,18 @@
 ---
 title: "Macula Boot Starter Crypto"
 linkTitle: "Crypto"
-weight: 7
+weight: 2
 ---
-
-### 配置文件加密
-
+该模块提供数据加解密的功能。
+### 1 配置文件加密
 配置文件加密只支持AES（AES/ECB/PKCS5Padding）方式加密，密钥只能通过命令行的方式设置
-
 ```
 在启动的时候加入密钥
 --macula.crypto.key=password
 ```
-
 ***注意：配置文件的密文属性需要以 "mpw:" 开头***
-
-### MyBatis的数据库字段加密
-
+### 2 MyBatis的数据库字段加密
 配置加密方式
-
 ```yaml
 macula:
   crypto:
@@ -29,9 +23,7 @@ macula:
     publicKey: xxx  # 非对称加密公钥
     privateKey: xxx # 非对称解密私钥
 ```
-
-配合下述注解使用
-
+配合以下注解使用
 ```java
 @Documented
 @Inherited
