@@ -1,10 +1,10 @@
 ---
 title: "Macula Boot Starter SpringDoc"
 linkTitle: "Swagger"
-weight: 14
+weight: 2
 ---
-
-## 基于[SpringDoc](https://springdoc.org/)的OpenAPI V3规范的API接口文档生成工具
+该模块是基于[SpringDoc](https://springdoc.org/)的OpenAPI V3规范的API接口文档生成工具。
+## 1 配置说明
 
 ```yaml
 springdoc:
@@ -14,7 +14,7 @@ springdoc:
     enabled: false # 默认是true，用于开关API UI
 ```
 
-## 访问地址
+## 2 访问地址
 
 - Swagger UI： http://xxx/context-path/swagger-ui/index.html
 - API Docs： http://xxx/context-path/v3/api-docs
