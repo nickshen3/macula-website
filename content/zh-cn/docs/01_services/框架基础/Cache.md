@@ -1,18 +1,15 @@
 ---
 title: "Macula Boot Starter Cache"
 linkTitle: "Cache"
-weight: 5
+weight: 2
 ---
-两级缓存功能，第一级是本地缓存，使用Caffeine支持，第二级是Redis缓存，使用Redis支持。
-
-1. 读取缓存时优先从Caffeine读取，如果没有，则从Redis读取，并且将结果写入Caffeine。
-2. 写入缓存时优先写入Redis，如果写入失败，则写入Caffeine。
-3. 当写入或者删除缓存时，通过redis的pub/sub通知其他实例清除本地缓存
+该模块提供两级缓存功能，第一级是本地缓存，使用Caffeine，第二级是Redis缓存，使用Redis。
+1. 读取缓存时优先从Caffeine读取，如果没有，则从Redis读取，并且将结果写入Caffeine
+2. 写入缓存时优先写入Redis，如果写入失败，则写入Caffeine
+3. 当写入或者删除缓存时，通过redis的pub/sub发布订阅机制通知其他实例清除本地缓存
 4. 默认已经开启了缓存注解功能，可以直接使用@Cacheable、@CacheConfig等注解
 5. 引入了CircuitBreaker，当redis访问出现问题的时候可以启用熔断
-
-使用配置：
-
+## 1 配置说明
 ```yaml
 spring:
   redis:
