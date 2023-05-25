@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Sender"
 linkTitle: "消息发送"
-weight: 2
+weight: 8
 ---
 该模块实现了通过本地表发送事务消息的功能。
 ## 1 使用说明

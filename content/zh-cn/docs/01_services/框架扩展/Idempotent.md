@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Idempotent"
 linkTitle: "幂等"
-weight: 2
+weight: 6
 ---
 该模块对原有 [idempotent](https://github.com/it4alla/idempotent) 的代码进行了重构和功能增强。非常感谢idempotent 作者的分享。
 ## 1 原理说明

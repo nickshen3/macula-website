@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter MyBatis Plus"
 linkTitle: "MyBatisPlus"
-weight: 2
+weight: 3
 ---
 ## 1 依赖引入
 该模块主要使用alibaba druid作为数据源工具，mybatis-plus作为数据库操作框架

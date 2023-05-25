@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Security"
 linkTitle: "Security"
-weight: 2
+weight: 9
 ---
 该模块为安全模块，支持WEB安全、基于OAUTH2的安全接入等
 1. 资源服务器的安全依赖，支持对JWT的验证，不依赖任何认证服务器

@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter RocketMQ"
 linkTitle: "RocketMQ"
-weight: 2
+weight: 6
 ---
 
 该模块主要依赖阿里开源的RocketMQ。[RocketMQ](https://github.com/apache/rocketmq-spring/wiki/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C)支持同步、异步发送消息，半事务消息等，具体可以参考官方文档。

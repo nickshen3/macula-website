@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Cache"
 linkTitle: "Cache"
-weight: 2
+weight: 5
 ---
 该模块提供两级缓存功能，第一级是本地缓存，使用Caffeine，第二级是Redis缓存，使用Redis。
 1. 读取缓存时优先从Caffeine读取，如果没有，则从Redis读取，并且将结果写入Caffeine

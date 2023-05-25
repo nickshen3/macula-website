@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Crypto"
 linkTitle: "Crypto"
-weight: 2
+weight: 7
 ---
 该模块提供数据加解密的功能。
 ### 1 配置文件加密

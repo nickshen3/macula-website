@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Redis"
 linkTitle: "Redis"
-weight: 2
+weight: 4
 ---
 该模块提供连接Redis的相关配置，使用了[redisson库](https://redisson.pro/)
 ## 1 默认依赖

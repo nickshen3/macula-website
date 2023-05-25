@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter SpringDoc"
 linkTitle: "Swagger"
-weight: 2
+weight: 14
 ---
 该模块是基于[SpringDoc](https://springdoc.org/)的OpenAPI V3规范的API接口文档生成工具。
 ## 1 配置说明

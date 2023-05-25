@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter OSS"
 linkTitle: "资源中心"
-weight: 2
+weight: 9
 ---
 ## 1 配置说明
 ```yaml

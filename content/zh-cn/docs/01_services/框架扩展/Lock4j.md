@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Lock4j"
 linkTitle: "分布式锁"
-weight: 2
+weight: 5
 ---
 
 <p align="center">

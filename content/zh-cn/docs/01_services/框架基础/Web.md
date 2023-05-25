@@ -1,7 +1,7 @@
 ---
 title: "Macula Boot Starter Web"
 linkTitle: "WEB"
-weight: 2
+weight: 1
 ---
 该模块为web开发所需的基本依赖包。
 ## 1 依赖引入
