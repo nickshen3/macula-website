@@ -1,15 +1,12 @@
 ---
 title: "Macula Boot Starter Sender"
 linkTitle: "消息发送"
-weight: 8
+weight: 2
 ---
-
-通过本地表发送事务消息
-
-要在你的业务库中创建如下表，最好定期归档。
-
+该模块实现了通过本地表发送事务消息的功能。
+## 1 使用说明
+使用前，需要在你的业务库中创建如下表（建议定期归档）：
 ```sql
-
 create table MACULA_MSG
 (
     id           bigint auto_increment primary key,
@@ -27,23 +24,18 @@ create table MACULA_MSG
     index        idx_update_time_status(update_time, status)
 )
 ```
-
 可以使用相关API进行消息处理：
+- ReliableMessageSender#send 在业务方法中使用，执行可靠消息发送
+- ReliableMessageCompensator#compensate 周期性调度，对未发送或发送失败的消息进行补充
 
-- ReliableMessageSender#send 在业务方法中使用，执行可靠消息发送；
-- ReliableMessageCompensator#compensate 周期性调度，对未发送或发送失败的消息进行补充；
-  ![img.png](src/main/docs/img.png)
-
-使用方法
+## 2 配置说明
 
 ```yaml
 macula:
   sender:
     message-table: 你的表名 # 默认是MACULA_MSG
 ```
-
 RocketMQ的配置可以参考 macula-boot-starter-rocketmq
-
 ```java
 import cn.hutool.core.date.DateUtil;
 import dev.macula.boot.starter.sender.ReliableMessageSender;

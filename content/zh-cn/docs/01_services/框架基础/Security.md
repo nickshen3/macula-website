@@ -1,18 +1,15 @@
 ---
 title: "Macula Boot Starter Security"
 linkTitle: "Security"
-weight: 9
+weight: 2
 ---
-
-安全模块，支持WEB安全、基于OAUTH2的安全接入等
-
+该模块为安全模块，支持WEB安全、基于OAUTH2的安全接入等
 1. 资源服务器的安全依赖，支持对JWT的验证，不依赖任何认证服务器
 2. 内部REST服务依赖该模块，通过JWT来获取用户信息；
 3. 网关或者直接对外的REST服务通过OpaqueToken验证登陆信息
 4. 该模块只是验证用户，没有处理权限信息。Token验证后的角色信息是有的
-
 通常情况下，网关使用OpaqueToken，然后获取用户角色，验证是否通过权限校验，生成JWT给后续的微服务识别身份
-
+### 1 配置说明
 ```yaml
 macula:
   security:

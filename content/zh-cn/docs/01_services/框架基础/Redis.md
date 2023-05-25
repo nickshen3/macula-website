@@ -1,13 +1,10 @@
 ---
 title: "Macula Boot Starter Redis"
 linkTitle: "Redis"
-weight: 4
+weight: 2
 ---
-
-提供连接Redis的相关配置，使用了[redisson库](https://redisson.pro/)
-
-## 默认依赖如下：
-
+该模块提供连接Redis的相关配置，使用了[redisson库](https://redisson.pro/)
+## 1 默认依赖
 ```xml
 <dependencies>
     <dependency>
@@ -31,11 +28,8 @@ weight: 4
     </dependency>
 </dependencies>
 ```
-
-## 配置方式
-
-使用时可以通过两种方式配置，一种是spring-boot默认的配置形式，另一种是redisson的配置形式：
-
+## 2 配置方式
+使用时有两种方式配置，一种是spring-boot默认的配置形式，另一种是redisson的配置形式。如下所示：
 ```yaml
 spring:
   redis:
@@ -51,9 +45,7 @@ spring:
       master:
       nodes:
 ```
-
 redisson的配置方式如下，包括单点、主从、集群，下面是集群模式：
-
 ```yaml
 spring:
   redis:
@@ -93,9 +85,7 @@ spring:
         codec: !<org.redisson.codec.MarshallingCodec> {}
         transportMode: "NIO"
 ```
-
-## 默认提供了如下的Bean：
-
+## 3 默认提供的Bean
 - RedissonClient
 - RedissonRxClient
 - RedissonReactiveClient
@@ -104,11 +94,8 @@ spring:
 - StringRedisTemplate
 - ReactiveRedisTemplate
 - ReactiveStringRedisTemplate
-
-## 多Redis源的配置
-
+## 4 多Redis源的配置
 首先需要在配置文件中添加：
-
 ```yaml
 spring:
   redis:
@@ -122,9 +109,7 @@ spring:
         config: |
           xxxxx
 ``` 
-
 然后添加配置Bean，注意其中一个要设置@Primary注解，以便给默认的RedisConnectionFactory使用
-
 ```java
 public class Config {
     @Bean(name = "redissonPropertiesOne")
@@ -153,6 +138,4 @@ public class Config {
     }
 }
 ```
-
-> 注意，如果定义多个RedisConnectonFactory，需要标识其中一个为@Primary，否则会报错。
-> 你的配置需要保证在RedissonAutoConfiguration配置前，可以使用@AutoConfigureBefore注解
+> 注意：如果定义多个RedisConnectonFactory，需要标识其中一个为@Primary，否则会报错。你的配置需要保证在RedissonAutoConfiguration配置前，可以使用@AutoConfigureBefore注解。

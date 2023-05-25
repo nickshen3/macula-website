@@ -1,14 +1,9 @@
 ---
 title: "Macula Boot Starter OSS"
 linkTitle: "资源中心"
-weight: 9
+weight: 2
 ---
-# Macula Boot Starter OSS
-
-## SpringBoot 使用
-
-### 配置
-
+## 1 配置说明
 ```yaml
 # 配置存储平台 ，第一位 test-minio 为默认存储平台
 macula:
@@ -124,11 +119,8 @@ macula:
         base-path: hy/ # 基础路径
 
 ```
-
 注意配置每个平台前面都有个-号，通过以下方式可以配置多个
-
-### 开始使用
-
+## 2 开始使用
 ```java
 
 @RestController
@@ -176,11 +168,11 @@ public class FileDetailController {
 
 ```
 
-### 多种方式上传
+## 3 多种方式上传
 
 ```java
-// 直接上传
-fileStorageService.of(file).upload();
+    // 直接上传
+    fileStorageService.of(file).upload();
 
     // 如果要用 InputStream、URL、URI、String 等方式上传，暂时无法获取 originalFilename 属性，最好手动设置
     fileStorageService.of(inputStream).setOriginalFilename("a.jpg").upload();
@@ -211,14 +203,14 @@ fileStorageService.of(file).upload();
     .thumbnail(th->th.size(200,200))  // 再生成一张 200*200 的缩略图
     .upload();
 
-// 其它更多方法以实际 API 为准
+    // 其它更多方法以实际 API 为准
 ```
 
-### 下载
+## 4 下载
 
 ```java
-// 获取文件信息
-FileInfo fileInfo=fileStorageService.getFileInfoByUrl("http://file.abc.com/test/a.jpg");
+    // 获取文件信息
+    FileInfo fileInfo=fileStorageService.getFileInfoByUrl("http://file.abc.com/test/a.jpg");
 
     // 下载为字节数组
     byte[]bytes=fileStorageService.download(fileInfo).bytes();
