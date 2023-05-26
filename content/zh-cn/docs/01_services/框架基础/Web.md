@@ -16,7 +16,7 @@ weight: 1
 <dependency>
     <groupId>dev.macula.boot</groupId>
     <artifactId>macula-boot-starter-web</artifactId>
-    <version>${revision}</version>
+    <version>${macula.version}</version>
 </dependency> 
 ```
 
@@ -445,6 +445,55 @@ public class DemoDto {
 
 }
 ```
+@Sensitive注解定义：
+
+```java
+/**
+ * {@code Sensitvie} 脱敏的JSON注解
+ *
+ * @author rain
+ * @since 2022/7/28 23:48
+ */
+@Target({ElementType.FIELD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@JacksonAnnotationsInside
+@JsonSerialize(using = SensitiveSerializer.class)
+public @interface Sensitive {
+
+    /**
+     * 脱敏的类型,默认手机号
+     *
+     * @return 返回脱敏类型
+     */
+    Type value();
+
+    /**
+     * CUSTOM_HIDE/CUSTOM_OVERLAY 时生效
+     *
+     * @return 开始位置（包含）
+     */
+    int startInclude() default 0;
+
+    /**
+     * CUSTOM_HIDE/CUSTOM_OVERLAY 时生效
+     *
+     * @return 结束位置（不包含）
+     */
+    int endExclude() default 0;
+
+    /**
+     * CUSTOM_OVERLAY 时生效
+     *
+     * @return *重复的次数
+     */
+    int overlayRepeat() default 4;
+
+		...
+}
+```
+
+
+
 ### Jackson配置
 
 默认对Jackson做了如下配置
@@ -498,6 +547,4 @@ public Jackson2ObjectMapperBuilderCustomizer customizer() {
 
 ## 版权说明
 
-
-
-Apache LICENSE
+- Spring：https://github.com/spring-projects/spring-boot/blob/main/LICENSE.txt
