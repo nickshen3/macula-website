@@ -32,7 +32,8 @@ macula:
 ```
 
 
-## 主要功能
+
+## 核心功能
 
 ### 全局异常处理
 如果在Controller每个方法都catch异常，非常不方便，所以默认通过ControllerExceptionAdvice类处理，包括：
@@ -87,8 +88,6 @@ public class BizException extends MaculaException {
 ```
 
 > 大家在开发应用时，在service层可以讲底层异常使用BizException封装为业务异常抛出。在Controller层一般情况下无需catch任何异常，交由上述全局异常处理器统一处理。
-
-
 
 ### 全局返回结构处理
 
@@ -162,13 +161,12 @@ public class ConsumerController {
 }
 ```
 
-
-
 ### 国际化
 
 客户端透过请求头的Accept-Language设定对应的国际化资源，其他参考Spring标准。
 
 ### 时间格式
+
 1. 当GET请求或者POST请求的x-www-form-urlencoded时，前端的时间格式都是通过Converter转为日期格式
 2. 如果是POST请求的application/json时，则由jackson的配置来完成
 3. 响应如果是json格式也是由jackson的配置
@@ -492,8 +490,6 @@ public @interface Sensitive {
 }
 ```
 
-
-
 ### Jackson配置
 
 默认对Jackson做了如下配置
@@ -515,7 +511,10 @@ public Jackson2ObjectMapperBuilderCustomizer customizer() {
 
 在HTTP请求头或者请求参数中添加`tenantId`参数可以设置当前请求的租户ID上下文，用户后续的数据库操作按照租户ID隔离数据。一般用在前端界面切换不同租户来管理。
 
+
+
 ## 依赖引入
+
 ```xml
 <dependencies>
     <dependency>
