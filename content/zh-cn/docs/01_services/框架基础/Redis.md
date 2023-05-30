@@ -3,32 +3,25 @@ title: "Macula Boot Starter Redis"
 linkTitle: "Redis"
 weight: 4
 ---
+## 概述
+
 该模块提供连接Redis的相关配置，使用了[redisson库](https://redisson.pro/)
-## 1 默认依赖
+
+
+
+## 组件坐标
+
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.redisson</groupId>
-        <artifactId>redisson-spring-data-26</artifactId>
-    </dependency>
-    
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
-        <exclusions>
-            <exclusion>
-                <groupId>redis.clients</groupId>
-                <artifactId>jedis</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>io.lettuce</groupId>
-                <artifactId>lettuce-core</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>dev.macula.boot</groupId>
+    <artifactId>macula-boot-starter-redis</artifactId>
+    <version>${macula.version}</version>
+</dependency>
 ```
-## 2 配置方式
+
+
+
+## 使用配置
 使用时有两种方式配置，一种是spring-boot默认的配置形式，另一种是redisson的配置形式。如下所示：
 ```yaml
 spring:
@@ -85,7 +78,10 @@ spring:
         codec: !<org.redisson.codec.MarshallingCodec> {}
         transportMode: "NIO"
 ```
-## 3 默认提供的Bean
+## 核心功能
+
+### 默认提供的Bean
+
 - RedissonClient
 - RedissonRxClient
 - RedissonReactiveClient
@@ -94,7 +90,7 @@ spring:
 - StringRedisTemplate
 - ReactiveRedisTemplate
 - ReactiveStringRedisTemplate
-## 4 多Redis源的配置
+### 多Redis源的配置
 首先需要在配置文件中添加：
 ```yaml
 spring:
@@ -108,7 +104,7 @@ spring:
         file: classpath:redisson.yaml
         config: |
           xxxxx
-``` 
+```
 然后添加配置Bean，注意其中一个要设置@Primary注解，以便给默认的RedisConnectionFactory使用
 ```java
 public class Config {
@@ -139,3 +135,43 @@ public class Config {
 }
 ```
 > 注意：如果定义多个RedisConnectonFactory，需要标识其中一个为@Primary，否则会报错。你的配置需要保证在RedissonAutoConfiguration配置前，可以使用@AutoConfigureBefore注解。
+
+
+
+## 依赖引入
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson-spring-data-26</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+</dependencies>
+```
+
+
+
+## 版权说明
+
+- redisson：https://github.com/redisson/redisson/blob/master/LICENSE.txt
+- jackson：https://github.com/FasterXML/jackson-core/blob/master/LICENSE

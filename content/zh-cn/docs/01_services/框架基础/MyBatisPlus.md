@@ -27,13 +27,13 @@ weight: 3
 ```yaml
 macula:
   mybatis-plus:
-  	tenant-id: 1L															#租户ID，默认1L
-  	tenant-suffixes: xxx											#默认是tenant,TENANT
+  	tenant-id: 1L															# 租户ID，默认1L
+  	tenant-suffixes: xxx											# 默认是tenant,TENANT
     audit:
-      create-by-name: createBy                #创建人，默认createBy
-      create-time-name: createTime            #创建时间，默认createTime
-      last-update-by-name: lastUpdateBy       #最后更新人，默认lastUpdateBy
-      last-update-time-name: lastUpdateTime   #最后更新时间，默认lastUpdateTime
+      create-by-name: createBy                # 创建人，默认createBy
+      create-time-name: createTime            # 创建时间，默认createTime
+      last-update-by-name: lastUpdateBy       # 最后更新人，默认lastUpdateBy
+      last-update-time-name: lastUpdateTime   # 最后更新时间，默认lastUpdateTime
 ```
 
 
@@ -152,6 +152,16 @@ interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHan
 #### 数据权限插件
 
 在Mapper的方法上使用注解@DataPermission即可实现该方法按照用户角色关联的数据权限过滤数据。
+
+```java
+@Mapper
+public interface SysUserMapper extends BaseMapper<SysUser> {    
+	@DataPermission(deptAlias = "u", userAlias = "u")
+  Page<UserBO> listUserPages(Page<UserBO> page, UserPageQuery queryParams);
+}
+```
+
+@DataPermission的定义和包含的属性如下：
 
 ```java
 @Documented
