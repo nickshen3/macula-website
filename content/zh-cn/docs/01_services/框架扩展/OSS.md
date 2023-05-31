@@ -5,7 +5,7 @@ weight: 9
 ---
 ## 概述
 
-在 SpringBoot 中通过简单的方式将文件存储到 本地、FTP、SFTP、WebDAV、谷歌云存储、阿里云OSS、华为云OBS、七牛云Kodo、腾讯云COS、MinIO、 AWS S3及其它兼容 S3 协议的平台。详情可以参考[spring-file-storage](https://github.com/1171736840/spring-file-storage)
+在 SpringBoot 中通过简单的方式将文件存储到 本地、FTP、SFTP、WebDAV、谷歌云存储、阿里云OSS、华为云OBS、七牛云Kodo、腾讯云COS、MinIO、 AWS S3及其它兼容 S3 协议的平台。详情可以参考spring-file-storage
 
 ### 支持的存储平台
 
