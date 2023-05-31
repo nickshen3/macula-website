@@ -10,6 +10,16 @@ weight: 5
 ## 概述
 lock4j是一个基于redisson的分布式锁组件，其提供了多种不同的支持以满足不同性能和环境的需求。致力于打造一个简单但富有内涵的分布式锁组件。
 
+## 组件坐标
+
+```xml
+<dependency>
+    <groupId>dev.macula.boot</groupId>
+    <artifactId>macula-boot-starter-lock4j</artifactId>
+    <version>${macula.version}</version>
+</dependency>
+```
+
 
 
 ## 使用配置
