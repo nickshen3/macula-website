@@ -8,6 +8,8 @@ weight: 12
 
 本模块提供基于seata分布式事务的接入功能。
 
+
+
 ## 组件坐标
 
 ```xml
@@ -48,6 +50,8 @@ seata:
 
 
 ## 核心功能
+
+前提要部署seata-server，具体见[官方文档](https://seata.io/zh-cn/docs/ops/deploy-guide-beginner.html)
 
 ## 依赖引入
 

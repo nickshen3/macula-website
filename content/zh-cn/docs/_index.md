@@ -17,10 +17,10 @@ content:
             - '[快速开始](00_introduce/快速开始)'
         - name: 了解Macula框架和平台能力
           links:
-            - '[框架基础](01_services/框架基础/Web)'
+            - '[框架基础](01_services/框架基础/web)'
             - '[框架扩展](01_services/框架扩展/lock4j)'
-            - '[微服务](01_services/微服务/Feign)'
-            - '[通用平台](01_services/通用平台/IAM)'
+            - '[微服务](01_services/微服务/feign)'
+            - '[通用平台](01_services/通用平台/iam)'
         - name: 尝试部署Macula
           links:
             - '[服务部署](02_deploy/服务部署)'
