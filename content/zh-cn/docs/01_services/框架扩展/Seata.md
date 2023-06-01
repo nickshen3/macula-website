@@ -10,15 +10,17 @@ weight: 12
 
 ## 组件坐标
 
+```xml
+<dependency>
+    <groupId>dev.macula.boot</groupId>
+    <artifactId>macula-boot-starter-seata</artifactId>
+    <version>${macula.version}</version>
+</dependency>
+```
+
+
+
 ## 使用配置
-
-## 核心功能
-
-## 依赖引入
-
-## 版权说明
-
-接入Seata的配置模块
 
 客户端加入如下配置
 
@@ -42,5 +44,15 @@ seata:
       username: "nacos"
       password: "nacos"
 ```
+
+
+
+## 核心功能
+
+## 依赖引入
+
+## 版权说明
+
+接入Seata的配置模块
 
 默认支持RestTemplate、FeignClient、Dubbo RPC
