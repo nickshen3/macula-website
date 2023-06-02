@@ -6,7 +6,7 @@ weight: 1
 
 ## 概述
 
-该模块为web开发所需的基本依赖包。是对spring-boot-starter-web模块的扩展，并且使用undertow替换了tomcat作为WEB服务器。
+该模块为web开发所需的基本依赖包。是对spring-boot-starter-web模块的扩展，并且使用undertow替换了tomcat作为WEB服务器。有兴趣可以阅读[优雅的写Controller](https://mp.weixin.qq.com/s/i1iCiwhTxQRMqIQj6QzbiQ)。
 
 
 
@@ -36,6 +36,7 @@ macula:
 ## 核心功能
 
 ### 全局异常处理
+
 如果在Controller每个方法都catch异常，非常不方便，所以默认通过ControllerExceptionAdvice类处理，包括：
 
 - BindException（使用form data方式调用接口，校验异常抛出 BindException）
@@ -510,8 +511,6 @@ public Jackson2ObjectMapperBuilderCustomizer customizer() {
 ### 租户ID
 
 在HTTP请求头或者请求参数中添加`tenantId`参数可以设置当前请求的租户ID上下文，用户后续的数据库操作按照租户ID隔离数据。一般用在前端界面切换不同租户来管理。
-
-
 
 ## 依赖引入
 
