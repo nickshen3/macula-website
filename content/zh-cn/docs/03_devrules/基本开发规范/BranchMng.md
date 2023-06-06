@@ -31,6 +31,8 @@ GitFlow是最早诞生并得到广泛应用的一种工作流程。
 GitHubFlow分支模型只存在一个master主分支，日常开发都合并至master，永远保持其为最新的代码且随时可发布的。在需要添加或修改代码时，基于master创建分支，提交修改。
 创建Pull Request，所有人讨论和审查你的代码。然后部署到生产环境中进行验证。待验证通过后合并到master分支中。
 
+> Macula采用该分支管理模型。
+
 整体分支模型，如下图所示：
 ![image](images/githubflow.jpg)
 
