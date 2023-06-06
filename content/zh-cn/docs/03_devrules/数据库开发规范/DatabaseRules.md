@@ -1,6 +1,6 @@
 ---
-title: "数据库规范"
-linkTitle: "数据库规范"
+title: "数据库设计规范"
+linkTitle: "数据库设计规范"
 weight: 1
 ---
 ## 命名规范
