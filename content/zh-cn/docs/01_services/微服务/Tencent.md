@@ -1,7 +1,7 @@
 ---
 title: "Tencent"
 linkTitle: "Tencent"
-weight: 11
+weight: 20
 ---
 
 ## 概述

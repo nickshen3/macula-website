@@ -31,6 +31,9 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   tx-service-group: ${spring.application.name}-tx-group
+  enable-auto-data-source-proxy: true			# 开启自动数据源代理，如果不使用AT模式，不要开启，默认为true
+  saga:
+  	enabled: true													# 开启saga自动配置，默认是false
   config:
     type: nacos
     nacos:
@@ -55,6 +58,8 @@ seata:
    service.vgroupMapping.business-service-tx-group=default			# 示例
    service.vgroupMapping.storage-service-tx-group=default				# 示例
 ```
+
+> 另外，client.http.interceptor-enabled=false可以关闭默认的HTTP拦截
 
 ## 核心功能
 
