@@ -1,10 +1,10 @@
 ---
-title: "SQL规范"
-linkTitle: "SQL规范"
+title: "SQL编写规范"
+linkTitle: "SQL编写规范"
 weight: 2
 ---
 
-## SQL基本规约
+## SQL编写规范
 
 + 禁止使用select *，只获取必要字段
   > select *会增加cpu/io/内存/带宽的消耗
