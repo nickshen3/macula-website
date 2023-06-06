@@ -22,7 +22,10 @@ weight: 2
   + 修订号：当你做了向下兼容的问题修正
   + 先行版本号及版本编译信息可以加到“主版本号.次版本号.修订号”的后面，作为延伸
 
+
+
 ## 语义化版本控制规范
+
 以下关键词 MUST、MUST NOT、REQUIRED、SHALL、SHALL NOT、SHOULD、SHOULD NOT、 RECOMMENDED、MAY、OPTIONAL 依照 RFC 2119 的叙述解读。
 
 1）使用语义化版本控制的软件必须（MUST）定义公共 API。该 API 可以在代码中被定义或出现于严谨的文档内。无论何种形式都应该力求精确且完整。
@@ -74,5 +77,9 @@ weight: 2
     （4）若开头的标识符都相同时，栏位比较多的先行版本号优先层级比较高。
 
       例如：1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0。
+
+
+
 ## 参考文档
+
 [语义化版本2.0.0](https://semver.org/lang/zh-CN/)
