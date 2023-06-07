@@ -1,5 +1,5 @@
 ---
-title: "Macula Boot Starter Gateway"
+title: "Macula Boot Starter Cloud Gateway"
 linkTitle: "Gateway"
 weight: 3
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Dubbo"
+title: "Macula Boot Starter Dubbo"
 linkTitle: "Dubbo"
 weight: 1
 ---
