@@ -26,7 +26,11 @@ weight: 6
 
 ### RocketMQ最佳实践
 
+{{% alert title="提示" color="primary" %}}
+
 [最佳实践](https://mp.weixin.qq.com/s/Rxzo584le5XzUuI71S9nJg)
+
+{{% /alert %}}
 
 ### 生产者配置建议
 ```yaml
@@ -181,7 +185,11 @@ public class ExtRocketMQTemplate extends RocketMQTemplate {
 
 }
 ```
+{{% alert title="提示" color="primary" %}}
+
 可以参考[rocketmq-samples](https://github.com/apache/rocketmq-spring/blob/master/rocketmq-spring-boot-samples/rocketmq-produce-demo/src/main/java/org/apache/rocketmq/samples/springboot/ProducerApplication.java)
+
+{{% /alert %}}
 
 #### Macula 额外扩展
 

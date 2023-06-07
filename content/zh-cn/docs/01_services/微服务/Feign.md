@@ -229,6 +229,36 @@ public class OpenFeignErrorDecoder implements ErrorDecoder {
 }
 ```
 
+### @FeignClient说明
+
+{{% alert title="提示" color="primary" %}}
+
+@FeignClient是支持远程访问微服务体系内的服务以及第三方服务的。
+
+{{% /alert %}}
+
+```java
+// 访问第三方服务，直接给URL
+@FeignClient(url = "${macula.cloud.endpoint}", contextId = "systemFeignClient", configuration = FeignClientConfiguration.class)
+public interface SystemFeignClient {
+
+    @GetMapping("/system/api/v1/users/{username}/loginUserinfo")
+    UserLoginVO getUserInfoWithoutRoles(@PathVariable String username,
+        @RequestParam(value = GlobalConstants.TOKEN_ID_NAME, required = false) String tokenId);
+
+    @GetMapping("/system/api/v1/menus/routes")
+    List<RouteVO> listRoutes();
+}
+
+// 访问注册中心名叫macula-cloud-system的微服务
+@FeignClient(value = "macula-cloud-system", contextId = "userFeignClient", fallbackFactory = AbstractUserFeignFallbackFactory.class)
+public interface UserFeignClient {
+
+    @GetMapping("/api/v1/users/{username}/loginUserinfo")
+    UserLoginVO getLoginUserInfoWithoutRoles(@PathVariable String username);
+}
+```
+
 
 
 ## 依赖引入
