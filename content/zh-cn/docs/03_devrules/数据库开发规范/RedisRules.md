@@ -1,7 +1,7 @@
 ---
 title: "Redis开发规范"
 linkTitle: "Redis开发规范"
-weight: 1
+weight: 3
 ---
 
 ## 概述
