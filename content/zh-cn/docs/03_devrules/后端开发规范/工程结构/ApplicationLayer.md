@@ -6,7 +6,7 @@ weight: 2
 
 ## 概述
 
-关于应用的分层架构，长期以来使用最广的就是经典三层架构（Controller层，Service层，Dao/Mapper层），近几年DDD的架构逐步兴起（API层、ApplicationService层、DomainService层和Infrastructrue层）。以下分别描述这两种分层架构（Macula没有强制使用哪种分层架构，看具体的场景和团队情况选择适合的分层架构即可）。
+关于应用的分层架构，长期以来使用最广的就是经典三层架构（Controller层，Service层，Dao/Mapper层），近几年DDD的架构逐步兴起（API层、ApplicationService层、DomainService层和Infrastructure层）。以下分别描述这两种分层架构（Macula没有强制使用哪种分层架构，看具体的场景和团队情况选择适合的分层架构即可）。
 
 ## 经典三层架构
 
@@ -22,7 +22,7 @@ TODO
 
 ### 架构图
 
-TODO
+![image](../images/ddd-structure.jpg)
 
 ### 对象模型说明
 
