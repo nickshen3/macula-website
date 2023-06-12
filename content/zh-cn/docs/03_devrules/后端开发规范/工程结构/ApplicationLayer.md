@@ -10,6 +10,12 @@ weight: 2
 
 ## 经典三层架构
 
+### 架构图
+
+TODO
+
+### 对象模型说明(VO,DTO,PO,BO)
+
 TODO
 
 ## DDD四层架构
