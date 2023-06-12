@@ -17,4 +17,4 @@ TODO
 TODO
 
 ## 参考文章
-[汉得开放平台]（https://open.hand-china.com/document-center/doc/product/10067/10239?doc_id=34373&doc_code=6200#%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84）
+[汉得开放平台文档](https://open.hand-china.com/document-center/doc/product/10067/10239?doc_id=34373&doc_code=6200#%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84)
