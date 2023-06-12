@@ -40,4 +40,4 @@ weight: 3
 
 ## 参考文章
 
- [汉得开放平台文档](https://open.hand-china.com/document-center/doc/product/10067/10239?doc_id=34378&doc_code=6208)
+ [《汉得开放平台文档》](https://open.hand-china.com/document-center/doc/product/10067/10239?doc_id=34378&doc_code=6208)
