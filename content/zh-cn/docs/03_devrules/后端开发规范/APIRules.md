@@ -106,7 +106,7 @@ RFC 3986中规定URI区分大小写，但别用大写字母来为难程序员了
 
   + 停止旧版本服务
   
-+ URL中指定版本
+### URL中指定版本
 
   + URI上添加版本号：例如，https://api.example.org/v1/users
 
