@@ -12,7 +12,7 @@ weight: 2
 
 ### 架构图
 
-TODO
+![image](../images/classic-3layer-structure.png)
 
 ### 对象模型说明(VO,DTO,PO,BO)
 
@@ -24,7 +24,7 @@ TODO
 
 ![image](../images/ddd-structure.jpg)
 
-### 对象模型说明
+### 对象模型说明(Entity,ValueObject,DTO)
 
 TODO
 
