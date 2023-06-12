@@ -19,7 +19,7 @@ Macula的整体架构如下图所示：
 + ID生成：集成滴滴开源的TinyID服务
 + 任务调度：集成powerjob服务
 + 其他（如审批流、短链、数据源版本管理）
-### MauclaBoot
+### MaculaBoot
 + Feign：统一使用Feign进行HTTP远程调用
 + Lock4j：统一使用Lock4j进行分布式锁控制
 + Idempotent：统一使用Idempotent进行幂等控制
@@ -33,6 +33,8 @@ Macula的整体架构如下图所示：
 Macula整体的技术交互与应用原理如下图所示：
 
 ![image](images/macula-tech-diagram.png)
+
+> 说明：Macula特别适用于多产品线（一个产品线对应一个应用平台）的研发团队。
 
 ## 部署方案
 ### 虚拟机部署

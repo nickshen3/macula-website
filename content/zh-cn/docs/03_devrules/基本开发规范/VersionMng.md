@@ -80,6 +80,6 @@ weight: 2
 
 
 
-## 参考文档
+## 参考文章
 
 [语义化版本2.0.0](https://semver.org/lang/zh-CN/)
