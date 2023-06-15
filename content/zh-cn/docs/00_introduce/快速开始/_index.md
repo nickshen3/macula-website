@@ -40,6 +40,14 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
   + 配置本地仓库路径、中央仓库镜像
   + 修改IDE的maven配置
   
+ 5 Redis准备
+ 
+  Redis理论上是需要准备两个实例，一个是Macula平台与各租户（应用平台）共享的实例，一个是Macula平台独享的实例（非生产环境，不区分也行）。
+  
+ 6 MySQL准备
+ 
+  MySQL准备好后，需要执行macula-cloud-system中的system.ddl建表语句，完成system系统管理的数据库表初始化。
+  
 ### 项目运行
 
 1 打包并运行前端代码
