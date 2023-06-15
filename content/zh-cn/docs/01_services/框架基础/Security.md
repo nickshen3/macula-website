@@ -152,7 +152,10 @@ public class SecurityUtils {
 }
 ```
 
+### 鉴权支持
 
+- URL鉴权是在gateway实现的，本模块不支持URL鉴权
+- 方法级别的注解鉴权：默认已经解锁 @PreAuthorize 和 @PostAuthorize 两个注解。
 
 ## 依赖引入
 
