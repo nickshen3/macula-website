@@ -6,7 +6,7 @@ weight: 2
 
 ## 概述
 
-Macula的快速开始主要包括两部分：一是完成Macula平台的搭建，二是完成应用平台对Macula平台的接入。
+Macula快速开始内容说明主要包括两部分：一是Macula平台搭建，二是Macula平台接入。
 
 ## Macula平台搭建
 
@@ -24,7 +24,7 @@ Macula的快速开始主要包括两部分：一是完成Macula平台的搭建�
 
  2 Node.js安装
 
- 3 克隆项目源代码
+ 3 克隆项目源码
    
     后台代码：git clone https://github.com/macula-projects/macula-cloud.git
    
