@@ -36,7 +36,9 @@ macula:
 
 ## 核心功能
 
-- 对接macula-cloud-system，根据app-key对应的应用获取菜单和用户信息。SystemService是通过远程RPC访问macula-cloud-system。具体的controller如下：
+### 对接macula-cloud-system
+
+根据app-key对应的应用获取菜单和用户信息。SystemService是通过远程RPC访问macula-cloud-system。具体的controller如下：
 
 ```java
 @Tag(name = "system模块对接接口")
@@ -63,13 +65,17 @@ public class SystemController {
 }
 ```
 
-- 提供按钮权限注解鉴权
+### 提供按钮权限注解鉴权
 
-  ```java
-  @PreAuthorize("@pms.hasPermission('sys:user:del')")
-  ```
+```java
+@PreAuthorize("@pms.hasPermission('sys:user:del')")
+```
 
-  
+### 平台功能介绍
+
+系统管理服务提供TODO
+
+
 
 ## 依赖引入
 

@@ -43,8 +43,6 @@ spring:
   security:
     oauth2:
       resourceserver:
-        jwt:
-          issuer-uri: http://127.0.0.1:9010
         opaquetoken:
           client-id: e4da4a32-592b-46f0-ae1d-784310e88423
           client-secret: secret
@@ -150,6 +148,53 @@ public interface CryptoService {
 }
 ```
 
+本地加解密实现示例如下：
+
+```java
+/**
+ * {@code CryptoLocaleServiceImpl} 本地加解密服务
+ *
+ * @author rain
+ * @since 2023/3/23 22:01
+ */
+@Component
+@Slf4j
+public class CryptoLocaleServiceImpl implements CryptoService, InitializingBean {
+    private SM2 sm2;
+
+    @Override
+    public String getSm2PublicKey() {
+        return HexUtil.encodeHexStr(sm2.getPublicKey().getEncoded());
+    }
+
+    @Override
+    public String decryptSm4Key(String key) {
+        return sm2.decryptStr(key, KeyType.PrivateKey);
+    }
+
+    @Override
+    public String encrypt(String plainText, String sm4Key) {
+        return SmUtil.sm4(sm4Key.getBytes(StandardCharsets.UTF_8)).encryptBase64(plainText);
+    }
+
+    @Override
+    public String decrypt(String secretText, String sm4Key) {
+        return SmUtil.sm4(sm4Key.getBytes(StandardCharsets.UTF_8)).decryptStr(secretText);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        KeyPair pair = SecureUtil.generateKeyPair("SM2");
+        sm2 = SmUtil.sm2(pair.getPrivate(), pair.getPublic());
+        if (log.isDebugEnabled()) {
+            log.debug("sm2 public key: {}", HexUtil.encodeHexStr(sm2.getPublicKey().getEncoded()));
+            log.debug("sm2 private key: {}", HexUtil.encodeHexStr(sm2.getPrivateKey().getEncoded()));
+            log.debug("sm4 encrypted key: {}", sm2.encryptBase64("1234567890abcdef", KeyType.PublicKey));
+        }
+    }
+}
+```
+
 接口加解密流程：
 
 - 前端获取需要加密的接口：/gateway/crypto/urls
@@ -158,6 +203,28 @@ public interface CryptoService {
 - 后端根据macula.gateway.force-crypto判断是否强制加解密，如果请求URL在列表中但是没有携带sm4-key则返回错误
 - 前端GET请求的加密参数附加在URL?data=xxx中，POST请求的加密参数也是以JSON格式放在data这个key中
 - 后端解密请求数据，然后将加密的返回数据替换Result的data
+
+### 配置多Redis隔离网关Redis和System的Redis
+
+可以参考Redis多源配置一章配置网关自己的redis和system需要的redis。最后要配置sysRedisTemplate
+
+```java
+@Bean(name = "sysRedisTemplate")
+public RedisTemplate<String, Object> sysRedisTemplate(
+    @Qualifier("sysRedissonClient") RedissonClient sysRedissonClient) {
+    //数据泛型类型
+    RedisTemplate<String, Object> template = new RedisTemplate<>();
+    //设置连接工厂（Jedis或Lettuce）
+    template.setConnectionFactory(new RedissonConnectionFactory(sysRedissonClient));
+
+    //设置key的序列化方式---String
+    template.setKeySerializer(RedisSerializer.string());
+    template.setHashKeySerializer(RedisSerializer.string());
+    //初始化RedisTemplate的参数设置
+    template.afterPropertiesSet();
+    return template;
+}
+```
 
 
 

@@ -90,7 +90,7 @@ spring:
 - StringRedisTemplate
 - ReactiveRedisTemplate
 - ReactiveStringRedisTemplate
-### 多Redis源的配置
+### 多Redis源的配置-Redisson方式
 首先需要在配置文件中添加：
 ```yaml
 spring:
@@ -108,33 +108,83 @@ spring:
 然后添加配置Bean，注意其中一个要设置@Primary注解，以便给默认的RedisConnectionFactory使用
 ```java
 public class Config {
-    @Bean(name = "redissonPropertiesOne")
+    @Bean
     @ConfigurationProperties(prefix = "spring.redis.redisson.one")
     public RedissonProperties redissonPropertiesOne() {
         return new RedissonProperties();
     }
 
     @Primary
-    @Bean(name = "redissonClientOne", destroyMethod = "shutdown")
-    public RedissonClient redissonClientOne(ApplicationContext ctx, @Qualifier("redissonPropertiesOne") RedissonProperties redissonProperties) throws Exception {
+    @Bean(destroyMethod = "shutdown")
+    public RedissonClient redissonClientOne(ApplicationContext ctx, RedissonProperties redissonPropertiesOne) throws Exception {
         Config config = RedissonConfigBuilder.create().build(ctx, null, redissonProperties);
         return Redisson.create(config);
     }
 
-    @Bean(name = "redissonPropertiesTwo")
+    @Bean
     @ConfigurationProperties(prefix = "spring.redis.redisson.tow")
-    public RedissonProperties redissonProperties() {
+    public RedissonProperties redissonPropertiesTwo() {
         return new RedissonProperties();
     }
 
-    @Bean(name = "redissonClientTwo", destroyMethod = "shutdown")
-    public RedissonClient redissonClientTwo(ApplicationContext ctx, @Qualifier("redissonPropertiesTwo") RedissonProperties redissonProperties) throws Exception {
+    @Bean(destroyMethod = "shutdown")
+    public RedissonClient redissonClientTwo(ApplicationContext ctx, RedissonProperties redissonPropertiesTwo) throws Exception {
         Config config = RedissonConfigBuilder.create().build(ctx, null, redissonProperties);
         return Redisson.create(config);
     }
 }
 ```
-> 注意：如果定义多个RedisConnectonFactory，需要标识其中一个为@Primary，否则会报错。你的配置需要保证在RedissonAutoConfiguration配置前，可以使用@AutoConfigureBefore注解。
+### 多Redis源的配置-Redis方式
+
+首先在配置文件中添加
+
+```yaml
+spring:
+  redis:
+    one:
+			xxx
+    two:
+    	xxx
+```
+
+然后添加配置Bean，注意其中一个要设置@Primary注解，以便给默认的RedisConnectionFactory使用
+
+```java
+@Configuration
+public class Config {
+    @Bean
+    @ConfigurationProperties(prefix = "spring.redis.one")
+    public RedisProperties redisPropertiesOne() {
+        return new RedisProperties();
+    }
+
+    @Primary
+    @Bean(destroyMethod = "shutdown")
+    public RedissonClient redissonClientOne(ApplicationContext ctx, RedisProperties redisPropertiesOne) throws Exception {
+        Config config = RedissonConfigBuilder.create().build(ctx, redisPropertiesOne, new RedissonProperties());
+        return Redisson.create(config);
+    }
+  
+    @Bean
+    @ConfigurationProperties(prefix = "spring.redis.two")
+    public RedisProperties redisPropertiesTwo() {
+        return new RedisProperties();
+    }
+
+    @Bean(destroyMethod = "shutdown")
+    public RedissonClient redissonClientTwo(ApplicationContext ctx, RedisProperties redisPropertiesTwo)
+        throws Exception {
+        Config config = RedissonConfigBuilder.create().build(ctx, redisPropertiesTwo, new RedissonProperties());
+        return Redisson.create(config);
+    }
+}
+```
+
+{{% alert title="提示" color="primary" %}}
+
+注意：如果定义多个RedisConnectonFactory，需要标识其中一个为@Primary，否则会报错。你的配置需要保证在RedissonAutoConfiguration配置前，可以使用@AutoConfigureBefore注解。同时要注意bean的方法命名与构造注入时参数名称要一致。
+
+{{% /alert %}}
 
 
 
