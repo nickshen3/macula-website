@@ -82,6 +82,7 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
 
    使用 macula-cloud-admin 提供的路由相关的js代码进行菜单渲染，如下图
    
+   ![image](./images/mca-vue.png)
 
  + 接入端使用 macula-cloud-admin 前端代码
 
