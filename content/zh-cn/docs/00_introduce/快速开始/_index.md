@@ -42,11 +42,11 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
   
  5 Redis准备
  
-  Redis理论上是需要准备两个实例，一个是Macula平台与各租户（应用平台）共享的实例，一个是Macula平台独享的实例（非生产环境，不区分也行）。
+    Redis理论上是需要准备两个实例，一个是Macula平台与各租户（应用平台）共享的实例，一个是Macula平台独享的实例（非生产环境，不区分也行）。
   
  6 MySQL准备
  
-  MySQL准备好后，需要执行macula-cloud-system中的system.ddl建表语句，完成system系统管理的数据库表初始化。
+    MySQL准备好后，需要执行macula-cloud-system中的system.ddl建表语句，完成system系统管理的数据库表初始化。
   
 ### 项目运行
 
@@ -80,13 +80,14 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
 
  + 接入端使用自有平台的前端代码
 
-   使用 macula-cloud-admin 提供的路由 相关的js代码（待整理）进行菜单渲染，如下图
+   使用 macula-cloud-admin 提供的路由相关的js代码进行菜单渲染，如下图
+   
 
  + 接入端使用 macula-cloud-admin 前端代码
 
-  （1）执行如下命令，拉取 macula-cloud-admin 仓库 (SSH) ：
+  （1）执行如下命令，拉取 macula-cloud-admin 仓库 (SSH) 
    
-      git clone git@e.coding.net:infinitus-devops/itp-devlop/macula-cloud-admin.git
+      git clone https://github.com/macula-projects/macula-cloud-admin.git
       
   （2）进入项目目录，安装依赖
   
@@ -102,7 +103,7 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
   
       npm run dev
       
-  （5）启动成功后，访问如下地址即可：
+  （5）启动成功后，访问如下地址即可
   
       http://localhost:5800
 
@@ -110,7 +111,7 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
 
 2 **后端工程接入**
 
-应用平台接入Macula平台的基本步骤如下：
+应用平台后端工程接入Macula平台的基本步骤如下：
 
 （1）接入端后端引入 macula-boot-starter-system
 
@@ -182,7 +183,7 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
         ]
        }
    
-（2）使用 macula-cloud-system 提供的应用 AK,SK调用接口，需在yml 配置如下信息：
+（2）使用 macula-cloud-system提供的应用AK、SK调用接口，需在yml 配置如下信息：
 
      macula:
        cloud:
@@ -191,3 +192,5 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
         system:
           endpoint: http://localhost:9000/system  # macula cloud system的端点
           
+
+至此，Macula平台的使用你已经快速启动起来了。如果遇到问题，也不用急躁，请联系平台负责人获取帮助。
