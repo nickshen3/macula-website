@@ -53,6 +53,8 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
 1 打包并运行前端代码
    
       完成打包运行后，打开浏览器，访问前端配置的网址，如http://localhost:5800/，成功进入登录页面，即前端启动成功。
+      
+  ![image](../images/mca-login.png)
 
 2 修改macula-could相关服务（macula-cloud-gateway、macula-cloud-system、macula-cloud-iam）的配置文件
       
@@ -61,6 +63,8 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
 3 运行macula-cloud相关服务（macula-cloud-gateway、macula-cloud-system、macula-cloud-iam）
  
       启动运行macula-cloud-gateway、macula-cloud-system、macula-cloud-iam（nacos配置的本机地址则要先启动nacos）。打开前端网站，点击登录，成功进入后台管理界面，即后端启动成功（账号：admin 密码：admin）
+        
+   ![image](../images/mca-index.png)
 
 ## Macula平台接入
 
@@ -82,7 +86,7 @@ Macula快速开始内容主要包括两部分：一是Macula平台搭建，二�
 
    使用 macula-cloud-admin 提供的路由相关的js代码进行菜单渲染，如下图
    
-   ![image](./images/mca-vue.png)
+   ![image](../images/mca-vue.png)
 
  + 接入端使用 macula-cloud-admin 前端代码
 
