@@ -6,7 +6,7 @@ weight: 2
 
 ## 概述
 
-Macula快速开始内容说明主要包括两部分：一是Macula平台搭建，二是Macula平台接入。
+Macula快速开始内容主要包括两部分：一是Macula平台搭建，二是Macula平台接入。
 
 ## Macula平台搭建
 
@@ -17,6 +17,11 @@ Macula快速开始内容说明主要包括两部分：一是Macula平台搭建�
 |  软件   | 版本  | 说明  |
 |  ----  | ----  | ----  |
 |  JDK   | 1.8以上  |   |
+|  Maven   |   |   |
+|  Node.js   |   |   |
+|  MySQL   |   |   |
+|  Redis   |   |   |
+|  Nacos   |   |   |
 
 ### 项目搭建
 
@@ -48,6 +53,153 @@ Macula快速开始内容说明主要包括两部分：一是Macula平台搭建�
       
 3 运行macula-cloud相关服务（macula-cloud-gateway、macula-cloud-system、macula-cloud-iam）
  
-      启动运行macula-cloud-gateway、macula-cloud-system、macula-cloud-iam（nacos配置的本机地址则要先启动nacos）。打开前端网站，点击登录，成功进入后台管理界面，即后端启动成功（账号：admin，密码：admin）
+      启动运行macula-cloud-gateway、macula-cloud-system、macula-cloud-iam（nacos配置的本机地址则要先启动nacos）。打开前端网站，点击登录，成功进入后台管理界面，即后端启动成功（账号：admin 密码：admin）
 
 ## Macula平台接入
+
+### Macula平台管理员创建用户、租户
+
+    各应用平台（租户）想接入Macula平台，首先要联系Macula平台的管理员，在MaculaCloudAdmin后台为各应用平台创建对应的租户以及管理账号。
+
+### Macula平台租户管理员创建应用
+
+    各应用平台获得Macula平台的管理账号后，即可登录MaculaCloudAdmin后台，进行应用创建、菜单创建等操作。
+
+### 租户应用平台接入Macula平台
+
+1 **前端工程接入**
+
+  此部分为两种情形：一是接入端使用自有前端代码进行接入；二是接入端使用 macula-cloud-admin 前端代码
+
++ 接入端使用自有平台的前端代码
+
+   使用 macula-cloud-admin 提供的路由 相关的js代码（待整理）进行菜单渲染，如下图
+
++ 接入端使用 macula-cloud-admin 前端代码
+
+   执行如下命令，拉取 macula-cloud-admin 仓库 (SSH) ：
+   
+      git clone git@e.coding.net:infinitus-devops/itp-devlop/macula-cloud-admin.git
+      
+  进入项目目录，安装依赖
+  
+      npm i
+      
+  修改.env.development 文件配置网关
+  
+      VITE_APP_PROXY = false
+      VITE_APP_TITLE = MACULA(DEV)
+      VITE_APP_API_BASEURL = http://localhost:9000
+      
+  启动项目
+  
+      npm run dev
+      
+  启动成功后，访问如下地址即可：
+  
+      http://localhost:5800
+
+  注意：安装依赖和启动需依靠npm、cnpm或者yarn。
+
+2 **后端工程接入**
+
+  此部分为两种情形：一是接入端使用自有后端代码进行接入；二是接入端使用 macula-cloud-system 后端代码
+
++ 接入端使用自有平台的后端代码
+
+  接入端后端引入 macula-boot-starter-system
+
+    <dependency>
+        <groupId>dev.macula.boot</groupId>
+        <artifactId>macula-boot-starter-system</artifactId>
+    </dependency>
+    
+  system-starter 实际上只提供两个接口：
+  
+  获取登录用户信息 - 【/api/v1/users/me】
+
+   用户信息定义：
+   {
+    // 用户ID
+    "userId": 576,
+    // 用户名
+    "username": "0011633",
+    // 用户昵称
+    "nickname": "Ziv",
+    // 头像地址
+    "avatar": "https://s2.loli.net/2022/04/07/gw1L2Z5sPtS8GIl.gif",
+    // 用户角色编码集合
+    "roles": [
+    "role::add"
+    ],
+    // 用户权限标识集合
+    "perms": [
+    "SCOPE_all", "ROOT", "ADMIN", "USER"
+    ]
+   }
+   
+ 当前应用的菜单路由 - 【/api/v1/menus/routes】
+
+ 路由信息定义：
+
+   {
+    "path": "/system",
+    "meta": {
+    "type": "CATALOG",
+    "title": "系统管理",
+    "icon": "el-icon-setting",
+    "hidden": false,
+    "alwaysShow": true,
+    "roles": [
+      "ADMIN",
+      "ROOT",
+      "GUEST",
+      "USER"
+    ],
+    "keepAlive": true
+    },
+    "children": [
+    {
+      "path": "/system/log",
+      "component": "system/log",
+      "name": "/system/log",
+      "meta": {
+        "type": "MENU",
+        "title": "审计日志",
+        "icon": "el-icon-credit-card",
+        "hidden": false,
+        "alwaysShow": false,
+        "roles": [
+          "GUEST",
+          "ADMIN",
+          "ROOT"
+        ],
+        "keepAlive": true
+      }
+    }
+    ]
+   }
+   
+使用 macula-cloud-system 提供的应用 AK, SK 进行调用接口，需在 yml 配置如下信息：
+
+   macula:
+     cloud:
+      app-key: ecp                            # 接入到macula cloud的appkey
+      secret-key: xxxxx                       # 接入到macula cloud的secretKey
+      system:
+        endpoint: http://localhost:9000/system  # macula cloud system的端点
+        
++ 接入端使用 macula-cloud-system 的后端代码
+
+1 执行如下命令，拉取 macula-cloud-system仓库 (SSH)
+
+   git clone git@e.coding.net:infinitus-devops/itp-devlop/macula-cloud.git
+   
+macula-cloud-system 后端工程主要涉及两个模块：网关Gateway、后台管理System
+
+2 启动模块
+
+  + 替换 bootstrap.yml 中的 nacos 相关信息为接入端自有 nacos
+  + 启动时，需要指定 spring.profiles.active 和 nacos.password，否则默认会找本地的nacos
+
+    -Dspring.profiles.active=dev -Dnacos.password=xxx
