@@ -35,7 +35,7 @@ public interface SourceTargetMapper {
     TargetDto toTarget( SourceDto s );
 }
 ```
-另外，使用mapstruct前，需要在Maven项目的pom中定义以下build插件，`本模块已经引用，你无需再引入`：
+另外，使用mapstruct前，需要在你的父工程的Maven项目的pom中定义以下build插件：
 ```xml
 <build>
     <pluginManagement>

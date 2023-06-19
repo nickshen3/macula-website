@@ -27,7 +27,7 @@ weight: 2
 ```yaml
 macula:
   cloud:
-    endpoint: http://127.0.0.1:9000
+    endpoint: http://127.0.0.1:9000					# 网关地址
     app-key: example
     secret-key: example
 ```
