@@ -12,6 +12,8 @@ weight: 2
 
 整体目录结构如下图所示：
 
+![image](images/pd.png)
+
 |  目录名   | 说明  |
 |  ----  | ----  |
 | public	| 静态资源(不会被Webpack打包)，存放静态资源文件，不会被Webpack打包 | 
