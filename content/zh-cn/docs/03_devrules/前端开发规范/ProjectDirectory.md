@@ -12,7 +12,7 @@ weight: 2
 
 整体目录结构如下图所示：
 
-![image](images/pd.png)
+![image](../images/pd.png)
 
 |  目录名   | 说明  |
 |  ----  | ----  |
