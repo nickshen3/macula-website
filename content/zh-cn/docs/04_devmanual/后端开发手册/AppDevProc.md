@@ -20,7 +20,7 @@ weight: 1
 
 #### 数据表设计
 
-
+![image](../images/dbt.png)
 
 #### 生成创建表sql
 
