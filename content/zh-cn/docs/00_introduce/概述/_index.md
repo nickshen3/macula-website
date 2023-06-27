@@ -36,12 +36,6 @@ Macula整体的技术交互与应用原理如下图所示：
 
 > 说明：Macula特别适用于多产品线（一个产品线对应一个应用平台）的研发团队。
 
-## 部署方案
-### 虚拟机部署
-TODO
-### 容器云部署
-TODO
-
 ## License
 
 Macula Boot and Macula Cloud is Open Source software released under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0.html).
