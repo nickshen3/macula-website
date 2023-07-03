@@ -75,7 +75,7 @@ spring:
           tcpNoDelay: false
         threads: 16
         nettyThreads: 32
-        codec: !<org.redisson.codec.MarshallingCodec> {}
+        codec: !<org.redisson.codec.Kryo5Codec> {}
         transportMode: "NIO"
 ```
 ## 核心功能

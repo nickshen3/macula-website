@@ -168,41 +168,112 @@ public class ConsumerController {
 
 ### 时间格式
 
-1. 当GET请求或者POST请求的x-www-form-urlencoded时，前端的时间格式都是通过Converter转为日期格式
-2. 如果是POST请求的application/json时，则由jackson的配置来完成
-3. 响应如果是json格式也是由jackson的配置
-4. 响应如果是text/html时，由生成html的模板引擎配置
-5. 数据库和Java的实体建议使用无时区的字段，mysql的date对应LocalDate,time对应LocalTime，datetime对应LocalDateTime，timestamp对应ZonedDateTime（不建议用），jdbc url要配置serverTimeZone和数据库时区保持一致
-6. [数据库与Java时间字段转换原理](https://www.jianshu.com/p/af8d7b3e2074)
-7. 与外部交互的接口层的时间建议使用有时区的，比如Date、ZonedDateTime
-   可以通过如下配置配置日期和时间格式
+#### 日期传入
+
+http请求传入日期格式的字符串
+
+##### 表单请求
+
+当GET请求或者POST请求的x-www-form-urlencoded时，前端的时间格式都是通过Converter转为日期格式，系统默认已经设置为ISO日期格式。
+
+```java
+@Override
+public void addFormatters(FormatterRegistry registry) {
+    // 默认String没有办法转为java.util.Date类型
+    registry.addConverter(new Converter<String, Date>() {
+        @Override
+        public Date convert(String source) {
+            return DateUtil.parse(source.trim()).toJdkDate();
+        }
+    });
+
+    DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+    registrar.setUseIsoFormat(true);
+    registrar.registerFormatters(registry);
+}
+
+enum ISO {
+		/**
+		 * The most common ISO Date Format {@code yyyy-MM-dd} &mdash; for example,
+		 * "2000-10-31".
+		 */
+		DATE,
+
+		/**
+		 * The most common ISO Time Format {@code HH:mm:ss.SSSXXX} &mdash; for example,
+		 * "01:30:00.000-05:00".
+		 */
+		TIME,
+
+		/**
+		 * The most common ISO Date Time Format {@code yyyy-MM-dd'T'HH:mm:ss.SSSXXX}
+		 * &mdash; for example, "2000-10-31T01:30:00.000-05:00".
+		 */
+		DATE_TIME
+}
+```
+
+{{% alert title="提示" color="primary" %}}
+
+如果请求的日期字符串对应的类型是java.util.Date类型，我们使用了hutool的DateUtil.parse，他会自适应一些日期格式，具体参考[hutool](https://doc.hutool.cn/pages/DateUtil/#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%97%A5%E6%9C%9F)。
+
+如果请求的日期字符串对应的类型是jsr310的，需要注意按照ISO要求。
+
+如果某些字段或者参数需要个性化设置，可以使用注解@DateTimeFormat
+
+{{% /alert %}}
+
+##### JSON请求
+
+如果是POST请求的application/json时，则由jackson的配置来完成
 
 ```yaml
 spring:
-  mvc:
-    format:
-      date: iso
-      time: iso
-      date-time: yyyy-MM-dd HH:mm:ss
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss		# 该配置只会影响java.util.Date类型
 ```
 
-如果需要支持跨时区，则需要设置为带时区的日期格式
+{{% alert title="提示" color="primary" %}}
 
-```yaml
-spring:
-  mvc:
-    format:
-      date: iso
-      time: iso
-      date-time: iso-offset
-  jackson:
-    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+需要注意的是 spring.jackson.date-format这种全局化配置对于java8中localDate和LocalDateTime是无效的，对于localDate和LocalDateTime可以在类属性上设置，如下：
+
+{{% /alert %}}
+
+```java
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+private LocalDateTime createTime;
 ```
-**需要注意**
-1. spring.jackson.date-format如果不配置，默认就是ISO格式的，例如2022-05-02T10.12.000+08:00，Localxxx的时间类型是不可以携带时区的
-2. spring.mvc.format如果不配置，默认是根据系统语言的Localized(SHORT,SHORT)格式，建议一定要配置。配置了iso-offset时，LocalDateTime也需要携带时区，但是会被忽略
+
+#### 日期返回
+
+##### 普通响应
+
+响应如果是text/html时，由生成html的模板引擎配置
+
+##### JSON响应
+
+响应如果是json格式也是由jackson的配置
+
+#### 数据库日期
+
+数据库和Java的实体建议使用无时区的字段，mysql的date对应LocalDate,time对应LocalTime，datetime对应LocalDateTime，timestamp对应ZonedDateTime（不建议用），jdbc url要配置serverTimeZone和数据库时区保持一致
+
+- [数据库与Java时间字段转换原理](https://www.jianshu.com/p/af8d7b3e2074)
+
+- 与外部交互的接口层的时间建议使用有时区的，比如Date、ZonedDateTime
+
+  
+
+{{% alert title="提示" color="primary" %}}
+
+ZonedDateTime在转为LocalDateTime的时候切记要先设置为当前时区：
+
+{{% /alert %}}
+
+```java
+// 转为LocalDateTime需要先把ZondeDateTime转为需要的时区，直接toLocalDateTime是没有换算时区的
+LocalDateTime ldt = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+```
 
 ### Validator校验
 默认引入了spring-boot-starter-validation，可以在这里继续扩展自定义的validator，比如身份证、电话、邮件等等。
