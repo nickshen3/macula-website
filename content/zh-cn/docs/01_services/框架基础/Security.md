@@ -157,6 +157,10 @@ public class SecurityUtils {
 - URL鉴权是在gateway实现的，本模块不支持URL鉴权
 - 方法级别的注解鉴权：默认已经解锁 @PreAuthorize 和 @PostAuthorize 两个注解。
 
+### 内部接口注解@Inner
+
+默认情况下依赖了本模块的接口都要有token才能访问，对于一些内部接口，比如定时任务调用的接口，没有经过网关，没有token，这个时候你可以在你的Controller上的方法上加上@Inner注解。调用方需要设置请求header为`from=Y`
+
 ## 依赖引入
 
 ```xml
