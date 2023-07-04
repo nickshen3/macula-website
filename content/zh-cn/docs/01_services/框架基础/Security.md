@@ -161,6 +161,27 @@ public class SecurityUtils {
 
 默认情况下依赖了本模块的接口都要有token才能访问，对于一些内部接口，比如定时任务调用的接口，没有经过网关，没有token，这个时候你可以在你的Controller上的方法上加上@Inner注解。调用方需要设置请求header为`from=Y`
 
+```java
+@FeignClient(value = "macula-cloud-system", url = "${macula.cloud.endpoint}", contextId = "systemFeignClient",
+    configuration = FeignClientConfiguration.class)
+public interface SystemFeignClient {
+    @GetMapping(value = "/system/api/v1/menus/routes", headers = SecurityConstants.HEADER_FROM_IN)
+    List<RouteVO> listRoutes();
+}
+
+
+public class TestController {
+    @Operation(summary = "路由列表")
+    @GetMapping("/api/v1/menus/routes")
+    @Inner
+    public List<RouteVO> listRoutes() {
+        return systemService.listRoutes();
+    }
+}
+```
+
+
+
 ## 依赖引入
 
 ```xml
