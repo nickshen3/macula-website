@@ -259,6 +259,37 @@ public interface UserFeignClient {
 }
 ```
 
+#### 远程访问的熔断处理
+
+```java
+@FeignClient(value = "macula-cloud-system", contextId = "userFeignClient", fallbackFactory = AbstractUserFeignFallbackFactory.class)
+public interface UserFeignClient {
+
+    @GetMapping("/api/v1/users/{username}/loginUserinfo")
+    UserLoginVO getLoginUserInfoWithoutRoles(@PathVariable String username);
+}
+```
+
+@FeignClient的fallbackFactory属性可以配置当远程访问有异常的时候怎么处理。
+
+```java
+@Component
+@Slf4j
+public class UserFallbackFactory extends AbstractProviderFallbackFactory {
+
+    @Override
+    public UserFeignClient create(Throwable cause) {
+        log.error("异常原因:{}", cause.getMessage(), cause);
+        return new Provider1Service() {
+            @Override
+            public UserLoginVO getLoginUserInfoWithoutRoles(String username) {
+                return xxxx;
+            }
+        };
+    }
+}
+```
+
 
 
 ## 依赖引入

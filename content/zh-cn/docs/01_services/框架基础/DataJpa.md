@@ -112,13 +112,109 @@ public abstract class BaseEntity<PK extends Serializable> implements Persistable
 }
 ```
 
+### Fenix快速开始
+
+```java
+public interface BlogRepository extends JpaRepository<Blog, String> {
+
+    /**
+     * 使用 {@link QueryFenix} 注解来演示根据散参数、博客信息Bean(可以是其它Bean 或者 Map)来多条件模糊分页查询博客信息.
+     *
+     * @param ids      博客信息 ID 集合
+     * @param blog     博客信息实体类，可以是其它 Bean 或者 Map.
+     * @param pageable JPA 分页排序参数
+     * @return 博客分页信息
+     */
+    @QueryFenix
+    Page<Blog> queryMyBlogs(@Param("ids") List<String> ids, @Param("blog") Blog blog, Pageable pageable);
+
+}
+```
+
+```xml
+<!-- 这是用来操作博客信息的 Fenix XML 文件，请填写 namespace 命名空间. -->
+<fenixs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        namespace="dev.macula.boot.starter.jpa.test.repository.BlogRepository"
+        xmlns="http://macula.dev/schema/jpa"
+        xsi:schemaLocation="http://macula.dev/schema/jpa https://macula.dev/schema/jpa/fenix.xsd">
+
+    <!-- 这是一条完整的 Fenix 查询语句块，必须填写 fenix 标签的 id 属性. -->
+    <fenix id="queryMyBlogs">
+        SELECT
+        b
+        FROM
+        Blog AS b
+        WHERE
+        <in field="b.id" value="ids" match="ids != empty"/>
+        <andLike field="b.author" value="blog.author" match="blog.author != empty"/>
+        <andLike field="b.title" value="blog.title" match="blog.title != empty"/>
+        <andBetween field="b.createTime" start="blog.createTime" end="blog.lastUpdateTime"
+                    match="(?blog.createTime != empty) || (?blog.lastUpdateTime != empty)"/>
+    </fenix>
+</fenixs>
+```
+
+Fenix具体使用请参考[官方文档](https://blinkfox.github.io/fenix/#/README)
+
 
 
 ## 依赖引入
 
 ```xml
 <dependencies>
+    <dependency>
+        <groupId>dev.macula.boot</groupId>
+        <artifactId>macula-boot-commons</artifactId>
+    </dependency>
 
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <!-- fenix -->
+    <dependency>
+        <groupId>com.blinkfox</groupId>
+        <artifactId>fenix-spring-boot-starter</artifactId>
+    </dependency>
+
+    <!-- MySql -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+    <!-- Druid -->
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>dev.macula.boot</groupId>
+        <artifactId>macula-boot-starter-security</artifactId>
+        <optional>true</optional>
+    </dependency>
+
+    <!-- For Test -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>test</scope>
+    </dependency>
 </dependencies>
 ```
 
@@ -126,5 +222,5 @@ public abstract class BaseEntity<PK extends Serializable> implements Persistable
 
 ## 版权说明
 
-- spring-data-jpa
-- fenix
+- spring-data-jpa： https://github.com/spring-projects/spring-data-jpa/blob/main/LICENSE.txt
+- fenix： https://github.com/blinkfox/fenix/blob/develop/LICENSE
