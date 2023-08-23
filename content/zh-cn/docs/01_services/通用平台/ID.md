@@ -12,7 +12,9 @@ macula-cloud-tinyid是用Java开发的一款分布式id生成系统，基于数�
 
 
 
-## Starter组件坐标
+## 客户端接入
+
+### 组件坐标
 
 ```xml
 <dependency>
@@ -24,7 +26,7 @@ macula-cloud-tinyid是用Java开发的一款分布式id生成系统，基于数�
 
 
 
-## Starter使用配置
+### 使用配置
 
 ```yaml
 macula:
@@ -38,9 +40,9 @@ macula:
 
 
 
-## Starter核心功能
+### 核心功能
 
-### 性能与可用性
+#### 性能与可用性
 
 #### 性能
 
@@ -51,6 +53,17 @@ macula:
 
 1. 依赖db，当db不可用时，因为server有缓存，所以还可以使用一段时间，如果配置了多个db，则只要有1个db存活，则服务可用
 2. 使用tiny-client，只要server有一台存活，则理论上可用，server全挂，因为client有缓存，也可以继续使用一段时间
+
+### 依赖引入
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+```
 
 
 
@@ -104,19 +117,6 @@ macula:
 - IdGeneratorFactory是生产具体IdGenerator的工厂，每个biz_type生成一个IdGenerator实例。通过工厂，我们可以随时在db中新增biz_type，而不用重启服务
 - IdGeneratorFactory实际上有两个子类IdGeneratorFactoryServer和IdGeneratorFactoryClient，区别在于，getNextSegmentId的不同，一个是DbGet,一个是HttpGet
 - CachedIdGenerator则是具体的id生成器对象，持有currentSegmentId和nextSegmentId对象，负责nextId的核心流程。nextId最终通过AtomicLong.andAndGet(delta)方法产生。
-
-
-
-## Starter依赖引入
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-</dependencies>
-```
 
 
 

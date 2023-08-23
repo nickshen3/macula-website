@@ -10,7 +10,9 @@ macula-cloud-sentinel基于官方的sentinel-dashboard并引入nacos作为数据
 
 
 
-## 使用配置
+## 客户端使用
+
+### 使用配置
 
 ```yaml
 spring:
@@ -50,11 +52,7 @@ spring:
             rule-type: degrade
 ```
 
-
-
-## 客户端使用
-
-
+### 核心功能
 
 
 
