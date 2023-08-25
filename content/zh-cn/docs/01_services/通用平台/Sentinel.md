@@ -235,7 +235,7 @@ spring-cloud-starter-alibaba-sentinel默认已经集成了sentinel-spring-webflu
 
 ## 服务端介绍
 
-Macula基于Sentinel-Dashboard扩展了对于nacos数据源的支持。
+Macula基于Sentinel-Dashboard扩展了对于nacos数据源的支持。请参考[官网](https://sentinelguard.io/zh-cn/docs/dashboard.html)
 
 
 
