@@ -37,6 +37,9 @@ server:
   port: 8081
 
 spring:
+  profiles:
+  	# maven打包的时候指定profile，包括local,dev,test,staging,pet,prd，默认启用local
+    active: @profile.active@ 
   application:
     name: macula-cloud-system
   cloud:
@@ -90,11 +93,7 @@ spring:
 
 ## 核心功能
 
-请参考[官方文档](https://github.com/alibaba/spring-cloud-alibaba)
-
-### 限流熔断
-
-### RPC
+请参考[官方文档](https://sca.aliyun.com/zh-cn/)
 
 ## 依赖引入
 
