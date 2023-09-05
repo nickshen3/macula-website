@@ -2,7 +2,6 @@
 title: "Macula Boot Starter for StateMachine"
 linkTitle: "状态机"
 weight: 11
-
 ---
 
 ## 概述
