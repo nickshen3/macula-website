@@ -13,7 +13,6 @@ binlog4j是一个读取MySQL binlog的组件，以slave的方式接入mysql，�
 ## 组件坐标
 
 ```xml
-
 <dependency>
     <groupId>dev.macula.boot</groupId>
     <artifactId>macula-boot-starter-binlog4j</artifactId>
