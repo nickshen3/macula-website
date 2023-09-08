@@ -1,7 +1,7 @@
 ---
 title: "API规约"
 linkTitle: "API规约"
-weight: 3
+weight: 7
 ---
 
 ## 概述
@@ -120,6 +120,10 @@ RFC 3986中规定URI区分大小写，但别用大写字母来为难程序员了
   坏处：
 
   + 版本号在URI中破坏了REST的HATEOAS（hypermedia as the engine of application state）规则。版本号和资源之间并无直接关系。
+
+## 接口注释
+
+Swagger注释描述
 
 ## 参考文章
 

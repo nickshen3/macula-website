@@ -50,6 +50,7 @@ macula:
 
 ```json
 {
+  "success": "true",
   "code": "10001",
   "msg": "异常说明",
   "data": "具体的异常信息" 
@@ -88,7 +89,7 @@ public class BizException extends MaculaException {
 }
 ```
 
-> 大家在开发应用时，在service层可以讲底层异常使用BizException封装为业务异常抛出。在Controller层一般情况下无需catch任何异常，交由上述全局异常处理器统一处理。
+> 大家在开发应用时，在service层可以将底层异常使用BizException封装为业务异常抛出。在Controller层一般情况下无需catch任何异常，交由上述全局异常处理器统一处理。
 
 ### 全局返回结构处理
 
@@ -155,7 +156,7 @@ public class ConsumerController {
     }
 
     @PostMapping("/user")
-    // 该接口返回的JSON是{sucess:true, code:xxx, msg: xxx, data: {UserResult}}
+    // 该接口返回的JSON是{success:true, code:xxx, msg: xxx, data: {UserResult}}
     public UserResult getUser() {
         return provider1Service.getUser();
     }
