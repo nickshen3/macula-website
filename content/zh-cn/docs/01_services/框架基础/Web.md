@@ -52,8 +52,8 @@ macula:
 {
   "success": "true",
   "code": "10001",
-  "msg": "异常说明",
-  "data": "具体的异常信息" 
+  "msg": "错误描述",
+  "cause": "详细错误信息"
 }
 ```
 BizException异常的message信息会通过data字段返回，支持国际化code。其定义如下：
@@ -105,6 +105,7 @@ public class Result<T> implements Serializable {
     private boolean success;
     private String code;
     private String msg;
+  	private String cause;
     private T data;
 }
 ```

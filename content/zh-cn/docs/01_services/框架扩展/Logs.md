@@ -1,17 +1,16 @@
 ---
 title: "Macula Boot Starter Logs"
-linkTitle: "日志与监控"
+linkTitle: "日志配置"
 weight: 3
 ---
 
 ## 概述
 
-本模块主要提供日志发送、日志审计、监控上报等功能，由多个子模块组成。包括：
+本模块主要提供日志发送、日志审计等功能，由多个子模块组成。包括：
 
 - macula-boot-starter-auditlog  日志审计记录
 - macula-boot-starter-logstash  将日志发送给logstash
 - macula-boot-starter-skylog  将日志发送给skywalking
-- macula-boot-starter-prometheus 监控数据上报给prometheus
 
 ## 组件坐标
 
@@ -37,12 +36,6 @@ weight: 3
     <version>${macula.version}</version>
 </dependency>
 
-<!-- 发送监控指标到prometheus -->
-<dependency>
-    <groupId>dev.macula.boot</groupId>
-    <artifactId>macula-boot-starter-prometheus</artifactId>
-    <version>${macula.version}</version>
-</dependency>
 ```
 
 
@@ -331,12 +324,6 @@ public class AuditLogEventListener {
 
 
 
-### Prometheus
-
-引入macula-boot-starter-prometheus即可。其他在Prometheus控制台配置。
-
-
-
 ## 依赖引入
 
 - logstash
@@ -354,4 +341,4 @@ public class AuditLogEventListener {
 
 ## 版权说明
 
-上述代码来源于[RuoYi](https://plus-doc.dromara.org)并适当修改。基于MIT协议：https://gitee.com/dromara/RuoYi-Cloud-Plus/blob/master/LICENSE
+上述部分代码来源于[RuoYi](https://plus-doc.dromara.org)并适当修改。基于MIT协议：https://gitee.com/dromara/RuoYi-Cloud-Plus/blob/master/LICENSE
