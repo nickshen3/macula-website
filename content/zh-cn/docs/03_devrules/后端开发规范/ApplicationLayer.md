@@ -14,7 +14,7 @@ weight: 5
 
 ![image](../images/classic-3layer-structure.png)
 
-### 对象模型说明(VO,DTO,PO,BO)
+### 对象模型说明(Query, VO, DTO, Entity, BO)
 
 TODO
 
