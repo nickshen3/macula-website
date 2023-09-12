@@ -1,6 +1,6 @@
 ---
 title: "Macula Boot Starter Prometheus"
-linkTitle: "监控"
+linkTitle: "监控配置"
 weight: 4
 ---
 
