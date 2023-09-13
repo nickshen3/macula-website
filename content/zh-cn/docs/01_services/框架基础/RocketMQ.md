@@ -226,6 +226,54 @@ public class ExtRocketMQTemplate extends RocketMQTemplate {
 
 
 
+### 环境隔离
+
+本模块支持通过PostProcessor自动设置@RocketMQTransactionListener的namespace。当该注解没有配置namespace而配置文件中配置了rocketmq.consumer.namespace时，会自动设置namespace。
+
+```yaml
+macula:
+	rocketmq:
+		namespace:
+			enabled: true
+rocketmq:
+	producer:
+		namespace: macula-${spring.profiles.active}
+		...
+	consumer:
+		namespace: macula-${spring.profiles.active}  
+    ...
+```
+
+### 灰度隔离
+
+通过在消息中添加user-property，消费时过滤来实现灰度环境的消息隔离。灰度标识一般情况下可以利用spring cloud注册中心的metadata配置。
+
+```yaml
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: ${nacos.config.server-addr}
+        namespace: ${nacos.config.namespace}
+        # group:
+        metadata:
+          grayversion: version1        # 灰度标识，这个标识会被写入rocketmq的user property
+```
+
+灰度配置如下：
+
+```yaml
+macula:
+	rocketmq:
+		gray:
+			enabled: true							# 是否开启灰度隔离
+			gray-consume-main: false  # 灰度环境消费者是否可以消费基线消息
+			main-consume-gray: false  # 基线环境消费者是否可以消费灰度环境消息
+```
+
+
+
 ## 依赖引入
 
 ```xml
