@@ -14,7 +14,7 @@ weight: 5
 
 经典三层架构如下图所示：
 
-![image](../images/3-layer.png)
+![image](../images/model-small.png)
 
 ### 对象模型说明(Query,Form,DTO,VO,BO,Entity)
 
@@ -28,6 +28,8 @@ weight: 5
 + BO业务对象：由SQL联合多表查询返回的对象，或者由多个Entity组合的对象
 + Entity实体对象：与数据库表一一对应的实体对象，与PO等价
 
-以上模型对象的定义和使用，同样适用于跨平台的openapi交互以及平台内部微服务间的交互场景。
+以上模型对象的定义和使用，同样适用于平台内部微服务间的调用以及跨平台的openapi交互场景。如下图所示：
+
+![image](../images/model2.png)
 
 详细样例请看：https://github.com/macula-projects/macula-samples
