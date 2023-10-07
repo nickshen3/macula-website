@@ -61,14 +61,12 @@ id = "UA-00000000-0"
 [languages]
 [languages.en]
 title = "Macula"
-description = "Macula Official Website"
 languageName ="English"
 contentDir = "content/en"
 # Weight used for sorting.
 weight = 1
 [languages.zh-cn]
 title = "Macula"
-description = "Macula 官方网站"
 languageName = "中文"
 contentDir = "content/zh-cn"
 
@@ -209,6 +207,7 @@ enable = false
 [module]
   # uncomment line below for temporary local development of module
   # replacements = "github.com/google/docsy -> ../../docsy"
+  proxy = 'https://goproxy.cn'
   [module.hugoVersion]
     extended = true
     min = "0.75.0"
