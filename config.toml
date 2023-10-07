@@ -207,7 +207,6 @@ enable = false
 [module]
   # uncomment line below for temporary local development of module
   # replacements = "github.com/google/docsy -> ../../docsy"
-  proxy = 'https://goproxy.cn'
   [module.hugoVersion]
     extended = true
     min = "0.75.0"
