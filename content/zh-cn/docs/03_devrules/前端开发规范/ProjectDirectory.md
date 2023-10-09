@@ -1,6 +1,6 @@
 ---
-title: "工程目录"
-linkTitle: "工程目录"
+title: "工程规约"
+linkTitle: "工程规约"
 weight: 2
 ---
 

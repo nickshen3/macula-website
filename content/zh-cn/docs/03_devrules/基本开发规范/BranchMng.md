@@ -1,7 +1,7 @@
 ---
 title: "分支管理"
 linkTitle: "分支管理"
-weight: 1
+weight: 2
 ---
 
 ## 概述

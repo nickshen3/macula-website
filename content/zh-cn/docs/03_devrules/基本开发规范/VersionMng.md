@@ -1,7 +1,7 @@
 ---
 title: "版本管理"
 linkTitle: "版本管理"
-weight: 2
+weight: 3
 ---
 
 ## 概述
