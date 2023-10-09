@@ -1,7 +1,7 @@
 ---
 title: "API规约"
 linkTitle: "API规约"
-weight: 4
+weight: 2
 ---
 
 ## 概述
@@ -15,55 +15,59 @@ weight: 4
 
 如果预期系统非常庞大，则建议尽量将API部署到独立专用子域名（例如：“api.”）下；如果确定API很简单，不会进一步扩展，则可以考虑放到应用根域名下面（例如，“/api/”）。
 
-      独立子域名：https://api.example.com/v1/*
-      共享应用根域名：https://example.org/api/v1/*
+      独立子域名：https://api.example.com/api/v1/*
+      共享应用根域名：https://example.org/[xxx]/api/v1/* （微服务平台一般都是通过网关的统一域名对外）
+
+### API各模块URL
+
+建议每个领域或者Controller统一一个URL根，一般的形式是：/api/v1/[xxx]，xxx表示某个领域模块名称
 
 ### URI末尾不要添加“/”
 
 多一个斜杠，语义完全不同，究竟是目录，还是资源，还是不确定而多做一次301跳转？尽量保持URI结构简洁、语义清晰。
 
-      负面case：http://api.canvas.com/shapes/
-      正面case：http://api.canvas.com/shapes
+      负面case：http://api.canvas.com/api/v1/shapes/
+      正面case：http://api.canvas.com/api/v1/shapes
 
 ### 禁止在URL中使用“_”
 
 目的是提高可读性，“_”可能被文本查看器中的下划线特效遮蔽。建议使用连字符“-”替代下划线“_”,使用“-”提高URI的可读性。
 
-      负面case：http://api.example.com/blogs/my_first_post
-      正面case：http://api.example.com/blogs/my-first-post
+      负面case：http://api.example.com/api/v1/blogs/my_first_post
+      正面case：http://api.example.com/api/v1/blogs/my-first-post
 
 ### 禁止使用大写字母
 
 RFC 3986中规定URI区分大小写，但别用大写字母来为难程序员了，既不美观，又麻烦，同样的原则：建议使用连字符“-”连接不同单词。
 
-      负面case：http://api.example.com/My-Folder/My-Doc
-      正面case：http://api.example.com/my-folder/my-doc
+      负面case：http://api.example.com/api/v1/My-Folder/My-Doc
+      正面case：http://api.example.com/api/v1/my-folder/my-doc
 
 ### 不要在URI中包含扩展名
 
 应鼓励REST API客户端使用HTTP提供的格式选择机制Accept request header。
 
-      负面case：http://api.example.com/my-doc/hello.json
-      正面case：http://api.example.com/my-doc/hello
+      负面case：http://api.example.com/api/v1/my-doc/hello.json
+      正面case：http://api.example.com/api/v1/my-doc/hello
 
 ### 建议URI中的名称使用复数
 
 为了保持URI格式简洁统一，资源在URI中应统一使用复数形式，如需访问资源的一个实例，可以通过资源ID定位（@PathVariable）。
 
-      负面case：http://api.college.com/student/3248234
-      正面case：http://api.college.com/students/3248234
+      负面case：http://api.college.com/api/v1/student/3248234
+      正面case：http://api.college.com/api/v1/students/3248234
 
 如何处理关联关系？
 
-      http://api.college.com/students/3248234/courses - 检索学生3248234所学习的所有课程
-      http://api.college.com/students/3248234/courses/physics - 检索学生3248234的所学习的物理课程
+      http://api.college.com/api/v1/students/3248234/courses - 检索学生3248234所学习的所有课程
+      http://api.college.com/api/v1/students/3248234/courses/physics - 检索学生3248234的所学习的物理课程
 
 ### 建议URI设计时只包含名词
 
 每个URI代表一种资源或者资源集合，因此，建议只包含名词，不包含动词。
 
-      负面case：http://api.example.com/get-all-employees
-      正面case：http://api.example.com/employees
+      负面case：http://api.example.com/api/v1/get-all-employees
+      正面case：http://api.example.com/api/v1/employees
 
 那么，如何告诉服务器端我们需要进行什么样的操作？CRUD？
 
@@ -108,9 +112,9 @@ RFC 3986中规定URI区分大小写，但别用大写字母来为难程序员了
   
 ### URL中指定版本
 
-  + URI上添加版本号：例如，https://api.example.org/v1/users
+  + URI上添加版本号：例如，https://api.example.org/api/v1/users
 
-  + 参数中添加版本号： 例如，https://api.example.org/users?v=1.0
+  + 参数中添加版本号： 例如，https://api.example.org/api/users?v=1.0
 
   好处：
 
@@ -123,7 +127,7 @@ RFC 3986中规定URI区分大小写，但别用大写字母来为难程序员了
 
 ## 接口注释
 
-Swagger注释描述
+Swagger注释描述，要求使用OpenAPI规范注释接口
 
 ## 参考文章
 
