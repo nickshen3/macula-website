@@ -93,13 +93,12 @@ npm run dev				# 本地运行前端应用
 
 ```sh
 mvn archetype:generate \
-    -DgroupId=com.infintius.xxp											# 你的应用的GroupID
-    -DartifactId=xxp																# 你的应用的ArtifactId
-    -Dversion=1.0.0-SNAPSHOT 												# 你的应用的版本号
-    -DarchetypeArtifactId=macula-boot-archetype 
-    -DarchetypeGroupId=dev.macula.boot 
-    -DarchetypeVersion=5.0.0-SNAPSHOT 
-    -DarchetypeRepository=~/.m2/repository 					# macula-boot-archetype插件位置（你本地mvn repository目录）
+    -DgroupId=dev.macula.samples	\										# 你的应用的GroupID
+    -DartifactId=macula-samples	\											# 你的应用的ArtifactId
+    -Dversion=1.0.0-SNAPSHOT \												# 你的应用的版本号
+    -DarchetypeArtifactId=macula-boot-archetype \ 
+    -DarchetypeGroupId=dev.macula.boot \
+    -DarchetypeVersion=5.0.0 \
     -Dgitignore=.gitignore -DinteractiveMode=false
 ```
 
@@ -115,16 +114,26 @@ mvn archetype:generate \
 
 各应用平台获得Macula平台的管理账号后，即可登录MaculaCloudAdmin后台，进行应用创建、菜单创建等操作。
 
-### 修改应用接入Macula Cloud
+### 运行步骤
 
-使用 macula-cloud-system提供的应用AK、SK调用接口，需在macula-samples-admin-bff项目的application.yml 配置如下信息：
-
-     macula:
-       cloud:
-        app-key: ecp                            # 接入到macula cloud的appkey
-        secret-key: xxxxx                       # 接入到macula cloud的secretKey
-        system:
-          endpoint: http://localhost:9000/system  # macula cloud system的端点
-
-
-至此，Macula Cloud平台的使用你已经快速启动起来了。
+- 找到macula-samples-service1/docs/macula-samples-service1.sql，创建数据库，导入SQL创建示例表
+- 向Macula Cloud申请应用接入，应用名称是macula-samples-admin-bff，修改上述应用的配置
+    ```yaml
+    macula:
+      cloud:
+        endpoint: http://127.0.0.1:9000                   # macula cloud网关地址
+        app-key: ${spring.application.name}
+        secret-key: 待修改
+  ```
+- 向Macula IAM申请oauth2
+  client，修改macula-samples-admin/src/views/common/login/components/passwordForm.vue，修改client_id和client_secret
+    ```html
+        var data = {
+          username: this.form.user,
+          password: this.form.password,
+          grant_type: 'password',
+          client_id: '待修改',
+          client_secret: '待修改',
+          scope: 'message.read message.write userinfo'
+        }
+    ```
