@@ -1,5 +1,5 @@
 ---
-title: "开发手册"
-linkTitle: "开发手册"
+title: "开发指引"
+linkTitle: "开发指引"
 weight: 5
 ---
