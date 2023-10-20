@@ -63,7 +63,7 @@ npm install				# 安装npm依赖包
 npm run dev				# 本地运行前端应用
 ```
 
-打开浏览器，访问前端配置的网址，如http://localhost:5800/，
+打开浏览器，访问前端配置的网址，如http://localhost:5800/
 
 成功进入登录页面，即前端启动成功。
 
