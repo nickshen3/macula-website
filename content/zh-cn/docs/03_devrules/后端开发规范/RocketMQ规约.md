@@ -54,4 +54,4 @@ weight: 8
 
 ## 参考
 
-4.1 RocketMQ最佳实践：[https://github.com/apache/rocketmq/blob/master/docs/cn/best_practice.md](https://github.com/apache/rocketmq/blob/master/docs/cn/best_practice.md)
+4.1 [RocketMQ最佳实践](https://github.com/apache/rocketmq/blob/master/docs/cn/best_practice.md)
