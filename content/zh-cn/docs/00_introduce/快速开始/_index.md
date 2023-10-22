@@ -8,8 +8,6 @@ weight: 2
 
 Macula快速开始内容主要包括两部分：一是Macula Cloud平台搭建，二是Macula Cloud平台接入。
 
-
-
 ## Macula Cloud平台搭建
 
 ### 环境准备
@@ -24,8 +22,6 @@ Macula快速开始内容主要包括两部分：一是Macula Cloud平台搭建�
 |  MySQL   | 5.7.0以上  |   |
 |  Redis   | 3.0.0以上  |   |
 |  Nacos   | 2.0.0以上  |   |
-
-
 
 ### 项目搭建
 
@@ -58,8 +54,6 @@ git clone https://github.com/macula-projects/macula-cloud-admin.git				# 前端�
 
 将上述项目导入IDEA和Visual Code。
 
-
-
 ### 项目运行
 
 ##### 打开Visual Code，导入macula-cloud-admin
@@ -69,25 +63,23 @@ npm install				# 安装npm依赖包
 npm run dev				# 本地运行前端应用
 ```
 
-打开浏览器，访问前端配置的网址，如http://localhost:5800/，成功进入登录页面，即前端启动成功。
+打开浏览器，访问前端配置的网址，如http://localhost:5800/
+
+成功进入登录页面，即前端启动成功。
 
   ![image](images/mca-login.png)
-
-
 
 ##### 打开IDEA或者Eclipse导入macula-cloud代码
 
 - 启动macula-cloud-iam
 - 启动macula-cloud-gateway
-- 启动macula-cloud-gateway
+- 启动macula-cloud-system
 
 其它模块按照需要启动使用
 
 使用默认密码admin/admin登录系统，进入系统控制台，运行成功。
 
    ![image](images/mca-index.png)
-
-
 
 ## 使用脚手架创建自己的平台
 
@@ -114,7 +106,7 @@ mvn archetype:generate \
 
 各应用平台获得Macula平台的管理账号后，即可登录MaculaCloudAdmin后台，进行应用创建、菜单创建等操作。
 
-### 运行步骤
+### macula-samples运行步骤
 
 - 找到macula-samples-service1/docs/macula-samples-service1.sql，创建数据库，导入SQL创建示例表
 - 向Macula Cloud申请应用接入，应用名称是macula-samples-admin-bff，修改上述应用的配置
@@ -125,8 +117,10 @@ mvn archetype:generate \
         app-key: ${spring.application.name}
         secret-key: 待修改
   ```
-- 向Macula IAM申请oauth2
-  client，修改macula-samples-admin/src/views/common/login/components/passwordForm.vue，修改client_id和client_secret
+- 向Macula平台（统一认证IAM服务）申请oauth2的client
+
+  修改macula-samples-admin/src/views/common/login/components/passwordForm.vue，修改client_id和client_secret
+  
     ```html
         var data = {
           username: this.form.user,
