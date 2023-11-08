@@ -108,6 +108,24 @@ macula:
 
 {{% /alert %}}
 
+
+
+###  定制JWT的Claims
+
+框架开放了JwtClaimsCustomizer接口，可以用来添加你自己的Claim
+
+```java
+@Bean
+JwtClaimsCustomizer jwtClaimsCustomizer() {
+    return builder -> {
+        builder.claim("sal", "demo");
+        builder.claim("abc", "aaa");
+    };
+}
+```
+
+
+
 ### 接口的加解密和签名
 
 网关要支持接口加解密和签名的话，首先要实现CryptoService，加解密所需方法。比如接入密钥服务系统。
