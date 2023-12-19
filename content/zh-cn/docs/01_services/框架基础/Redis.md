@@ -117,19 +117,19 @@ public class Config {
     @Primary
     @Bean(destroyMethod = "shutdown")
     public RedissonClient redissonClientOne(ApplicationContext ctx, RedissonProperties redissonPropertiesOne) throws Exception {
-        Config config = RedissonConfigBuilder.create().build(ctx, null, redissonProperties);
+        Config config = RedissonConfigBuilder.create().build(ctx, null, redissonPropertiesOne);
         return Redisson.create(config);
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.redis.redisson.tow")
+    @ConfigurationProperties(prefix = "spring.redis.redisson.two")
     public RedissonProperties redissonPropertiesTwo() {
         return new RedissonProperties();
     }
 
     @Bean(destroyMethod = "shutdown")
     public RedissonClient redissonClientTwo(ApplicationContext ctx, RedissonProperties redissonPropertiesTwo) throws Exception {
-        Config config = RedissonConfigBuilder.create().build(ctx, null, redissonProperties);
+        Config config = RedissonConfigBuilder.create().build(ctx, null, redissonPropertiesTwo);
         return Redisson.create(config);
     }
 }
