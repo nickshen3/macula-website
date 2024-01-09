@@ -43,6 +43,7 @@ macula:
 - ConstraintViolationException（单个参数校验异常抛出ConstraintViolationException）
 - MethodArgumentNotValidException (使用 json 请求体调用接口，校验异常抛出 MethodArgumentNotValidException)
 - BizException（业务异常，一般业务可以继承这个异常类）
+- BizCheckException（这个异常主要是业务检查类异常，一般告警系统无需关注，主要是提示给前端用户的输入不正确）
 - NullPointerException
 - Exception（兜底）
 
@@ -90,6 +91,8 @@ public class BizException extends MaculaException {
 ```
 
 > 大家在开发应用时，在service层可以将底层异常使用BizException封装为业务异常抛出。在Controller层一般情况下无需catch任何异常，交由上述全局异常处理器统一处理。
+>
+> 注意==BizCheckException==与BizException的用处不同，这个异常会返回200响应，只是success=false，用于提醒前端用户输入不正确。
 
 ### 全局返回结构处理
 
