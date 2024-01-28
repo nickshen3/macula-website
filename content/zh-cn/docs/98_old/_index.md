@@ -1,7 +1,7 @@
 ---
 type: docs
 title: "历史文档"
-linkTitle: "历史文档"
+linkTitle: "archvie"
 weight: 980
 description: 历史文档
 ---

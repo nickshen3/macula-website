@@ -1,16 +1,15 @@
 ---
-title: "Macula Boot Starter Logs"
-linkTitle: "日志配置"
-weight: 3
+title: "Logging"
+linkTitle: "Logging"
+weight: 1
 ---
 
 ## 概述
 
-本模块主要提供日志发送、日志审计等功能，由多个子模块组成。包括：
+本模块主要提供默认的日志格式配置、日志发送、日志审计等功能，由多个子模块组成。包括：
 
 - macula-boot-starter-auditlog  日志审计记录
 - macula-boot-starter-logstash  将日志发送给logstash
-- macula-boot-starter-skylog  将日志发送给skywalking
 
 ## 组件坐标
 
@@ -28,17 +27,7 @@ weight: 3
     <artifactId>macula-boot-starter-logstash</artifactId>
     <version>${macula.version}</version>
 </dependency>
-
-<!-- 发送日志到skywalking -->
-<dependency>
-    <groupId>dev.macula.boot</groupId>
-    <artifactId>macula-boot-starter-skylog</artifactId>
-    <version>${macula.version}</version>
-</dependency>
-
 ```
-
-
 
 ## 使用说明
 
@@ -154,8 +143,6 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 </configuration>
 ```
 
-
-
 ### AuditLog
 
 添加macula-boot-starter-auditlog依赖后，在需要审计的方法上加上@AuditLog注解，添加注解后调用方法会触发OperLogEvent事件，可以定义Listener监听事件用于持久化审计日志。
@@ -248,8 +235,6 @@ public class AuditLogEventListener {
 }
 ```
 
-
-
 ### Logstash
 
 添加macula-boot-starter-logstash依赖，在你的logback的配置文件中，加入include，并且需要再application.yml中定义logstash.address配置logstash地址。
@@ -280,48 +265,6 @@ public class AuditLogEventListener {
     </root>
 </included>
 ```
-
-
-
-### Skylog
-
-添加macula-boot-starter-skylog依赖，在你的logback的配置文件中，加入include
-
-```xml
-<include resource="logback-skylog.xml" />
-```
-
-上述include的内容如下：
-
-```xml
-<included>
-    <!-- 控制台输出 tid -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
-                <pattern>[%tid] ${console.log.pattern}</pattern>
-            </layout>
-            <charset>utf-8</charset>
-        </encoder>
-    </appender>
-
-    <!-- skywalking 采集日志 -->
-    <appender name="sky_log" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
-                <pattern>[%tid] ${console.log.pattern}</pattern>
-            </layout>
-            <charset>utf-8</charset>
-        </encoder>
-    </appender>
-
-    <root level="info">
-        <appender-ref ref="console"/>
-        <appender-ref ref="sky_log"/>
-    </root>
-</included>
-```
-
 
 
 ## 依赖引入
