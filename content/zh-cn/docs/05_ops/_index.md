@@ -1,5 +1,5 @@
 ---
 title: "运维手册"
-linkTitle: "opsmanual"
+linkTitle: "运维手册"
 weight: 6
 ---

@@ -1,5 +1,5 @@
 ---
 title: "框架扩展"
-linkTitle: "extend"
+linkTitle: "框架扩展"
 weight: 2
 ---

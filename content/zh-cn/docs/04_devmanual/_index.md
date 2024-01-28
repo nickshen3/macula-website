@@ -1,5 +1,5 @@
 ---
 title: "开发指引"
-linkTitle: "devguide"
+linkTitle: "开发指引"
 weight: 5
 ---

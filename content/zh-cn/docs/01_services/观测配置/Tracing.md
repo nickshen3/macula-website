@@ -46,7 +46,7 @@ weight: 3
 
 如果没有引入spring-cloud-sleuth-zipkin这个jar文件，则trace信息会输出到控制台
 
-{{% alert %}}
+{{% /alert %}}
 
 #### 接入zipkin
 

@@ -1,5 +1,5 @@
 ---
 title: "基本开发规范"
-linkTitle: "basicrules"
+linkTitle: "基本开发规范"
 weight: 1
 ---

@@ -1,6 +1,6 @@
 ---
 title: "框架基础"
-linkTitle: "framework"
+linkTitle: "框架基础"
 weight: 1
 ---
 
