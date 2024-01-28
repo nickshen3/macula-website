@@ -13,25 +13,25 @@ weight: 3
 
 ## 组件坐标
 
-- sleuth
+### Sleuth
 
-  ```xml
-  <dependency>
-      <groupId>dev.macula.boot</groupId>
-      <artifactId>macula-boot-starter-sleuth</artifactId>
-      <version>${macula.version}</version>
-  </dependency>
-  ```
+```xml
+<dependency>
+    <groupId>dev.macula.boot</groupId>
+    <artifactId>macula-boot-starter-sleuth</artifactId>
+    <version>${macula.version}</version>
+</dependency>
+```
 
-- skywalking
+### Skywalking
 
-  ```xml
-  <dependency>
-      <groupId>dev.macula.boot</groupId>
-      <artifactId>macula-boot-starter-skywalking</artifactId>
-      <version>${macula.version}</version>
-  </dependency>
-  ```
+```xml
+<dependency>
+    <groupId>dev.macula.boot</groupId>
+    <artifactId>macula-boot-starter-skywalking</artifactId>
+    <version>${macula.version}</version>
+</dependency>
+```
 
 
 
