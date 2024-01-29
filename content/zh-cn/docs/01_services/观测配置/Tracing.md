@@ -82,9 +82,10 @@ spring:
 
 #### 将日志发送到Skywalking（不推荐）
 
-添加macula-boot-starter-skywalking依赖，在你的logback的配置文件中，加入include
+添加macula-boot-starter-skywalking依赖，在你的logback-spring.xml的配置文件中，加入include
 
 ```xml
+<include resource="org/springframework/boot/logging/logback/defaults.xml" />
 <include resource="logback-skylog.xml" />
 ```
 
@@ -93,28 +94,26 @@ spring:
 ```xml
 <included>
     <!-- 控制台输出 tid -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
-                <pattern>[%tid] ${console.log.pattern}</pattern>
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.mdc.TraceIdMDCPatternLogbackLayout">
+                <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
             </layout>
-            <charset>utf-8</charset>
         </encoder>
     </appender>
 
     <!-- skywalking 采集日志 -->
-    <appender name="sky_log" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">
+    <appender name="grpc-log" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
-                <pattern>[%tid] ${console.log.pattern}</pattern>
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.mdc.TraceIdMDCPatternLogbackLayout">
+                <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
             </layout>
-            <charset>utf-8</charset>
         </encoder>
     </appender>
 
     <root level="info">
-        <appender-ref ref="console"/>
-        <appender-ref ref="sky_log"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="grpc-log"/>
     </root>
 </included>
 ```
