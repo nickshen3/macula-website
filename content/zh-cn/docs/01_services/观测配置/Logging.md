@@ -240,7 +240,10 @@ public class AuditLogEventListener {
 添加macula-boot-starter-logstash依赖，在你的logback的配置文件中，加入include，并且需要再application.yml中定义logstash.address配置logstash地址。
 
 ```xml
-<include resource="logback-logstash.xml" />
+<include resource="logstash-appender.xml" />
+<root level="INFO">
+	<appender-ref ref="logstash"/>
+</root>
 ```
 
 上述inlcude的内容如下：
@@ -259,10 +262,6 @@ public class AuditLogEventListener {
             <customFields>{"spring.application.name":"${APPLICATION_NAME}"}</customFields>
         </encoder>
     </appender>
-
-    <root level="info">
-        <appender-ref ref="logstash"/>
-    </root>
 </included>
 ```
 

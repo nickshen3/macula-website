@@ -86,7 +86,11 @@ spring:
 
 ```xml
 <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-<include resource="logback-skylog.xml" />
+<include resource="logback-appender.xml" />
+<root level="INFO">
+    <appender-ref ref="skywalking-console"/>
+    <appender-ref ref="skywalking-grpc"/>
+</root>
 ```
 
 上述include的内容如下：
