@@ -29,8 +29,6 @@ weight: 2
 
 如果只需要health端点，只需要引入spring-boot-starter-actuator即可。
 
-
-
 ### 配置Prometheus端点
 
 引入macula-boot-starter-prometheus即可。其他在Prometheus控制台配置。
