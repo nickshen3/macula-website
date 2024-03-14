@@ -26,6 +26,8 @@ weight: 1
 
 ```yaml
 macula:
+	jackson:
+		null-to-empty: true     # 设置为true时，json序列化默认将null转为-1或者空串，空对象转为{}，空数组转为[]。默认值是false
   web:
     exception-advie: true   # 统一异常处理器，默认true
     response-advice: true   # 统一响应处理器，默认true
