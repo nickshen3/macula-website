@@ -142,9 +142,9 @@ public class Config {
 spring:
   redis:
     one:
-			xxx
+      xxx
     two:
-    	xxx
+      xxx
 ```
 
 然后添加配置Bean，注意其中一个要设置@Primary注解，以便给默认的RedisConnectionFactory使用
