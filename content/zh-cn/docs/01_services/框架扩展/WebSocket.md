@@ -1,3 +1,9 @@
+---
+title: "Macula Boot Starter for WebSocket"
+linkTitle: "WebSocket"
+weight: 22
+---
+
 ## 概述
 
 该模块基于[Spring Boot Websocket](https://docs.spring.io/spring-boot/docs/current/reference/html/messaging.html#messaging.websockets)搭建，支持基于[STOMP协议](https://docs.spring.io/spring-framework/reference/web/websocket.html)的Websocket通讯，通过Redis Pub/Sub实现Websocket跨实例通讯。
