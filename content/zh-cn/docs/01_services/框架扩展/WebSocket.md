@@ -323,6 +323,51 @@ public class WebSocketController {
 
 具体可以参考macula-example/macula-example-consumer项目
 
+### 安全配置
+
+通过实现以下接口可以自定义destionation路径的权限，与URL角色权限类似
+
+```java
+public interface MessageSecurityMetaSourceCustomizer {
+    void customize(MessageSecurityMetadataSourceRegistry messages);
+}
+```
+
+默认已经做了如下配置
+
+```java
+@Configuration
+@RequiredArgsConstructor
+@Order(Ordered.HIGHEST_PRECEDENCE + 99)
+public class WebSocketSecurityConfiguration extends AbstractSecurityWebSocketMessageBrokerConfigurer {
+
+    private final WebSocketProperties properties;
+    private final Collection<MessageSecurityMetaSourceCustomizer> customizers;
+
+    @Override
+    protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
+
+        if (properties.isPermitTest()) {
+            messages.nullDestMatcher().permitAll()
+                    .simpDestMatchers("/app/test/**").permitAll()
+                    .simpSubscribeDestMatchers("/user/queue/test/**", "/topic/test/**").permitAll();
+        }
+
+        customizers.forEach(customizer -> {
+            customizer.customize(messages);
+        });
+
+        // 兜底，所有漏网之鱼都要登录认证通过
+        messages.anyMessage().authenticated();
+    }
+
+    @Override
+    protected boolean sameOriginDisabled() {
+        return true;
+    }
+}
+```
+
 
 
 ## 依赖引入
