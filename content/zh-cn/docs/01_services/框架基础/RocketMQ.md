@@ -272,6 +272,78 @@ macula:
 			main-consume-gray: false  # 基线环境消费者是否可以消费灰度环境消息
 ```
 
+### 连接多个集群
+
+默认情况下只能连接一个RocketMQ集群，如果要发送消息给多个集群，可以使用ExtRocketMQTemplateConfiguration注解生成新的RocketMQTemplate
+
+```java
+@ExtRocketMQTemplateConfiguration(nameServer = "${demo.rocketmq.extNameServer}")
+public class ExtRocketMQTemplate extends RocketMQTemplate {
+}
+
+public class ProductApp {
+    @Resource(name = "extRocketMQTemplate")
+    private RocketMQTemplate extRocketMQTemplate;
+  	...
+}
+```
+
+PULL消费模式类似
+
+```java
+@ExtRocketMQConsumerConfiguration(nameServer = "${demo.rocketmq.extNameServer}")
+public class ExtRocketMQTemplate extends RocketMQTemplate {
+}
+
+public class ConsumerApplication implements CommandLineRunner {
+
+    @Resource(name = "extRocketMQTemplate")
+    private RocketMQTemplate extRocketMQTemplate;
+
+    public static void main(String[] args) {
+        SpringApplication.run(ConsumerApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        //This is an example of pull consumer using extRocketMQTemplate.
+        messages = extRocketMQTemplate.receive(String.class);
+        System.out.printf("receive from extRocketMQTemplate, messages=%s %n", messages);
+    }
+}
+```
+
+RocketMQMessageListener注解本身就支持设置不同服务器地址
+
+```java
+@RocketMQMessageListener(nameServer = "${demo.rocketmq.myNameServer}", topic = "${demo.rocketmq.topic}", consumerGroup = "string_consumer_newns")
+public class StringConsumerNewNS implements RocketMQListener<String> {
+    @Override
+    public void onMessage(String message) {
+        System.out.printf("------- StringConsumerNewNS received: %s \n", message);
+    }
+}
+```
+
+RocketMQTransactionListener默认使用rocketMQTemplate这个bean，可以使用该注解rocketMQTemplateBeanName属性配置不同的RocketMQTemplate
+
+```java
+@RocketMQTransactionListener(rocketMQTemplateBeanName = "extRocketMQTemplate")
+public class ExtTransactionListenerImpl implements RocketMQLocalTransactionListener {
+      @Override
+      public RocketMQLocalTransactionState executeLocalTransaction(Message msg, Object arg) {
+          System.out.printf("ExtTransactionListenerImpl executeLocalTransaction and return UNKNOWN. \n");
+          return RocketMQLocalTransactionState.UNKNOWN;
+      }
+
+      @Override
+      public RocketMQLocalTransactionState checkLocalTransaction(Message msg) {
+          System.out.printf("ExtTransactionListenerImpl checkLocalTransaction and return COMMIT. \n");
+          return RocketMQLocalTransactionState.COMMIT;
+      }
+}
+```
+
 
 
 ## 依赖引入

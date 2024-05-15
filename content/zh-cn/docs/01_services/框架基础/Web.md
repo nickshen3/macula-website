@@ -26,6 +26,9 @@ weight: 1
 
 ```yaml
 macula:
+	jackson:
+		null-to-empty: true     # 默认为false。设置为true时，json序列化默认将null转为-1或者空串，空对象转为{}，空数组转为[]。
+		long-to-string: false   # 默认为true。设置为true时，BigDecimal/BigInteger/Long类型会序列化为字符串，设置为false时，超出JS最大最小值范围才处理为字符串，其他按照数字处理。
   web:
     exception-advie: true   # 统一异常处理器，默认true
     response-advice: true   # 统一响应处理器，默认true
