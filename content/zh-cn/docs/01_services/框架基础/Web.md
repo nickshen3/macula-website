@@ -30,8 +30,8 @@ macula:
 		null-to-empty: true     # 默认为false。设置为true时，json序列化默认将null转为-1或者空串，空对象转为{}，空数组转为[]。
 		long-to-string: false   # 默认为true。设置为true时，BigDecimal/BigInteger/Long类型会序列化为字符串，设置为false时，超出JS最大最小值范围才处理为字符串，其他按照数字处理。
 		local-date-time-format: 'yyyy/MM/dd HH:mm:ss a'  # 设置LocalDateTime的全局格式
-    local-date-format: 'dd/MM/yyyy'									 # 设置LocalDate的全局格式
-    local-time-format: 'HH:mm:ss a'									 # 设置LocalTime的全局格式
+        local-date-format: 'dd/MM/yyyy'									 # 设置LocalDate的全局格式
+        local-time-format: 'HH:mm:ss a'									 # 设置LocalTime的全局格式
   web:
     exception-advie: true   # 统一异常处理器，默认true
     response-advice: true   # 统一响应处理器，默认true
@@ -261,8 +261,8 @@ private LocalDateTime createTime;
 macula:
 	jackson:
 		local-date-time-format: 'yyyy/MM/dd HH:mm:ss a'  # 设置LocalDateTime的全局格式
-    local-date-format: 'dd/MM/yyyy'									 # 设置LocalDate的全局格式
-    local-time-format: 'HH:mm:ss a'									 # 设置LocalTime的全局格式
+        local-date-format: 'dd/MM/yyyy'									 # 设置LocalDate的全局格式
+        local-time-format: 'HH:mm:ss a'									 # 设置LocalTime的全局格式
 ```
 
 上述配置会全局影响所有LocalDateTime、LocalDate、LocalTime的序列化和反序列化的日期时间格式，如果字段上使用了@JsonFormat，则以@JsonFormat为准。
