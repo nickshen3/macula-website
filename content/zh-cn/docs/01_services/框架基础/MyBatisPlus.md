@@ -29,6 +29,7 @@ macula:
   mybatis-plus:
     tenant-id: 1L                             # 租户ID，默认1L
     tenant-suffixes: xxx                      # 默认是tenant,TENANT
+    tenant-enable: true												# 默认是true，开启多租户支持
     audit:
       create-by-name: createBy                # 创建人，默认createBy
       create-time-name: createTime            # 创建时间，默认createTime

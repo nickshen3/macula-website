@@ -315,6 +315,25 @@ public class RedisConfiguration {
 }
 ```
 
+### 开启CORS
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      globalcors:  												# 全局CORS配置，适用于所有路由
+        cors-configurations:
+          '[/**]':  											# 匹配所有路径的请求，这里的'/**'表示所有路径
+            allowed-origin-patterns: "*"  # 允许所有来源（使用通配符*），可根据需要限制特定域名
+            allowed-methods: "*"  				# 允许所有HTTP方法（GET, POST, PUT, DELETE等），可以指定具体的方法
+            allowed-headers: "*"  				# 允许所有请求头，或指定特定请求头
+            allow-credentials: true  			# 是否允许客户端发送cookie或其他凭证
+            max-age: 1800  								# 预检请求的缓存时间，单位为秒（1800秒=30分钟），在这个时间内，浏览器可以缓存CORS的预检请求结果，不必每次都发送预检请求
+        add-to-simple-url-handler-mapping: true  # 是否将CORS配置应用于简单的URL处理器映射（通常用于非路由路径）
+```
+
+
+
 ## 依赖引入
 
 ```xml
