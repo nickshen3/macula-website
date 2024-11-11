@@ -84,6 +84,9 @@ spring:
         enabled: true
         server-addr: 127.0.0.1:8848
         namespace: MACULA5
+        # 延迟注册服务到 Nacos，实现容器优雅上线
+        register-enabled: false
+        register-delayed: true
         # group:
     sentinel:
       enabled: false
