@@ -67,7 +67,9 @@ macula:
 
 ### WebSocket服务模块定义
 
-#### index.html
+#### HTML5示例
+
+##### index.html
 
 ```html
 <!DOCTYPE html>
@@ -136,7 +138,7 @@ macula:
 </html>
 ```
 
-#### app.js
+##### app.js
 
 ```javascript
 const stompClient = new StompJs.Client({
@@ -261,7 +263,293 @@ $(function () {
 });
 ```
 
-#### WebSocketController
+#### 微信小程序示例
+
+微信小程序默认没有浏览器的Websocket对象，需要针对性的封装，代码如下：
+
+- utils/websocket-wx.js
+
+```javascript
+(function () {
+  wx.webSocketBackup = WebSocket;
+  WebSocket = function (uri) {
+      this.uri = uri;
+      this.socketTask = wx.connectSocket({
+          url: uri,
+          fail: function(e) {
+            console.log("failed:" )
+            console.log(e)
+          },
+          success: function() {
+            console.log("success!")
+          }
+      });
+      this.readyState = this.socketTask.readyState;
+
+      this.eventMap = {};
+      var that = this;
+      this.socketTask.onOpen(function () {
+          if (that.eventMap.hasOwnProperty('open')) {
+              that.eventMap['open']();
+          } else {
+              that.onopen();
+              that.readyState = that.socketTask.readyState;
+          }
+      });
+      this.socketTask.onMessage(function (res) {
+          if (that.eventMap.hasOwnProperty('message')) {
+              that.eventMap['message'](res);
+          } else {
+              that.readyState = that.socketTask.readyState;
+              that.onmessage(res);
+          }
+      });
+      this.socketTask.onClose(function () {
+          if (that.eventMap.hasOwnProperty('close')) {
+              that.eventMap['close']();
+          } else {
+              that.onclose();
+              that.readyState = that.socketTask.readyState;
+          }
+      });
+      this.socketTask.onError(function (res) {
+          if (that.eventMap.hasOwnProperty('error')) {
+              that.eventMap['error'](res);
+          } else {
+              that.onerror(res);
+              that.readyState = that.socketTask.readyState;
+          }
+      });
+  };
+
+  var event = {};
+
+  WebSocket.prototype = {
+      readyState: 3,
+
+      addEventListener: function (event, callback) {
+          this.eventMap[event] = callback;
+      },
+      onopen: function () {
+
+      },
+      onmessage: function (res) {
+          console.log('default 实现:: ' + res)
+      },
+      onclose: function () {
+
+      },
+      onerror: function (res) {
+
+      },
+      send: function (data) {
+          this.socketTask.send({
+              data: data
+          });
+      },
+      close: function() {
+          this.socketTask.close();
+      }
+  };
+
+  if (typeof exports !== "undefined" && exports !== null) {
+      exports.WebSocket = WebSocket;
+  }
+
+}).call(this);
+```
+
+- 下载https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.js，放到utils目录
+
+- pages/index/index.js
+
+```javascript
+// pages/index/index.js
+import {Client} from '../../utils/stomp.umd' // 假设已经引入了STOMP库
+import {WebSocket} from '../../utils/websocket-wx'
+
+let app = getApp();
+
+Page({
+    data: {
+        connected: false,
+        token: '',
+        namex: '',
+        sendTo: '',
+        greetings: [],
+        groupId: 123, //  硬编码的群组ID，实际应用中应该动态获取
+    },
+
+    onLoad() {
+        this.stompClient = new Client({
+            onConnect: (frame) => {
+                this.setData({ connected: true });
+        
+                console.log('Connected: ' + frame);
+        
+                const subscriptions = [
+                    '/topic/greetings',
+                    `/topic/group/${this.data.groupId}`,
+                    '/user/queue/me',
+                    '/user/queue/chat'
+                ];
+        
+                subscriptions.forEach(subscription => {
+                    this.stompClient.subscribe(subscription, (greeting) => {
+                        const message = JSON.parse(greeting.body).content;
+                        this.showGreeting(message);
+                    });
+                });
+            },
+            onWebSocketError: (e) => {
+                console.error('Error with websocket', error); 
+                this.disconnect({force: true});
+            },
+            onWebSocketClose: (e) => {
+                console.info("Websocket close ", e)
+                this.setData({ connected: false, greetings: [] });
+            },
+            onDisconnect: () => {
+                console.debug('Disconnect websocket')
+            },
+            onStompError: (frame) => { 
+              console.error('Broker reported error: ' + frame.headers['message']); 
+            },
+            reconnectDelay: 5000,
+            debug: function (str) { 
+                console.log(str); 
+            },
+        });
+    },
+
+    onUnload: function() {
+        this.disconnect(); 
+    },
+
+    connect() {
+        this.stompClient.webSocketFactory= function () {
+            return new WebSocket("wss://localhost:8000/websocket/websocket?access_token=NjYzMjY4NWUtMjg1Zi00YzY0LWI0OWMtOTc2YjRmZDVhYWIxIyNhZG1pbiMjZTRkYTRhMzItNTkyYi00NmYwLWFlMWQtNzg0MzEwZTg4NDIz");
+        };
+        if (!this.stompClient.connected) {
+            this.stompClient.activate(); 
+        }
+    },
+
+    disconnect(options = {}) {
+        console.log("===disconnect ")
+        this.stompClient.deactivate(options);
+    },
+
+    publishMessage(destination) {
+        this.stompClient.publish({
+            destination: destination,
+            headers: { 'grayversion': "feat-123" },
+            body: JSON.stringify({ 'name': this.data.namex })
+        });
+    },
+
+    bindAccessTokenInput(e) {
+        this.setData({ token: e.detail.value });
+    },
+
+    bindNamexInput(e) {
+        this.setData({ namex: e.detail.value });
+    },
+
+    bindSendToInput(e) {
+        this.setData({ sendTo: e.detail.value });
+    },
+
+    sendGreeting() {
+        this.publishMessage('/app/hello');
+    },
+
+    sendGroupMessage() {
+        wx.request({
+            url: `http://localhost:8000/consumer/hello2/${this.data.groupId}`,
+            method: 'POST',
+            data: { name: this.data.namex },
+            success: res => console.log(res)
+        });
+    },
+
+    sendPersonalMessage() {
+        this.publishMessage('/app/me');
+    },
+
+    sendMessageToChat() {
+        this.publishMessage(`/app/chat/${this.data.sendTo}`);
+    },
+
+    showGreeting(message) {
+        this.setData({
+            greetings: [...this.data.greetings, message]
+        });
+    }
+});
+```
+
+- pages/index/index.wxml
+
+```xml
+<!--index.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list">
+<!-- pages/index/index.wxml -->
+<view class="container">
+    <view class="form-group">
+        <label for="token">Access Token:</label>
+        <input type="text" id="token" placeholder="Access Token?" bindinput="bindAccessTokenInput"/>
+    </view>
+    
+    <view class="form-group">
+        <button bindtap="connect" disabled="{{connected}}">Connect</button>
+        <button bindtap="disconnect" disabled="{{!connected}}">Disconnect</button>
+    </view>
+
+    <view class="form-group">
+        <input type="text" id="namex" placeholder="Your Name?" bindinput="bindNamexInput"/>
+        <input type="text" id="sendTo" placeholder="Send To?" bindinput="bindSendToInput"/>
+        <button bindtap="sendGreeting">Greeting</button>
+        <button bindtap="sendGroupMessage">Group</button>
+        <button bindtap="sendPersonalMessage">OnlyMe</button>
+        <button bindtap="sendMessageToChat">Chat</button>
+    </view>
+
+    <view class="conversation" wx:if="{{connected}}">
+        Greetings
+        <view wx:for="{{greetings}}" wx:key="index">
+            {{item}}
+        </view>
+    </view>
+</view>
+</scroll-view>
+
+```
+
+- pages/index/index.wxss
+
+```css
+/**index.wxss**/
+page {
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 1280rpx; /* 使用rpx适配不同屏幕尺寸 */
+  padding: 40rpx 60rpx;
+  margin: 0 auto 40rpx;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10rpx;
+}
+
+```
+
+
+
+#### 服务端
+
+##### WebSocketController
 
 ```java
 @RestController
