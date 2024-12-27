@@ -61,7 +61,21 @@ macula:
 
 
 
+## Spring Websocket核心流程
+
+![message-flow](../images/message-flow.png)
+
+具体见[详细介绍](https://www.tony-bro.com/posts/3568303861/index.html)
+
 ## 核心功能
+
+{{% alert title="提示" color="primary" %}}
+
+框架本身已经实现WebSocketMessageBrokerConfigurer接口，如果需要再次定制实现该接口，请不要添加@EnableWebSocketMessageBroker。
+
+{{% /alert %}}
+
+
 
 本模块基于websocket之上使用STOMP协议实现广播、点对点消息发送功能，具体示例如下：
 
