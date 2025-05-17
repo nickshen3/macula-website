@@ -1,6 +1,9 @@
 baseURL = "/"
 title = "Macula"
 
+[build]
+disableKinds = ["sitemap", "rss"]
+
 # Language settings
 contentDir = "content/zh-cn"
 defaultContentLanguage = "zh-cn"
